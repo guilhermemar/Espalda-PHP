@@ -19,12 +19,17 @@
  * Copyright 2010 Guilherme Mar
  */
 
-/* 
- * Author : Guilherme Mar
+/**
+ * 
+ * 
+ * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-
 class EspaldaReplace
 {
+	/**
+	 * 
+	 * @var string
+	 */
 	private $name  = "";
 	private $value = "";
 	

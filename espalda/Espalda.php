@@ -20,18 +20,29 @@
  */
 
 /**
- * Author : Guilherme Mar
+ * All imports requireds to library
  */
-
-require_once "EspaldaDisplay.php";
+require_once "EspaldaRules.php";
 require_once "EspaldaEngine.php";
-require_once "EspaldaLine.php";
 require_once "EspaldaRegion.php";
 require_once "EspaldaReplace.php";
-require_once "EspaldaRules.php";
+require_once "EspaldaDisplay.php";
+require_once "EspaldaLine.php";
 
+/**
+ * Classe inicial do projeto.
+ * Manipula o template
+ * 
+ * @author : Guilherme Mar
+ */
 class Espalda extends EspaldaDisplay
 {
+	/**
+	 * Construtora da classe
+	 * 
+	 * @param [optional] string $source String com o template a ser manipulado
+	 * @since 0.7
+	 */
 	public function __construct($source=FALSE)
 	{
 		parent::__construct("root", $source);
@@ -41,6 +52,11 @@ class Espalda extends EspaldaDisplay
 		}
 	}
 	
+	/**
+	 * Prepara e exibe o template na tela.
+	 * 
+	 * @since 0.7
+	 */
 	public function show()
 	{
 		echo $this->getSource();

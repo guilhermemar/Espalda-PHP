@@ -23,9 +23,6 @@
  * Author : Guilherme Mar
  */
 
-require_once "EspaldaEngine.php";
-require_once "EspaldaLine.php";
-
 class EspaldaRegion extends EspaldaEngine
 {
 	private $linhas;

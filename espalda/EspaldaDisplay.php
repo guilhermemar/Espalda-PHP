@@ -19,11 +19,11 @@
  * Copyright 2010 Guilherme Mar
  */
 
-/* 
- * Author : Guilherme Mar
+/**
+ * Manipula marcações do tipo Display
+ * 
+ * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-
-require_once "EspaldaEngine.php";
 
 class EspaldaDisplay extends EspaldaEngine
 {
@@ -32,7 +32,6 @@ class EspaldaDisplay extends EspaldaEngine
 	
 	public function __construct($name, $source = false)
 	{
-		
 		parent::__construct();
 		$this->name = $name;
 		

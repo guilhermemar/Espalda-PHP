@@ -19,36 +19,64 @@
  * Copyright 2010 Guilherme Mar
  */
 
-/* 
- * Author : Guilherme Mar
+/**
+ * Métodos comuns as principais classes da biblioteca
+ * 
+ * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-
-require_once "EspaldaRules.php";
-require_once "EspaldaRegion.php";
-require_once "EspaldaReplace.php";
-
 abstract class EspaldaEngine
 {	
+	/**
+	 * Save the original template string
+	 * @var string
+	 */
 	protected $originalSource;
+	/**
+	 * Contém o template pré parseado
+	 * @var string
+	 */
 	protected $source;
-	
+	/**
+	 * All regions of template
+	 * @var EspaldaRegion[]
+	 */
 	protected $regions;
+	/**
+	 * All replaces of template
+	 * @var EspaldaReplace[]
+	 */
 	protected $replaces;
+	/**
+	 * All displays of template
+	 * @var EspaldaDisplay[]
+	 */
 	protected $displays;
-	
+	/**
+	 * Construtora da classe
+	 */
 	public function __construct()
 	{
 		$this->regions  = Array();
 		$this->replaces = Array();
 		$this->displays = Array();
 	}
-	
+	/**
+	 * Armazena um template com as marcações
+	 *
+	 * @param string $source Fonte do template com as marcações espalda
+	 * @since 0.7
+	 */
 	public function setSource($source)
 	{
 		$this->originalSource = $this->source = $source;
 		$this->prepareSource();
 	}
-	
+	/**
+	 * Carrega um arquivo de template
+	 *
+	 * @param string $source Caminho do arquivo de template
+	 * @since 0.7
+	 */
 	public function loadSource($path)
 	{
 
@@ -66,7 +94,11 @@ abstract class EspaldaEngine
 			
 		return true;
 	}
-	
+	/**
+	 * Executa o pré parse do template
+	 * 
+	 * @since 0.7
+	 */
 	public function prepareSource()
 	{
 		$this->searchOldRegions();
@@ -74,6 +106,7 @@ abstract class EspaldaEngine
 		
 		while(preg_match(EspaldaRules::$firstTag, $this->source, $found)){
 			preg_match(EspaldaRules::$getType, $found[0], $found2);
+
 			$type = strtolower(trim($found2[2]));
 			switch($type){
 			case "region" :
@@ -89,9 +122,7 @@ abstract class EspaldaEngine
 				$this->addReplace($found[0]);
 				break;	
 			}
-
 		}
-
 	}
 	
 	public function addReplace($replace)
