@@ -24,12 +24,24 @@
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-
 class EspaldaDisplay extends EspaldaEngine
 {
+	/**
+	 * Nome da marcação
+	 * @var string
+	 */
 	private $name;
+	/**
+	 * Conteúdo da marcação
+	 * @var string
+	 */
 	private $value;
-	
+	/**
+	 * Construtora da classe
+	 * 
+	 * @param unknown $name
+	 * @param string $source
+	 */
 	public function __construct($name, $source = false)
 	{
 		parent::__construct();
@@ -107,7 +119,6 @@ class EspaldaDisplay extends EspaldaEngine
 	
 	public function getSource()
 	{
-
 		$ns = $this->source;
 		
 		$keys = array_keys($this->replaces);

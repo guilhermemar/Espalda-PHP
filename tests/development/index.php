@@ -4,6 +4,18 @@ include __DIR__ . "/../../espalda/Espalda.php";
 		
 echo time();
 
+/*
+ * definindo funcao para debug do projeto
+ */
+function v($c) {
+	
+	echo "<pre>";
+	print_r($c);
+	echo "</pre>";
+	
+}
+
+
 $template = new Espalda();
 $template->loadSource("template.html");
 
@@ -35,6 +47,8 @@ $r->setReplace("VALUE", "24 ");
 $r->moreLine();
 $r->setReplace("VALUE", "25 ");
 
-$template->show(); 
+echo "<br><br><br><br>";
+
+$template->display(); 
 
 ?>
