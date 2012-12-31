@@ -39,8 +39,8 @@ class EspaldaDisplay extends EspaldaEngine
 	/**
 	 * Construtora da classe
 	 * 
-	 * @param unknown $name
-	 * @param string $source
+	 * @param string $name Nome da marcação (propriedade "name" da tag)
+	 * @param string $source O escopo da marcação
 	 */
 	public function __construct($name, $source = false)
 	{
@@ -52,26 +52,47 @@ class EspaldaDisplay extends EspaldaEngine
 		}
 		
 	}
-	
-	public function setName($name){
+	/**
+	 * Seta o name da marcação
+	 * 
+	 * @param string $name Nome da marcação
+	 */
+	protected function setName($name){
 		$this->name = $name;
 	}
-
+	/**
+	 * Pega o nome da marcação
+	 * @return string Nome da marcação
+	 */
 	public function getName()
 	{
 		return $this->name;
 	}
-	
+	/**
+	 * Informa se o conteúdo da marcação "display" deve ser exibida ou não, True para sim, False para não
+	 * 
+	 * @param boolean $value
+	 */
 	public function setValue($value)
 	{
 		$this->value = $value;
 	}
-	
+	/**
+	 * Retorna o valor atual da marcação
+	 * @return boolean
+	 */
 	public function getValue()
 	{
 		return $this->value;
 	}
-	
+	/**
+	 * Informa o valor para uma marcação "replace"
+	 * @param string $name Nome da marcação
+	 * @param string $value Valor para a marcação
+	 * @return boolean Retorna sempre true
+	 * 
+	 * TODO corrigir o retorno
+	 */
 	public function setReplace($name, $value)
 	{
 		if(!array_key_exists($name, $this->replaces)){
@@ -81,7 +102,13 @@ class EspaldaDisplay extends EspaldaEngine
 		$this->replaces[$name]->setValue($value);
 		return true;
 	}
-
+	/**
+	 * Retorna o conteúdo armazenado para uma tag do tipo replace
+	 * @param string $name Nome da marcação
+	 * @return string|boolean Conteúdo da marcação ou False em caso de nome inválido da marcação
+	 * 
+	 * TODO corrigir o erro do $value sendo passado por parâmetro
+	 */
 	public function getReplace($name)
 	{
 		if(array_key_exists($name, $this->replaces)){
@@ -90,7 +117,16 @@ class EspaldaDisplay extends EspaldaEngine
 			return false;
 		}
 	}
-	
+	/*
+	 * TODO Estudar a viabilidade de criar um setDisplay para setar o seu value.
+	 */
+	/**
+	 * Retorna uma instância de espaldaDisplay da marcação solicitada
+	 * 
+	 * @param string $name Noma da marcação display
+	 * @param boolean $clone se deverá ser retornado um clone ou um ponteiro da instância
+	 * @return Instância ou clone da instância espaldaDisplay da marcação display solicitada
+	 */
 	public function getDisplay($name, $clone = false)
 	{
 		if(!array_key_exists($name, $this->displays)){
@@ -103,7 +139,13 @@ class EspaldaDisplay extends EspaldaEngine
 			return $this->displays[$name];
 		}
 	}
-	
+	/**
+	 * Retorna uma instância de espaldaRegion da marcação solicitada
+	 * 
+	 * @param string $name Noma da marcação region
+	 * @param boolean $clone se deverá ser retornado um clone ou um ponteiro da instância
+	 * @return Instância ou clone da instância espaldaRegion da marcação region solicitada
+	 */
 	public function getRegion($name, $clone = false)
 	{
 		if(!array_key_exists($name, $this->regions)){
@@ -116,7 +158,13 @@ class EspaldaDisplay extends EspaldaEngine
 			return $this->regions[$name];
 		}
 	}
-	
+	/**
+	 * Prepara o template com os valores informados
+	 * 
+	 * @return string template parseado
+	 * 
+	 * TODO renomear método para getOutput (ou algo melhor)
+	 */
 	public function getSource()
 	{
 		$ns = $this->source;

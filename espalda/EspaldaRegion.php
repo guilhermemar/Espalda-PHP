@@ -19,15 +19,29 @@
  * Copyright 2010 Guilherme Mar
  */
 
-/* 
- * Author : Guilherme Mar
+/**
+ * Manipula marcações do tipo Region
+ *
+ * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-
 class EspaldaRegion extends EspaldaEngine
 {
+	/**
+	 * Armazena as linhas (repetições no escopo da marcação) da região
+	 * @var EspaldaLina[]
+	 */
 	private $linhas;
+	/**
+	 * Nome da marcação
+	 * @var string
+	 */
 	private $name;
-		
+	/**
+	 * Construtora da classe
+	 *
+	 * @param string $name Nome da marcação (propriedade "name" da tag)
+	 * @param string $source O escopo da marcação
+	 */
 	public function __construct($name, $source = false)
 	{
 		parent::__construct();
@@ -41,7 +55,9 @@ class EspaldaRegion extends EspaldaEngine
 		$this->linhas = Array();
 		
 	}
-	
+	/**
+	 * Adiciona mais uma linha, uma cópia do escopo original da região
+	 */
 	public function moreLine()
 	{
 		$this->linhas[] = new EspaldaLine();
@@ -63,16 +79,28 @@ class EspaldaRegion extends EspaldaEngine
 			$this->linhas[$line]->addRegion(clone $this->regions[$keys[$i]]);
 		}
 	}
-	
+	/**
+	 * Seta o name da marcação
+	 *
+	 * @param string $name Nome da marcação
+	 */
 	public function setName($name){
 		$this->name = $name;
 	}
-
+	/**
+	 * Pega o nome da marcação
+	 * @return string Nome da marcação
+	 */
 	public function getName()
 	{
 		return $this->name;
 	}
-	
+	/**
+	 * Cria e informa o valor para uma marcação "replace"
+	 * 
+	 * @param string $name Nome da marcação
+	 * @param string $value Valor para a marcação
+	 */
 	public function setReplace($name, $value)
 	{
 		if(count($this->linhas) == 0){
@@ -83,7 +111,12 @@ class EspaldaRegion extends EspaldaEngine
 		
 		$this->linhas[$line]->setReplace($name, $value);
 	}
-
+	/**
+	 * Retorna o conteúdo armazenado para uma tag do tipo replace
+	 * 
+	 * @param string $name Nome da marcação
+	 * @return string|boolean Conteúdo da marcação ou False em caso de nome inválido da marcação
+	 */
 	public function getReplace($name)
 	{
 		if(count($this->linhas) == 0){
@@ -94,7 +127,13 @@ class EspaldaRegion extends EspaldaEngine
 		
 		return $this->linhas[$line]->getReplace($name);
 	}
-	
+	/**
+	 * Retorna uma instância de espaldaDisplay da marcação solicitada
+	 * 
+	 * @param string $name Noma da marcação display
+	 * @param boolean $clone se deverá ser retornado um clone ou um ponteiro da instância
+	 * @return Instância ou clone da instância espaldaDisplay da marcação display solicitada
+	 */
 	public function getDisplay($name, $clone=false)
 	{
 		if(count($this->linhas) == 0){
@@ -105,7 +144,13 @@ class EspaldaRegion extends EspaldaEngine
 		
 		return $this->linhas[$line]->getDisplay($name, $clone);
 	}
-	
+	/**
+	 * Retorna uma instância de espaldaRegion da marcação solicitada
+	 *
+	 * @param string $name Noma da marcação region
+	 * @param boolean $clone se deverá ser retornado um clone ou um ponteiro da instância
+	 * @return Instância ou clone da instância espaldaRegion da marcação region solicitada
+	 */
 	public function getRegion($name, $clone=false)
 	{
 		if(count($this->linhas) == 0){
@@ -116,7 +161,13 @@ class EspaldaRegion extends EspaldaEngine
 		
 		return $this->linhas[$line]->getRegion($name, $clone);
 	}
-	
+	/**
+	 * Prepara o template com os valores informados
+	 *
+	 * @return string template parseado
+	 *
+	 * TODO renomear método para getOutput (ou algo melhor)
+	 */
 	public function getSource()
 	{
 		$nsf = "";
