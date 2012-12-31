@@ -165,10 +165,8 @@ class EspaldaRegion extends EspaldaEngine
 	 * Prepara o template com os valores informados
 	 *
 	 * @return string template parseado
-	 *
-	 * TODO renomear método para getOutput (ou algo melhor)
 	 */
-	public function getSource()
+	public function getOutput()
 	{
 		$nsf = "";
 			
@@ -177,13 +175,13 @@ class EspaldaRegion extends EspaldaEngine
 			
 			$keys = array_keys($this->replaces);
 			for($i=0; $i < count($keys); $i++){
-				$ns = str_replace("replace_{$keys[$i]}_replace", $this->linhas[$j]->getReplace($keys[$i]), $ns);
+				$ns = str_replace("replace_{$keys[$i]}_replace", $this->linhas[$j]->getReplace($keys[$i])->getOutput(), $ns);
 			}
 			
 			$keys = array_keys($this->displays);
 			for($i=0; $i < count($keys); $i++){
 				if($this->linhas[$i]->getDisplay($keys[$i])->getValue()){
-					$display = $this->linhas[$j]->getDisplay($keys[$i])->getSource();
+					$display = $this->linhas[$j]->getDisplay($keys[$i])->getOutput();
 				}else{
 					$display = "";
 				}
@@ -192,7 +190,7 @@ class EspaldaRegion extends EspaldaEngine
 			
 			$keys = array_keys($this->regions);
 			for($i=0; $i < count($keys); $i++){
-				$ns = str_replace("region_{$keys[$i]}_region", $this->linhas[$j]->getRegion($keys[$i])->getSource(), $ns);
+				$ns = str_replace("region_{$keys[$i]}_region", $this->linhas[$j]->getRegion($keys[$i])->getOutput(), $ns);
 			}
 		
 			$nsf .= $ns;

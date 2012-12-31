@@ -162,22 +162,20 @@ class EspaldaDisplay extends EspaldaEngine
 	 * Prepara o template com os valores informados
 	 * 
 	 * @return string template parseado
-	 * 
-	 * TODO renomear método para getOutput (ou algo melhor)
 	 */
-	public function getSource()
+	public function getOutput()
 	{
 		$ns = $this->source;
 		
 		$keys = array_keys($this->replaces);
 		for($i=0; $i < count($keys); $i++){
-			$ns = str_replace("replace_{$keys[$i]}_replace", $this->replaces[$keys[$i]]->getValue(), $ns);
+			$ns = str_replace("replace_{$keys[$i]}_replace", $this->replaces[$keys[$i]]->getOutput(), $ns);
 		}
 		
 		$keys = array_keys($this->displays);
 		for($i=0; $i < count($keys); $i++){
 			if($this->displays[$keys[$i]]->getValue()){
-				$display = $this->displays[$keys[$i]]->getSource();
+				$display = $this->displays[$keys[$i]]->getOutput();
 			}else{
 				$display = "";
 			}
@@ -186,7 +184,7 @@ class EspaldaDisplay extends EspaldaEngine
 		
 		$keys = array_keys($this->regions);
 		for($i=0; $i < count($keys); $i++){
-			$ns = str_replace("region_{$keys[$i]}_region", $this->regions[$keys[$i]]->getSource(), $ns);
+			$ns = str_replace("region_{$keys[$i]}_region", $this->regions[$keys[$i]]->getOutput(), $ns);
 		}
 		
 		return $ns;

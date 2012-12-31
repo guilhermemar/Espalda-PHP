@@ -79,9 +79,18 @@ class EspaldaReplace
 	 * Retorna o valor da marcação
 	 * @return string
 	 */
-	public function getValue()
+	public function getValue ()
 	{
 		return $this->value;
+	}
+	/**
+	 * Prepara o template com os valores informados
+	 *
+	 * @return string template parseado
+	 */
+	public function getOutput ()
+	{
+		return $this->getValue();
 	}
 }
 ?>

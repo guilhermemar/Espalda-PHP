@@ -118,7 +118,7 @@ class EspaldaLine
 	public function getReplace($name)
 	{
 		if(array_key_exists($name, $this->replaces)){
-			return $this->replaces[$name]->getValue();
+			return $this->replaces[$name];
 		}else{
 			return false;
 		}

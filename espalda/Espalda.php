@@ -56,12 +56,10 @@ class Espalda extends EspaldaDisplay
 	 * Prepara e exibe o template na tela.
 	 * 
 	 * @since 0.7
-	 * 
-	 * TODO Alterar na documentação
 	 */
 	public function display()
 	{
-		echo $this->getSource();
+		echo $this->getOutput();
 	}
 }
 ?>
