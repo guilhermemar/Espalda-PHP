@@ -355,10 +355,6 @@ abstract class EspaldaEngine
 									
 		}while(1);
 		/*
-		 * TODO Remover a linha comentada a baixo 
-		 */
-		//$inicio = $ai;
-		/*
 		 * encontra a posição final do escopo no template
 		 */
 		$fim = ( $pb+strlen($found2[0]) ) - $inicio;
