@@ -234,7 +234,7 @@ abstract class EspaldaEngine
 	}
 	/**
 	 * Busca o escopo da marcação solicitada
-	 * Também busca e prepara as marcações espalda existentes dendro deste escopo
+	 * Também busca e prepara as marcações espalda existentes dentro deste escopo
 	 * 
 	 * @param string $init Tag espalda da marcação solicitada
 	 * @return string Escopo completo
@@ -253,14 +253,12 @@ abstract class EspaldaEngine
 		 */
 		$source2 = $source = explode($init, $this->source);
 		/*
-		 * TODO Remover as variáveis $prosegue
+		 * Looping para procura a marcação espalda final deste escopo.
 		 */
-		//$prosegue = true;
 		do{
 			/*
-			 * TODO Remover as variáveis $vai
+			 * Looping para procurar uma marcação espalda inicial, que contenha escopo
 			 */
-			//$vai = true;
 			do{
 				/*
 				 * procurando próxima marcação espalda dentro do escopo
