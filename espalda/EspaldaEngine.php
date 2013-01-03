@@ -61,6 +61,33 @@ abstract class EspaldaEngine
 		$this->displays = Array();
 	}
 	/**
+	 * Verifica se a region solicitada existe no escopo
+	 * @param string $name Name da region solicitada
+	 * @return boolean
+	 */
+	public function regionExists ($name)
+	{
+		return array_key_exists($name, $this->regions) ? true : false;
+	}
+	/**
+	 * Verifica se o replace solicitada existe no escopo
+	 * @param string $name Name da replace solicitada
+	 * @return boolean
+	 */
+	public function replaceExists ($name)
+	{
+		return array_key_exists($name, $this->replaces) ? true : false;
+	}
+	/**
+	 * Verifica se o display solicitada existe no escopo
+	 * @param string $name Name da display solicitada
+	 * @return boolean
+	 */
+	public function displayExists ($name)
+	{
+		return array_key_exists($name, $this->replaces) ? true : false;
+	}
+	/**
 	 * Armazena um template com as marcações
 	 *
 	 * @param string $source Fonte do template com as marcações espalda
@@ -98,7 +125,7 @@ abstract class EspaldaEngine
 	 * 
 	 * @since 0.7
 	 */
-	public function prepareSource()
+	protected function prepareSource()
 	{
 		/*
 		 * Procura por marcações entigas e as converte para as novas marcações(em formato de tag HTML)
@@ -135,7 +162,7 @@ abstract class EspaldaEngine
 	 * Busca e registra o escopo da replace dentro do template
 	 * @param string $replace A tag espalda do replace desejada
 	 */
-	public function addReplace($replace)
+	private function addReplace($replace)
 	{
 		preg_match(EspaldaRules::$getName, $replace, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";
@@ -162,7 +189,7 @@ abstract class EspaldaEngine
 	 * Busca e registra o escopo da regiao dentro do template
 	 * @param string $region A tag espalda inicial da regiao desejada
 	 */
-	public function addRegion($region)
+	private function addRegion($region)
 	{
 		preg_match(EspaldaRules::$getName, $region, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";
@@ -184,7 +211,7 @@ abstract class EspaldaEngine
 	 * Busca e registra o escopo da regiao dentro do template
 	 * @param string $display A tag espalda inicial do display desejada
 	 */
-	public function addDisplay($display)
+	private function addDisplay($display)
 	{
 		preg_match(EspaldaRules::$getName, $display, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";
@@ -211,7 +238,7 @@ abstract class EspaldaEngine
 	/**
 	 * Busca por marcações de regiao espalda antigas e converte para a nova versão
 	 */
-	public function searchOldRegions()
+	private function searchOldRegions()
 	{
 		while(preg_match(EspaldaRules::$oldRegion, $this->source, $found)){
 			$tag = str_replace("[#{$found[1]}#", "<espalda type=\"region\" name=\"{$found[1]}\">", $found[0]);
@@ -224,7 +251,7 @@ abstract class EspaldaEngine
 	/**
 	 * Busca por marcações de replaces espalda antigas e converte para a nova versão
 	 */
-	public function searchOldReplaces()
+	private function searchOldReplaces()
 	{
 		while(preg_match(EspaldaRules::$oldReplace, $this->source, $found)){
 			$tag = str_replace("#{$found[1]}#", "<espalda type=\"replace\" name=\"{$found[1]}\" />", $found[0]);

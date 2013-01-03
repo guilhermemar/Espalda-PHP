@@ -148,7 +148,7 @@ class EspaldaDisplay extends EspaldaEngine
 	 */
 	public function getRegion($name, $clone = false)
 	{
-		if(!array_key_exists($name, $this->regions)){
+		if(!$this->regionExists($name)){
 			$this->regions[$name] = new EspaldaRegion($name, "");
 		}
 		
