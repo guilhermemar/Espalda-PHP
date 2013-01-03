@@ -60,7 +60,8 @@ class EspaldaRegion extends EspaldaEngine
 	 */
 	public function moreLine()
 	{
-		$this->linhas[] = new EspaldaLine();
+		//$this->linhas[] = new EspaldaLine();
+		$this->linhas[] = new EspaldaEscope();
 		
 		$line = count($this->linhas)-1;
 		
@@ -100,8 +101,10 @@ class EspaldaRegion extends EspaldaEngine
 	 * 
 	 * @param string $name Nome da marcação
 	 * @param string $value Valor para a marcação
+	 * 
+	 * TODO Criar método que retorne a chave da linha atual
 	 */
-	public function setReplace($name, $value)
+	public function setReplaceValue($name, $value)
 	{
 		if(count($this->linhas) == 0){
 			$this->moreLine();
@@ -109,7 +112,7 @@ class EspaldaRegion extends EspaldaEngine
 		
 		$line = count($this->linhas)-1;
 		
-		$this->linhas[$line]->setReplace($name, $value);
+		$this->linhas[$line]->setReplaceValue($name, $value);
 	}
 	/**
 	 * Retorna o conteúdo armazenado para uma tag do tipo replace

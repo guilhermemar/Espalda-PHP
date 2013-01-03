@@ -24,7 +24,7 @@
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-abstract class EspaldaEngine
+abstract class EspaldaEngine extends EspaldaEscope
 {	
 	/**
 	 * Save the original template string
@@ -36,57 +36,7 @@ abstract class EspaldaEngine
 	 * @var string
 	 */
 	protected $source;
-	/**
-	 * All regions of template
-	 * @var EspaldaRegion[]
-	 */
-	protected $regions;
-	/**
-	 * All replaces of template
-	 * @var EspaldaReplace[]
-	 */
-	protected $replaces;
-	/**
-	 * All displays of template
-	 * @var EspaldaDisplay[]
-	 */
-	protected $displays;
-	/**
-	 * Construtora da classe
-	 */
-	public function __construct()
-	{
-		$this->regions  = Array();
-		$this->replaces = Array();
-		$this->displays = Array();
-	}
-	/**
-	 * Verifica se a region solicitada existe no escopo
-	 * @param string $name Name da region solicitada
-	 * @return boolean
-	 */
-	public function regionExists ($name)
-	{
-		return array_key_exists($name, $this->regions) ? true : false;
-	}
-	/**
-	 * Verifica se o replace solicitada existe no escopo
-	 * @param string $name Name da replace solicitada
-	 * @return boolean
-	 */
-	public function replaceExists ($name)
-	{
-		return array_key_exists($name, $this->replaces) ? true : false;
-	}
-	/**
-	 * Verifica se o display solicitada existe no escopo
-	 * @param string $name Name da display solicitada
-	 * @return boolean
-	 */
-	public function displayExists ($name)
-	{
-		return array_key_exists($name, $this->replaces) ? true : false;
-	}
+	
 	/**
 	 * Armazena um template com as marcações
 	 *
@@ -97,28 +47,6 @@ abstract class EspaldaEngine
 	{
 		$this->originalSource = $this->source = $source;
 		$this->prepareSource();
-	}
-	/**
-	 * Carrega um arquivo de template
-	 *
-	 * @param string $source Caminho do arquivo de template
-	 * @since 0.7
-	 */
-	public function loadSource($path)
-	{
-		if(!file_exists($path)){
-			return false;
-		}
-		if(!is_readable($path)){
-			return false;
-		}
-		if(!$source = file_get_contents($path)){
-			return false;
-		}
-		
-		$this->setSource($source);
-			
-		return true;
 	}
 	/**
 	 * Executa o pré parse do template
@@ -144,16 +72,16 @@ abstract class EspaldaEngine
 			
 			switch($type){
 			case "region" :
-				$this->addRegion($found[0]);
+				$this->extractRegion($found[0]);
 				break;
 				
 			case "display" :
-				$this->addDisplay($found[0]);
+				$this->extractDisplay($found[0]);
 				break;
 					
 			case "replace" :
 			default :
-				$this->addReplace($found[0]);
+				$this->extractReplace($found[0]);
 				break;	
 			}
 		}
@@ -162,7 +90,7 @@ abstract class EspaldaEngine
 	 * Busca e registra o escopo da replace dentro do template
 	 * @param string $replace A tag espalda do replace desejada
 	 */
-	private function addReplace($replace)
+	private function extractReplace($replace)
 	{
 		preg_match(EspaldaRules::$getName, $replace, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";
@@ -189,7 +117,7 @@ abstract class EspaldaEngine
 	 * Busca e registra o escopo da regiao dentro do template
 	 * @param string $region A tag espalda inicial da regiao desejada
 	 */
-	private function addRegion($region)
+	private function extractRegion($region)
 	{
 		preg_match(EspaldaRules::$getName, $region, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";
@@ -211,7 +139,7 @@ abstract class EspaldaEngine
 	 * Busca e registra o escopo da regiao dentro do template
 	 * @param string $display A tag espalda inicial do display desejada
 	 */
-	private function addDisplay($display)
+	private function extractDisplay($display)
 	{
 		preg_match(EspaldaRules::$getName, $display, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";

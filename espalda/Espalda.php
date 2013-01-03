@@ -23,11 +23,13 @@
  * All imports requireds to library
  */
 require_once "EspaldaRules.php";
+require_once "EspaldaEscope.php";
 require_once "EspaldaEngine.php";
 require_once "EspaldaRegion.php";
 require_once "EspaldaReplace.php";
 require_once "EspaldaDisplay.php";
-require_once "EspaldaLine.php";
+//TODO remove this line and respective file
+//require_once "EspaldaLine.php";
 
 /**
  * Classe inicial do projeto.
@@ -51,7 +53,28 @@ class Espalda extends EspaldaDisplay
 			$this->setSource($source);
 		}
 	}
+	/**
+	 * Carrega um arquivo de template
+	 *
+	 * @param string $source Caminho do arquivo de template
+	 * @since 0.7
+	 */
+	public function loadSource($path)
+	{
+		if(!file_exists($path)){
+			return false;
+		}
+		if(!is_readable($path)){
+			return false;
+		}
+		if(!$source = file_get_contents($path)){
+			return false;
+		}
 	
+		$this->setSource($source);
+			
+		return true;
+	}	
 	/**
 	 * Prepara e exibe o template na tela.
 	 * 
