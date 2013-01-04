@@ -22,6 +22,7 @@
 /**
  * All imports requireds to library
  */
+require_once "EspaldaException.php";
 require_once "EspaldaRules.php";
 require_once "EspaldaEscope.php";
 require_once "EspaldaEngine.php";

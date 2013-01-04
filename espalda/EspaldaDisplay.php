@@ -44,13 +44,11 @@ class EspaldaDisplay extends EspaldaEngine
 	 */
 	public function __construct($name, $source = false)
 	{
-		parent::__construct();
 		$this->name = $name;
 		
 		if($source){
 			$this->setSource($source);
-		}
-		
+		}	
 	}
 	/**
 	 * Seta o name da marcação
@@ -75,7 +73,7 @@ class EspaldaDisplay extends EspaldaEngine
 	 */
 	public function setValue($value)
 	{
-		$this->value = $value;
+		$this->value = $value ? true : false;
 	}
 	/**
 	 * Retorna o valor atual da marcação

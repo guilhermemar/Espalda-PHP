@@ -44,8 +44,6 @@ class EspaldaRegion extends EspaldaEngine
 	 */
 	public function __construct($name, $source = false)
 	{
-		parent::__construct();
-		
 		$this->name = $name;
 		
 		if($source){

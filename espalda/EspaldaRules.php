@@ -23,8 +23,10 @@
  * All rules of library
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
+ * 
+ * TODO validar permissões e a possível possibilidade de ser extendível
  */
-class EspaldaRules
+abstract class EspaldaRules
 {
 	/**
 	 * REGEX for old tags of 'region' type

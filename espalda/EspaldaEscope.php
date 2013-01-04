@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of Espalda.
  *
@@ -33,30 +32,23 @@ class EspaldaEscope
 	 * All replaces of escope
 	 * @var EspaldaReplace[]
 	 */
-	protected $replaces;
+	protected $replaces = Array();
 	/**
 	 * All displays of escope
 	 * @var EspaldaDisplay[]
 	 */
-	protected $displays;
+	protected $displays = Array();
 	/**
 	 * All regions of escope
 	 * @var EspaldaRegion[]
 	 */
-	protected $regions;
-	/**
-	 * Construtora da classe
-	 */
-	public function __construct()
-	{
-		$this->replaces = Array();
-		$this->displays = Array();
-		$this->regions  = Array();
-	}
+	protected $regions = Array();
 	/**
 	 * Verifica se o replace solicitada existe no escopo
 	 * @param string $name Name da replace solicitada
 	 * @return boolean
+	 * 
+	 * TODO - add to documentation
 	 */
 	public function replaceExists ($name)
 	{
@@ -66,6 +58,8 @@ class EspaldaEscope
 	 * Verifica se o display solicitada existe no escopo
 	 * @param string $name Name da display solicitada
 	 * @return boolean
+	 * 
+	 * TODO - add to documentation
 	 */
 	public function displayExists ($name)
 	{
@@ -75,6 +69,8 @@ class EspaldaEscope
 	 * Verifica se a region solicitada existe no escopo
 	 * @param string $name Name da region solicitada
 	 * @return boolean
+	 * 
+	 * TODO - add to documentation
 	 */
 	public function regionExists ($name)
 	{
@@ -84,62 +80,100 @@ class EspaldaEscope
 	 * Adiciona uma instância de replace na lista de replaces
 	 *
 	 * @param EspaldaReplace $replace
-	 * @return boolean
+	 * @throws EspaldaException if parameter is not a instance of EspaldaReplace
+	 * @return $this 
+	 * 
+	 * TODO - add to documentation
 	 */
 	public function addReplace($replace){
-		if($replace instanceof EspaldaReplace){
-			$this->replaces[$replace->getName()] = $replace;
-			return true;
-		}else{
-			return false;
-		}
+		if(!$replace instanceof EspaldaReplace){
+			throw new EspaldaException(EspaldaException::NOT_ESPALDA_REPLACE);
+		}	
+		
+		$this->replaces[$replace->getName()] = $replace;
+		
+		return $this;
 	}
 	/**
 	 * Adiciona uma instância de display na lista de displays
 	 *
 	 * @param EspaldaDisplay $replace
-	 * @return boolean
+	 * @throws EspaldaException if parameter is not a instance of EspaldaDisplay
+	 * @return $this 
+	 * 
+	 * TODO - add to documentation
 	 */
 	public function addDisplay($display){
-		if($display instanceof EspaldaDisplay){
-			$this->displays[$display->getName()] = $display;
-			return true;
-		}else{
-			return false;
+		if(!$display instanceof EspaldaDisplay){
+			throw new EspaldaException(EspaldaException::NOT_ESPALDA_DISPLAY);
 		}
+		
+		$this->displays[$display->getName()] = $display;
+		
+		return $this;
 	}
 	/**
 	 * Adiciona uma instância de region na lista de regions
 	 *
-	 * @param EspaldaRegion $replace
-	 * @return boolean
+	 * @param EspaldaRegion $region
+	 * @throws EspaldaException if parameter is not a instance of EspaldaRegion
+	 * @return $this 
+	 * 
+	 * TODO - add to documentation
 	 */
 	public function addRegion($region){
-		if($region instanceof EspaldaRegion){
-			$this->regions[$region->getName()] = $region;
-			return true;
-		}else{
-			return false;
+		if(!$region instanceof EspaldaRegion){
+			throw new EspaldaException(EspaldaException::NOT_ESPALDA_REGION);
 		}
+		
+		$this->regions[$region->getName()] = $region;
+		
+		return $this;
 	}
 	/**
 	 * Informa o valor para a propriedade "value" de uma marcação "replace"
 	 * @param string $name Nome da marcação
 	 * @param string $value Valor para a marcação
-	 * @return boolean Retorna sempre true
+	 * @throws EspaldaException if solicited 'replace' not exists
+	 * @return $this
 	 * 
-	 * TODO corrigir o retorno
-	 * TODO Criar setDisplayValue
-	 * TODO Criar setRegionValue com trigger_error("aviso de que não existe isso para region", E_USER_WARNING)
+	 * TODO - add to documentation
 	 */
 	public function setReplaceValue($name, $value)
-	{
+	{	
 		if(!$this->replaceExists($name)){
-			$this->addReplace(new EspaldaReplace($name, ""));
+			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
 		}
 
 		$this->replaces[$name]->setValue($value);
-		return true;
+		
+		return $this;
+	}
+	/**
+	 * 
+	 * @param string $name Nome da marcação
+	 * @param string $value Valor para a marcação
+	 * @throws EspaldaException if solicited 'region' not exists
+	 * @return $this
+	 * 
+	 * TODO - add to documentation
+	 */
+	public function setDisplayValue($name, $value)
+	{
+		if(!$this->displayExistsExists($name)){
+			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
+		}
+	
+		$this->displays[$name]->setValue($value);
+	
+		return $this;
+	}
+	/**
+	 * This method only will go generate a warning
+	 */
+	public function setRegionValue($name, $value)
+	{
+		trigger_error("Tag 'region' don't have property 'value'", E_USER_WARNING);
 	}
 	/**
 	 * Retorna o conteúdo armazenado para uma tag do tipo replace
