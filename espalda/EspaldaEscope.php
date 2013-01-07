@@ -25,6 +25,8 @@
  * Nesta classe conterá os elementos encontrados dentro deste escopo, e seus métodos para manipulação, não contém controle do conteúdo original do template.
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
+ * 
+ * TODO Resolver problema do getDisplay()->setReplaceValue() que todos os replaces ficam com o valor do ultimo
  */
 class EspaldaEscope
 {
@@ -90,7 +92,7 @@ class EspaldaEscope
 			throw new EspaldaException(EspaldaException::NOT_ESPALDA_REPLACE);
 		}	
 		
-		$this->replaces[$replace->getName()] = $replace;
+		$this->replaces[$replace->getName()] = clone $replace;
 		
 		return $this;
 	}
@@ -108,7 +110,7 @@ class EspaldaEscope
 			throw new EspaldaException(EspaldaException::NOT_ESPALDA_DISPLAY);
 		}
 		
-		$this->displays[$display->getName()] = $display;
+		$this->displays[$display->getName()] = clone $display;
 		
 		return $this;
 	}
@@ -160,7 +162,7 @@ class EspaldaEscope
 	 */
 	public function setDisplayValue($name, $value)
 	{
-		if(!$this->displayExistsExists($name)){
+		if(!$this->displayExists($name)){
 			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
 		}
 	
@@ -185,7 +187,7 @@ class EspaldaEscope
 	public function getReplace($name, $clone = false)
 	{
 		if(!array_key_exists($name, $this->replaces)){
-			$this->displays[$name] = new EspaldaReplace($name, "");
+			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
 		}
 		
 		if($clone){
@@ -194,9 +196,6 @@ class EspaldaEscope
 			return $this->replaces[$name];
 		}
 	}
-	/*
-	 * TODO Estudar a viabilidade de criar um setDisplay para setar o seu value.
-	 */
 	/**
 	 * Retorna uma instância de espaldaDisplay da marcação solicitada
 	 * 
@@ -207,7 +206,7 @@ class EspaldaEscope
 	public function getDisplay($name, $clone = false)
 	{
 		if(!array_key_exists($name, $this->displays)){
-			$this->displays[$name] = new EspaldaDisplay($name, "");
+			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
 		}
 		
 		if($clone){
@@ -226,7 +225,7 @@ class EspaldaEscope
 	public function getRegion($name, $clone = false)
 	{
 		if(!$this->regionExists($name)){
-			$this->regions[$name] = new EspaldaRegion($name, "");
+			throw new EspaldaException(EspaldaException::REGION_NOT_EXISTS);
 		}
 		
 		if($clone){

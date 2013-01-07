@@ -92,5 +92,10 @@ class EspaldaReplace
 	{
 		return $this->getValue();
 	}
+	
+	public function __clone ()
+	{
+		return new EspaldaReplace($this->name, $this->value);
+	}
 }
 ?>

@@ -51,7 +51,6 @@ class EspaldaRegion extends EspaldaEngine
 		}
 		
 		$this->linhas = Array();
-		
 	}
 	/**
 	 * Adiciona mais uma linha, uma cópia do escopo original da região
@@ -65,17 +64,20 @@ class EspaldaRegion extends EspaldaEngine
 		
 		$keys = array_keys($this->replaces);
 		for($i=0; $i < count($keys); $i++){
-			$this->linhas[$line]->addReplace(clone $this->replaces[$keys[$i]]);
+			$a = clone $this->replaces[$keys[$i]];
+			$this->linhas[$line]->addReplace($a);
 		}
 		
 		$keys = array_keys($this->displays);
 		for($i=0; $i < count($keys); $i++){
-			$this->linhas[$line]->addDisplay(clone $this->displays[$keys[$i]]);
+			$a = clone $this->displays[$keys[$i]];
+			$this->linhas[$line]->addDisplay($a);
 		}
 		
 		$keys = array_keys($this->regions);
 		for($i=0; $i < count($keys); $i++){
-			$this->linhas[$line]->addRegion(clone $this->regions[$keys[$i]]);
+			$a = clone $this->regions[$keys[$i]];
+			$this->linhas[$line]->addRegion($a);
 		}
 	}
 	/**
@@ -140,10 +142,16 @@ class EspaldaRegion extends EspaldaEngine
 		if(count($this->linhas) == 0){
 			$this->moreLine();
 		}
-		
 		$line = count($this->linhas)-1;
 		
 		return $this->linhas[$line]->getDisplay($name, $clone);
+		
+	}
+	
+	public function getDisplayOriginal($name, $clone=false)
+	{
+		return parent::getDisplay($name, $clone);
+	
 	}
 	/**
 	 * Retorna uma instância de espaldaRegion da marcação solicitada

@@ -43,7 +43,7 @@ class EspaldaException extends Exception
 	 * //TODO add descriptions
 	 */
 	private static $exceptions_description = Array(
-		UNDEFINED_ESPALDA_EXCEPTION => 'Undefined espalda exception'
+		self::UNDEFINED_ESPALDA_EXCEPTION => 'Undefined espalda exception'
 	);
 	
 	public function __construct($code)
