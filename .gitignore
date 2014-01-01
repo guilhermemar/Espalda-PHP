@@ -3,3 +3,5 @@
 .project
 .directory
 .vagrant
+composer.lock
+vendor
