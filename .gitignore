@@ -5,3 +5,4 @@
 .vagrant
 composer.lock
 vendor
+docs/phpdoc

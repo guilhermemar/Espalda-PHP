@@ -1,6 +1,0 @@
-{
-	"require" : {
-		"phpdocumentor/phpdocumentor" : ">=2",
-		"phpunit/phpunit" : ">=3"		
-	}
-}
