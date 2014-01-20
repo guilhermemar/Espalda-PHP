@@ -8,7 +8,7 @@ echo "America/Sao_Paulo" > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 
 apt-get update
-apt-get install -y curl php5-cli php5-xsl php-pear
+apt-get install -y curl graphviz php5-cli php5-xsl php-pear
 
 ###### INSTALLING AND CONFIGURING PHING ######
 

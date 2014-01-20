@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <project name="Espalda-PHP" default="welcome" basedir="." description="Library for handling specific espalda markup in html's pages to facilitate development of dynamic pages">
 	
 	<property name="message" value="hello world"/>
@@ -6,24 +6,23 @@
 	<target name="welcome">
 		<echo msg="${message}"/>
 	</target>
-	<!--
-	<phpdoc2 title="API Documentation"
-	  destdir="docs/phpdoc"
-	  template="responsive-twig">
-	   <fileset dir="./sources">
-	      <include name="**/*.php" />
-	   </fileset>
-	</phpdoc2>
-	-->
-	<!--
-	<phpunit>
-	  <formatter todir="reports" type="xml"/>
-	  <batchtest>
-	    <fileset dir="tests">
-	      <include name="**/*Test*.php"/>
-	      <exclude name="**/Abstract*.php"/>
-	    </fileset>
-	  </batchtest>
-	</phpunit>
-	-->
+	
+	<target name="documentation">
+		<phpdoc2 title="API Documentation" destdir="docs/phpdoc" template="responsive-twig">
+		   <fileset dir="./sources">
+		      <include name="**/*.php" />
+		   </fileset>
+		</phpdoc2>
+	</target>
+	
+	<target name="test">
+        <phpunit haltonfailure="true" printsummary="true">
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="*.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+	
 </project>
