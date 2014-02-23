@@ -24,7 +24,7 @@ class EspaldaExceptionTest extends PHPUnit_Framework_TestCase
         $e = new EspaldaException(2);
 
         $this->assertEquals(2, $e->getCode());
-        $this->assertEquals('Not a replace', $e->getMessage());
+        $this->assertEquals("It's not a estapalda replace", $e->getMessage());
     }
 }
 ?>
