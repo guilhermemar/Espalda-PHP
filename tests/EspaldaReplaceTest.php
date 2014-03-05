@@ -1,5 +1,5 @@
 <?php
-require "sources/EspaldaReplace.php";
+require_once "sources/EspaldaReplace.php";
 
 class EspaldaReplaceTest extends PHPUnit_Framework_TestCase
 {

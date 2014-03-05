@@ -1,5 +1,5 @@
 <?php
-require "sources/EspaldaException.php";
+require_once "sources/EspaldaException.php";
 
 class EspaldaExceptionTest extends PHPUnit_Framework_TestCase
 {

@@ -83,6 +83,6 @@ abstract class EspaldaRules
 	 */
 	static $getType      = "/(type|TYPE)=\"? ?([a-zA-z][a-zA-Z1-9_-]*)\"?/";
 	
-	private function __construct(){}
+	
 }
 ?>

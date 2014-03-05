@@ -29,8 +29,6 @@ require_once "EspaldaEngine.php";
 require_once "EspaldaRegion.php";
 require_once "EspaldaReplace.php";
 require_once "EspaldaDisplay.php";
-//TODO remove this line and respective file
-//require_once "EspaldaLine.php";
 
 /**
  * Classe inicial do projeto.
