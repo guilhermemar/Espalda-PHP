@@ -34,7 +34,9 @@ require_once "EspaldaDisplay.php";
  * Classe inicial do projeto.
  * Manipula o template
  * 
- * @author : Guilherme Mar
+ * @author Mar, Guilherme
+ * @version 2.0 very unstable, its not usable.
+ * @licence GNU General Public License, version 3
  */
 class Espalda extends EspaldaDisplay
 {
