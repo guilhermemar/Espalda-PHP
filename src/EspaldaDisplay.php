@@ -22,13 +22,17 @@ class EspaldaDisplay extends EspaldaEngine
 	 * @param string $name Nome da marcação (propriedade "name" da tag)
 	 * @param string $source O escopo da marcação
 	 */
-	public function __construct($name, $source = false)
+	public function __construct($name, $source = false, $value = null)
 	{
 		$this->name = $name;
 		
 		if($source){
 			$this->setSource($source);
-		}	
+		}
+		
+		if (!is_null($value)) {
+			$this->setValue($value);
+		}
 	}
 	/**
 	 * Seta o name da marcação

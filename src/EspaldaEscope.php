@@ -32,7 +32,7 @@ class EspaldaEscope
 	 */
 	public function replaceExists ($name)
 	{
-		return array_key_exists($name, $this->replaces) ? true : false;
+		return array_key_exists(strtolower($name), $this->replaces) ? true : false;
 	}
 	
 	/**
@@ -42,7 +42,7 @@ class EspaldaEscope
 	 */
 	public function displayExists ($name)
 	{
-		return array_key_exists($name, $this->replaces) ? true : false;
+		return array_key_exists(strtolower($name), $this->replaces) ? true : false;
 	}
 	
 	/**
@@ -52,7 +52,7 @@ class EspaldaEscope
 	 */
 	public function regionExists ($name)
 	{
-		return array_key_exists($name, $this->regions) ? true : false;
+		return array_key_exists(strtolower($name), $this->regions) ? true : false;
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class EspaldaEscope
 			throw new EspaldaException(EspaldaException::NOT_ESPALDA_REPLACE);
 		}	
 		
-		$this->replaces[$replace->getName()] = clone $replace;
+		$this->replaces[strtolower($replace->getName())] = clone $replace;
 		
 		return $this;
 	}
@@ -86,7 +86,7 @@ class EspaldaEscope
 			throw new EspaldaException(EspaldaException::NOT_ESPALDA_DISPLAY);
 		}
 		
-		$this->displays[$display->getName()] = clone $display;
+		$this->displays[strtolower($display->getName())] = clone $display;
 		
 		return $this;
 	}
@@ -104,7 +104,7 @@ class EspaldaEscope
 			throw new EspaldaException(EspaldaException::NOT_ESPALDA_REGION);
 		}
 		
-		$this->regions[$region->getName()] = $region;
+		$this->regions[strtolower($region->getName())] = $region;
 		
 		return $this;
 	}
@@ -157,6 +157,8 @@ class EspaldaEscope
 	 */
 	public function getReplace ($name, $clone = false)
 	{
+		$name = strtolower($name);
+		
 		if (!$this->replaceExists($name)) {
 			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
 		}
@@ -178,6 +180,8 @@ class EspaldaEscope
 	 */
 	public function getDisplay ($name, $clone = false)
 	{
+		$name = strtolower($name);
+		
 		if (!$this->displayExists($name)) {
 			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
 		}
@@ -198,6 +202,8 @@ class EspaldaEscope
 	 */
 	public function getRegion ($name, $clone = false)
 	{
+		$name = strtolower($name);
+		
 		if (!$this->regionExists($name)) {
 			throw new EspaldaException(EspaldaException::REGION_NOT_EXISTS);
 		}
