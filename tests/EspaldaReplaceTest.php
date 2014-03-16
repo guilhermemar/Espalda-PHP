@@ -3,8 +3,6 @@ require_once "src/EspaldaReplace.php";
 
 class EspaldaReplaceTest extends PHPUnit_Framework_TestCase
 {
-	public function test_ () {}
-	/*
     public function test_setDefaultValues ()
     {
         $replace = new EspaldaReplace('name', 'value');
@@ -37,6 +35,5 @@ class EspaldaReplaceTest extends PHPUnit_Framework_TestCase
     	
     	$this->assertEquals($replace, clone $replace);
     }
-    */
 }
 ?>

@@ -1,45 +1,45 @@
 <?php
 /**
- * Manipula marcações do tipo replace
+ * Represents a EspaldaReplace element.
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
 class EspaldaReplace
 {
 	/**
-	 * Nome da marcação
+	 * Element Name
 	 * 
 	 * @var string
 	 */
 	private $name  = "";
 	
 	/**
-	 * Valor da marcação
+	 * Element Value
 	 * 
 	 * @var string
 	 */
 	private $value = "";
 	
 	/**
-	 * Construtora da classe
+	 * Construct
 	 * 
-	 * @param string $name Nome da marcação
-	 * @param string $value Conteúdo da marcação
+	 * @param [optional] string $name EspaldaReplace Name
+	 * @param [optional] string $value EspaldaReplace Value
 	 */
-	public function __construct($name = false, $value = false)
+	public function __construct($name = null, $value = null)
 	{
-		if($name){
+		if(!is_null($name)){
 			$this->setName($name);
-		}	
-		if($value){
+		}
+		if(!is_null($value)){
 			$this->setValue($value);
 		}
 	}
 	
 	/**
-	 * Define o nome da marcação
+	 * Set the EspaldarReplace element name
 	 * 
-	 * @param string $name Nome da marcação
+	 * @param string $name Element name
 	 */
 	public function setName($name)
 	{
@@ -47,9 +47,9 @@ class EspaldaReplace
 	}
 	
 	/**
-	 * Retorna o nome da marcação
+	 * Get the EspaldaReplace element name
 	 * 
-	 * @return string Nome da marcação
+	 * @return string name of element
 	 */
 	public function getName()
 	{
@@ -57,9 +57,9 @@ class EspaldaReplace
 	}
 	
 	/**
-	 * Define o valor da marcação
+	 * Set the EspaldaReplace element value
 	 * 
-	 * @param string $value O valor da marcação
+	 * @param string $value Element value
 	 */
 	public function setValue($value)
 	{
@@ -67,9 +67,9 @@ class EspaldaReplace
 	}
 	
 	/**
-	 * Retorna o valor da marcação
+	 * Get the EspaldaReplace element value
 	 * 
-	 * @return string
+	 * @return string value of element
 	 */
 	public function getValue ()
 	{
@@ -77,15 +77,20 @@ class EspaldaReplace
 	}
 	
 	/**
-	 * Prepara o template com os valores informados
+	 * Parse template with element values, this case, value of element
 	 *
-	 * @return string template parseado
+	 * @return string parsed template
 	 */
 	public function getOutput ()
 	{
 		return $this->getValue();
 	}
 	
+	/**
+	 * Create a new EspalaReplace with values this element
+	 * 
+	 * @return cloned EspaldaReplace
+	 */
 	public function __clone ()
 	{
 		return new EspaldaReplace($this->name, $this->value);
