@@ -1,13 +1,13 @@
 <?php
 /**
- * Exceção personalizada para o projeto Espalda
+ * Exceptions for Espalda project
  *
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
 class EspaldaException extends Exception
 {
 	/**
-	 * Conjunto de constantes de erros
+	 * Errors codes
 	 */
 	const UNDEFINED_ESPALDA_EXCEPTION = 1;
 	const NOT_ESPALDA_REPLACE = 2;
@@ -18,30 +18,37 @@ class EspaldaException extends Exception
 	const REGION_NOT_EXISTS   = 7;
 
 	/**
-	 * Mensagens descritivas dos códigos de erro
+	 * Descriptions for errors codes
+	 * 
 	 * @var String[]
 	 * @static
-	 *
-	 * //TODO add descriptions
 	 */
 	private static $exceptions_description = Array(
 		self::UNDEFINED_ESPALDA_EXCEPTION => 'Undefined espalda exception',
-		self::NOT_ESPALDA_REPLACE => "It's not a estapalda replace",
-		self::NOT_ESPALDA_DISPLAY => "It's not a estapalda display",
-		self::NOT_ESPALDA_REGION  => "It's not a estapalda region",
+		self::NOT_ESPALDA_REPLACE => 'It\'s not a estapalda replace',
+		self::NOT_ESPALDA_DISPLAY => 'It\'s not a estapalda display',
+		self::NOT_ESPALDA_REGION  => 'It\'s not a estapalda region',
 		self::REPLACE_NOT_EXISTS  => 'Replace not exists',
 		self::DISPLAY_NOT_EXISTS  => 'Display not exists',
 		self::REGION_NOT_EXISTS   => 'Region not exists'
 	);
 
+	/**
+	 * Construction
+	 * 
+	 * @param Integer $code Error code
+	 */
 	public function __construct($code)
 	{
-		parent::__construct(
-			$this->getRespectiveDescription($code),
-			$code
-		);
+		parent::__construct($this->getRespectiveDescription($code), $code);
 	}
 
+	/**
+	 * Get a Error code description
+	 * 
+	 * @param Integer $code Error code
+	 * @return string
+	 */
 	private function getRespectiveDescription ($code)
 	{
 		if (array_key_exists($code, self::$exceptions_description)) {
