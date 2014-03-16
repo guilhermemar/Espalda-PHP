@@ -42,7 +42,7 @@ class EspaldaEscope
 	 */
 	public function displayExists ($name)
 	{
-		return array_key_exists(strtolower($name), $this->replaces) ? true : false;
+		return array_key_exists(strtolower($name), $this->displays) ? true : false;
 	}
 	
 	/**
@@ -123,7 +123,7 @@ class EspaldaEscope
 			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
 		}
 
-		$this->replaces[$name]->setValue($value);
+		$this->replaces[strtolower($name)]->setValue($value);
 		
 		return $this;
 	}
@@ -142,7 +142,7 @@ class EspaldaEscope
 			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
 		}
 	
-		$this->displays[$name]->setValue($value);
+		$this->displays[strtolower($name)]->setValue($value);
 	
 		return $this;
 	}

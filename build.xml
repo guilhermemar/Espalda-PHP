@@ -9,17 +9,17 @@
 	
 	<target name="documentation">
 		<phpdoc2 title="API Documentation" destdir="docs/phpdoc" template="responsive-twig">
-		   <fileset dir="./sources">
-		      <include name="**/*.php" />
+		   <fileset dir="./src">
+		      <include name="*.php" />
 		   </fileset>
 		</phpdoc2>
 	</target>
 	
 	<target name="test">
-        <phpunit haltonfailure="true" printsummary="true">
+        <phpunit printsummary="true">
             <batchtest>
                 <fileset dir="tests">
-                    <include name="*.php"/>
+                    <include name="*Test.php"/>
                 </fileset>
             </batchtest>
         </phpunit>
