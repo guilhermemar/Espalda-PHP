@@ -38,7 +38,7 @@ class EspaldaException extends Exception
 	 * 
 	 * @param Integer $code Error code
 	 */
-	public function __construct($code)
+	public function __construct ($code)
 	{
 		parent::__construct($this->getRespectiveDescription($code), $code);
 	}

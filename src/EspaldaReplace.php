@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents a EspaldaReplace element.
+ * Represents and manipulates a EspaldaReplace element
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
@@ -26,11 +26,10 @@ class EspaldaReplace
 	 * @param [optional] string $name EspaldaReplace Name
 	 * @param [optional] string $value EspaldaReplace Value
 	 */
-	public function __construct($name = null, $value = null)
+	public function __construct ($name, $value = null)
 	{
-		if(!is_null($name)){
-			$this->setName($name);
-		}
+		$this->setName($name);
+		
 		if(!is_null($value)){
 			$this->setValue($value);
 		}
@@ -41,7 +40,7 @@ class EspaldaReplace
 	 * 
 	 * @param string $name Element name
 	 */
-	public function setName($name)
+	public function setName ($name)
 	{
 		$this->name = $name;
 	}
@@ -51,7 +50,7 @@ class EspaldaReplace
 	 * 
 	 * @return string name of element
 	 */
-	public function getName()
+	public function getName ()
 	{
 		return $this->name;
 	}
@@ -61,7 +60,7 @@ class EspaldaReplace
 	 * 
 	 * @param string $value Element value
 	 */
-	public function setValue($value)
+	public function setValue ($value)
 	{
 		$this->value = $value;
 	}

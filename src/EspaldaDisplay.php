@@ -1,32 +1,35 @@
 <?php
 /**
- * Manipula marcações do tipo Display
+ * Represents and manipulates a EspaldaDisplay element
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
 class EspaldaDisplay extends EspaldaEngine
 {
 	/**
-	 * Nome da marcação
+	 * Element name
 	 * @var string
 	 */
 	private $name;
+	
 	/**
-	 * Conteúdo da marcação
+	 * Element value
 	 * @var string
 	 */
 	private $value = true;
+	
 	/**
-	 * Construtora da classe
+	 * Construct
 	 * 
-	 * @param string $name Nome da marcação (propriedade "name" da tag)
-	 * @param string $source O escopo da marcação
+	 * @param string $name EspaldaDisplay name
+	 * @param [optional] string $source EspaldaDisplay scope
+	 * @param [optional] bool $value EspaldaDisplay value
 	 */
-	public function __construct($name, $source = false, $value = null)
+	public function __construct($name, $source = null, $value = null)
 	{
 		$this->name = $name;
 		
-		if($source){
+		if (!is_null($source)){
 			$this->setSource($source);
 		}
 		
@@ -34,55 +37,63 @@ class EspaldaDisplay extends EspaldaEngine
 			$this->setValue($value);
 		}
 	}
+	
 	/**
-	 * Seta o name da marcação
+	 * Set the EspaldaDisplay element name
 	 * 
 	 * @param string $name Nome da marcação
 	 */
-	public function setName($name){
+	public function setName ($name)
+	{
 		$this->name = $name;
 	}
+	
 	/**
-	 * Pega o nome da marcação
-	 * @return string Nome da marcação
+	 * Get the EspaldaDisplay name
+	 * 
+	 * @return string Name of element
 	 */
-	public function getName()
+	public function getName ()
 	{
 		return $this->name;
 	}
+	
 	/**
-	 * Informa se o conteúdo da marcação "display" deve ser exibida ou não, True para sim, False para não
+	 * Set the EspaldaDisplay value
 	 * 
-	 * @param boolean $value
+	 * @param boolean $value element value
 	 */
-	public function setValue($value)
+	public function setValue ($value)
 	{
 		$this->value = $value ? true : false;
 	}
+	
 	/**
-	 * Retorna o valor atual da marcação
-	 * @return boolean
+	 * Get the EspalaDisplay value
+	 * 
+	 * @return boolean value of element
 	 */
-	public function getValue()
+	public function getValue ()
 	{
 		return $this->value;
 	}
+	
 	/**
-	 * Prepara o template com os valores informados
+	 * Parse EspaldaDisplay scope with values of this class and return result
 	 * 
-	 * @return string template parseado
+	 * @return string parsed template
 	 */
-	public function getOutput()
+	public function getOutput ()
 	{
 		$ns = $this->source;
 		
 		$keys = array_keys($this->replaces);
-		for($i=0; $i < count($keys); $i++){
+		for ($i=0; $i < count($keys); $i++) {
 			$ns = str_replace("replace_{$keys[$i]}_replace", $this->replaces[$keys[$i]]->getOutput(), $ns);
 		}
 		
 		$keys = array_keys($this->displays);
-		for($i=0; $i < count($keys); $i++){
+		for ($i=0; $i < count($keys); $i++) {
 			if($this->displays[$keys[$i]]->getValue()){
 				$display = $this->displays[$keys[$i]]->getOutput();
 			}else{
@@ -92,7 +103,7 @@ class EspaldaDisplay extends EspaldaEngine
 		}
 		
 		$keys = array_keys($this->regions);
-		for($i=0; $i < count($keys); $i++){
+		for ($i=0; $i < count($keys); $i++) {
 			$ns = str_replace("region_{$keys[$i]}_region", $this->regions[$keys[$i]]->getOutput(), $ns);
 		}
 		

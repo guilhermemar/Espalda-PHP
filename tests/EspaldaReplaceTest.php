@@ -13,7 +13,7 @@ class EspaldaReplaceTest extends PHPUnit_Framework_TestCase
     
     public function test_setValues ()
     {
-    	$replace = new EspaldaReplace();
+    	$replace = new EspaldaReplace('undefined');
     	
     	$replace->setName('name');
     	$replace->setValue('value');
