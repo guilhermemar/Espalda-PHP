@@ -80,9 +80,7 @@ abstract class EspaldaEngine extends EspaldaEscope
 		
 		if($name != ""){
 		
-			$this->replaces[$name] = new EspaldaReplace();
-			$this->replaces[$name]->setName($name);
-			$this->replaces[$name]->setValue($value);
+			$this->replaces[$name] = new EspaldaReplace($name, $value);
 			
 			$toSource = "replace_{$name}_replace";
 			
