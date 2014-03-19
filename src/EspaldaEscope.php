@@ -20,10 +20,10 @@ class EspaldaEscope
 	protected $displays = Array();
 	
 	/**
-	 * Regions of escope
-	 * @var EspaldaRegion[]
+	 * Loops of escope
+	 * @var EspaldaLoop[]
 	 */
-	protected $regions = Array();
+	protected $loops = Array();
 	
 	/**
 	 * Check if EspaldaReplace exists
@@ -46,13 +46,13 @@ class EspaldaEscope
 	}
 	
 	/**
-	 * Check if EspaldaRegion exists
-	 * @param string $name Name of EspaldaRegion to check
+	 * Check if EspaldaLoop exists
+	 * @param string $name Name of EspaldaLoop to check
 	 * @return boolean
 	 */
-	public function regionExists ($name)
+	public function loopExists ($name)
 	{
-		return array_key_exists(strtolower($name), $this->regions) ? true : false;
+		return array_key_exists(strtolower($name), $this->loops) ? true : false;
 	}
 	
 	/**
@@ -92,19 +92,19 @@ class EspaldaEscope
 	}
 	
 	/**
-	 * Add a instance of EspaldaRegions
+	 * Add a instance of EspaldaLoops
 	 *
-	 * @param EspaldaRegion $region
-	 * @throws EspaldaException if parameter is not a instance of EspaldaRegion
+	 * @param EspaldaLoop $loop
+	 * @throws EspaldaException if parameter is not a instance of EspaldaLoop
 	 * @return $this 
 	 */
-	public function addRegion ($region)
+	public function addLoop ($loop)
 	{
-		if (!$region instanceof EspaldaRegion) {
-			throw new EspaldaException(EspaldaException::NOT_ESPALDA_REGION);
+		if (!$loop instanceof EspaldaLoop) {
+			throw new EspaldaException(EspaldaException::NOT_ESPALDA_LOOP);
 		}
 		
-		$this->regions[strtolower($region->getName())] = $region;
+		$this->loops[strtolower($loop->getName())] = $loop;
 		
 		return $this;
 	}
@@ -133,7 +133,7 @@ class EspaldaEscope
 	 * 
 	 * @param string $name Name of EspaldaDisplay
 	 * @param boolean $value New value for value property
-	 * @throws EspaldaException if solicited EspaldaRegion not to exist
+	 * @throws EspaldaException if solicited EspaldaLoop not to exist
 	 * @return $this
 	 */
 	public function setDisplayValue ($name, $value)
@@ -194,24 +194,24 @@ class EspaldaEscope
 	}
 	
 	/**
-	 * Return the EspaldaRegion requested
+	 * Return the EspaldaLoop requested
 	 * 
-	 * @param string $name Name of EspaldaRegion
+	 * @param string $name Name of EspaldaLoop
 	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
-	 * @return EspaldaRegion
+	 * @return EspaldaLoop
 	 */
-	public function getRegion ($name, $clone = false)
+	public function getLoop ($name, $clone = false)
 	{
 		$name = strtolower($name);
 		
-		if (!$this->regionExists($name)) {
-			throw new EspaldaException(EspaldaException::REGION_NOT_EXISTS);
+		if (!$this->loopExists($name)) {
+			throw new EspaldaException(EspaldaException::LOOP_NOT_EXISTS);
 		}
 		
 		if ($clone) {
-			return clone $this->regions[$name];
+			return clone $this->loops[$name];
 		}else{
-			return $this->regions[$name];
+			return $this->loops[$name];
 		}
 	}
 }

@@ -36,7 +36,7 @@ abstract class EspaldaEngine extends EspaldaEscope
 		/*
 		 * Procura por marcações entigas e as converte para as novas marcações(em formato de tag HTML)
 		 */
-		$this->searchOldRegions();
+		$this->searchOldLoops();
 		$this->searchOldReplaces();
 		/*
 		 * Percorre o template procurando as marcaçẽos espalda
@@ -49,8 +49,8 @@ abstract class EspaldaEngine extends EspaldaEscope
 			$type = strtolower(trim($found2[2]));
 			
 			switch($type){
-			case "region" :
-				$this->extractRegion($found[0]);
+			case "loop" :
+				$this->extractLoop($found[0]);
 				break;
 				
 			case "display" :
@@ -93,23 +93,23 @@ abstract class EspaldaEngine extends EspaldaEscope
 	 * Busca e registra o escopo da regiao dentro do template
 	 * @param string $region A tag espalda inicial da regiao desejada
 	 */
-	private function extractRegion($region)
+	private function extractLoop($loop)
 	{
-		preg_match(EspaldaRules::$getName, $region, $found);
+		preg_match(EspaldaRules::$getName, $loop, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";
 		
 		if(empty($name)){
 			return;
 		}
 		
-		$scope = $this->setScope($region);
+		$scope = $this->setScope($loop);
 		
-		$a = strlen($region);
+		$a = strlen($loop);
 		preg_match(EspaldaRules::$lastEndTag, $scope, $found);
 		$b = -strlen($found[0]);
 		
-		$this->regions[$name] = new EspaldaRegion($name, substr($scope, $a, $b));
-		$this->source = str_replace($scope, "region_".$name."_region", $this->source);	
+		$this->regions[$name] = new EspaldaLoop($name, substr($scope, $a, $b));
+		$this->source = str_replace($scope, "loop_".$name."_loop", $this->source);	
 	}
 	/**
 	 * Busca e registra o escopo da regiao dentro do template
@@ -142,10 +142,10 @@ abstract class EspaldaEngine extends EspaldaEscope
 	/**
 	 * Busca por marcações de regiao espalda antigas e converte para a nova versão
 	 */
-	private function searchOldRegions()
+	private function searchOldLoops()
 	{
-		while(preg_match(EspaldaRules::$oldRegion, $this->source, $found)){
-			$tag = str_replace("[#{$found[1]}#", "<espalda type=\"region\" name=\"{$found[1]}\">", $found[0]);
+		while(preg_match(EspaldaRules::$oldLoop, $this->source, $found)){
+			$tag = str_replace("[#{$found[1]}#", "<espalda type=\"loop\" name=\"{$found[1]}\">", $found[0]);
 			$tag = str_replace("#]", "</espalda>", $tag);
 			
 			$this->source = str_replace($found[0], $tag, $this->source);					

@@ -11,7 +11,7 @@ abstract class EspaldaRules
 	 * @var string
 	 * @static
 	 */
-	static $oldRegion    = "/\[#([A-Z]([A-Z1-9_-])*)#(([ \t\r\n\v\f]|.)*?)#]/";
+	static $oldLoop    = "/\[#([A-Z]([A-Z1-9_-])*)#(([ \t\r\n\v\f]|.)*?)#]/";
 	
 	/**
 	 * REGEX for old tags of 'replace' type

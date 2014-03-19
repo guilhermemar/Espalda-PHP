@@ -102,9 +102,9 @@ class EspaldaDisplay extends EspaldaEngine
 			$ns = str_replace("display_{$keys[$i]}_display", $display, $ns);
 		}
 		
-		$keys = array_keys($this->regions);
+		$keys = array_keys($this->loops);
 		for ($i=0; $i < count($keys); $i++) {
-			$ns = str_replace("region_{$keys[$i]}_region", $this->regions[$keys[$i]]->getOutput(), $ns);
+			$ns = str_replace("loop_{$keys[$i]}_loop", $this->loops[$keys[$i]]->getOutput(), $ns);
 		}
 		
 		return $ns;
