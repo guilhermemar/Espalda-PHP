@@ -24,7 +24,7 @@
  */
 require_once "EspaldaException.php";
 require_once "EspaldaRules.php";
-require_once "EspaldaEscope.php";
+require_once "EspaldaScope.php";
 require_once "EspaldaEngine.php";
 require_once "EspaldaRegion.php";
 require_once "EspaldaReplace.php";

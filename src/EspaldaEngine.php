@@ -4,7 +4,7 @@
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-abstract class EspaldaEngine extends EspaldaEscope
+abstract class EspaldaEngine extends EspaldaScope
 {	
 	/**
 	 * Save the original template string

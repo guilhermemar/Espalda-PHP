@@ -1,7 +1,7 @@
 <?php
 
 require_once "src/EspaldaRules.php";
-require_once "src/EspaldaEscope.php";
+require_once "src/EspaldaScope.php";
 require_once "src/EspaldaEngine.php";
 require_once "src/EspaldaDisplay.php";
 

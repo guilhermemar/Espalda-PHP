@@ -12,10 +12,10 @@ class EspaldaException extends Exception
 	const UNDEFINED_ESPALDA_EXCEPTION = 1;
 	const NOT_ESPALDA_REPLACE = 2;
 	const NOT_ESPALDA_DISPLAY = 3;
-	const NOT_ESPALDA_REGION  = 4;
+	const NOT_ESPALDA_LOOP  = 4;
 	const REPLACE_NOT_EXISTS  = 5;
 	const DISPLAY_NOT_EXISTS  = 6;
-	const REGION_NOT_EXISTS   = 7;
+	const LOOP_NOT_EXISTS   = 7;
 
 	/**
 	 * Descriptions for errors codes
@@ -27,10 +27,10 @@ class EspaldaException extends Exception
 		self::UNDEFINED_ESPALDA_EXCEPTION => 'Undefined espalda exception',
 		self::NOT_ESPALDA_REPLACE => 'It\'s not a estapalda replace',
 		self::NOT_ESPALDA_DISPLAY => 'It\'s not a estapalda display',
-		self::NOT_ESPALDA_REGION  => 'It\'s not a estapalda region',
+		self::NOT_ESPALDA_LOOP  => 'It\'s not a estapalda region',
 		self::REPLACE_NOT_EXISTS  => 'Replace not exists',
 		self::DISPLAY_NOT_EXISTS  => 'Display not exists',
-		self::REGION_NOT_EXISTS   => 'Region not exists'
+		self::LOOP_NOT_EXISTS   => 'Region not exists'
 	);
 
 	/**

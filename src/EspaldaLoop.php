@@ -10,7 +10,7 @@ class EspaldaLoop extends EspaldaEngine
 	 * Armazena as linhas (repetições no escopo da marcação) da região
 	 * @var EspaldaLina[]
 	 */
-	private $interations;
+	private $scopes;
 	/**
 	 * Nome da marcação
 	 * @var string
@@ -38,27 +38,27 @@ class EspaldaLoop extends EspaldaEngine
 	public function moreLine()
 	{
 		//$this->linhas[] = new EspaldaLine();
-		$this->linhas[] = new EspaldaEscope();
-		
-		$line = count($this->linhas)-1;
+		$scope = new EspaldaScope();
 		
 		$keys = array_keys($this->replaces);
 		for($i=0; $i < count($keys); $i++){
 			$a = clone $this->replaces[$keys[$i]];
-			$this->linhas[$line]->addReplace($a);
+			$scope->addReplace($a);
 		}
 		
 		$keys = array_keys($this->displays);
 		for($i=0; $i < count($keys); $i++){
 			$a = clone $this->displays[$keys[$i]];
-			$this->linhas[$line]->addDisplay($a);
+			$scope->addDisplay($a);
 		}
 		
-		$keys = array_keys($this->regions);
+		$keys = array_keys($this->loops);
 		for($i=0; $i < count($keys); $i++){
-			$a = clone $this->regions[$keys[$i]];
-			$this->linhas[$line]->addRegion($a);
+			$a = clone $this->loops[$keys[$i]];
+			$scope->addLoop($a);
 		}
+		
+		$this->scopes[] = $scope;
 	}
 	/**
 	 * Seta o name da marcação

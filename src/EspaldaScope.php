@@ -5,7 +5,7 @@
  * @author Mar, Guilherme
  * 
  */
-class EspaldaEscope
+class EspaldaScope
 {
 	/**
 	 * Replaces of scope
