@@ -7,37 +7,61 @@
 class EspaldaLoop extends EspaldaEngine
 {
 	/**
-	 * Armazena as linhas (repetições no escopo da marcação) da região
-	 * @var EspaldaLina[]
+	 * Storage intaerations of element EspaldaEngine
+	 * @var EspaldaScope[]
 	 */
-	private $scopes;
+	private $interactions;
+	
 	/**
-	 * Nome da marcação
+	 * Actual scope of interactions list
+	 */
+	private $scope;
+	/**
+	 * Element Name
 	 * @var string
 	 */
 	private $name;
+	
 	/**
-	 * Construtora da classe
+	 * Construct
 	 *
-	 * @param string $name Nome da marcação (propriedade "name" da tag)
-	 * @param string $source O escopo da marcação
+	 * @param string $name EspaldaLoop name
+	 * @param string $source EspaldaLoop scope
 	 */
-	public function __construct($name, $source = false)
+	public function __construct ($name, $source = null)
 	{
 		$this->name = $name;
 		
-		if($source){
+		if($source !== null){
 			$this->setSource($source);
 		}
 		
-		$this->linhas = Array();
+		$this->scopes = Array();
 	}
+	
 	/**
-	 * Adiciona mais uma linha, uma cópia do escopo original da região
+	 * return actual scope of interactions,
+	 * if length of interactions is zero, it's will create a first interation
+	 * 
+	 * @return EspaldaScope Actual scope of interations
 	 */
-	public function moreLine()
+	private function getScope ()
 	{
-		//$this->linhas[] = new EspaldaLine();
+		if ($this->scope === null) {
+			return $this->push();
+		}
+		
+		return $this->scope;
+	}
+	
+	/**
+	 * Add another original scope in the end of scopes list
+	 * 
+	 * @return EspaldaScope actual of interations
+	 */
+	public function push ()
+	{
+		//TODO testar usando clone em EspaldaScope, no caso precisa saber se rola casting de classes
 		$scope = new EspaldaScope();
 		
 		$keys = array_keys($this->replaces);
@@ -58,58 +82,83 @@ class EspaldaLoop extends EspaldaEngine
 			$scope->addLoop($a);
 		}
 		
-		$this->scopes[] = $scope;
+		
+		$this->scope = $scope;
+		//$this->$interactions[] = $scope;
+		
+		return $this->scope;
 	}
+	
 	/**
-	 * Seta o name da marcação
+	 * Set the EspaldaLoop element name
 	 *
-	 * @param string $name Nome da marcação
+	 * @param string $name element name
 	 */
-	public function setName($name){
+	public function setName ($name)
+	{
 		$this->name = $name;
 	}
+	
 	/**
-	 * Pega o nome da marcação
-	 * @return string Nome da marcação
+	 * Get the EspaldaEngine name
+	 * 
+	 * @return string Name of element
 	 */
-	public function getName()
+	public function getName ()
 	{
 		return $this->name;
 	}
+	
 	/**
-	 * Cria e informa o valor para uma marcação "replace"
+	 * Set value of value property of EspaldaReplace in actual scope of interatctions
 	 * 
-	 * @param string $name Nome da marcação
-	 * @param string $value Valor para a marcação
-	 * 
-	 * TODO Criar método que retorne a chave da linha atual
+	 * @param string $name Name of EspaldaReaplace
+	 * @param string $value Value of EspaldaReplace
+	 * @throws EspaldaException if the solicited EspaldaReplace not exists
+	 * @return $this;
 	 */
-	public function setReplaceValue($name, $value)
+	public function setReplaceValue ($name, $value)
 	{
-		if(count($this->linhas) == 0){
-			$this->moreLine();
-		}
+		$scope = $this->getScope();
+		$scope->setReplaceValue($name, $value);
 		
-		$line = count($this->linhas)-1;
-		
-		$this->linhas[$line]->setReplaceValue($name, $value);
+		return $this;
 	}
+	
 	/**
-	 * Retorna o conteúdo armazenado para uma tag do tipo replace
+	 * Returns the EspaldaReplace requested
 	 * 
-	 * @param string $name Nome da marcação
-	 * @return string|boolean Conteúdo da marcação ou False em caso de nome inválido da marcação
+	 * @param string $name Name ov EspaldaReplace
+	 * @param [optional] boolean @clone, if true return a clone of element, false (default) return a pointer
+	 * @throws if the solicited EspaldaReplace not exists
+	 * @return EspaldaReplace
 	 */
-	public function getReplace($name)
+	public function getReplace($name, $clone=false)
 	{
-		if(count($this->linhas) == 0){
-			$this->moreLine();
-		}
+		$scope = $this->getScope();
 		
-		$line = count($this->linhas)-1;
-		
-		return $this->linhas[$line]->getReplace($name);
+		return $scope->getReplace($name, $clone);
 	}
+	
+	/**
+	 * Set value of value property of a EspaldaDisplay
+	 *
+	 * @param string $name Name of EspaldaDisplay
+	 * @param boolean $value New value for value property
+	 * @throws EspaldaException if solicited EspaldaLoop not to exist
+	 * @return $this
+	 */
+	public function setDisplayValue ($name, $value)
+	{
+		if (!$this->displayExists($name)) {
+			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
+		}
+	
+		$this->displays[strtolower($name)]->setValue($value);
+	
+		return $this;
+	}
+	
 	/**
 	 * Retorna uma instância de espaldaDisplay da marcação solicitada
 	 * 
@@ -120,7 +169,7 @@ class EspaldaLoop extends EspaldaEngine
 	public function getDisplay($name, $clone=false)
 	{
 		if(count($this->linhas) == 0){
-			$this->moreLine();
+			$this->push();
 		}
 		$line = count($this->linhas)-1;
 		
@@ -143,7 +192,7 @@ class EspaldaLoop extends EspaldaEngine
 	public function getRegion($name, $clone=false)
 	{
 		if(count($this->linhas) == 0){
-			$this->moreLine();
+			$this->push();
 		}
 		
 		$line = count($this->linhas)-1;
@@ -159,18 +208,18 @@ class EspaldaLoop extends EspaldaEngine
 	{
 		$nsf = "";
 			
-		for($j=0; $j < count($this->linhas); $j++){	
+		for($j=0; $j < count($this->$interactions); $j++){	
 			$ns = $this->source;
 			
 			$keys = array_keys($this->replaces);
 			for($i=0; $i < count($keys); $i++){
-				$ns = str_replace("replace_{$keys[$i]}_replace", $this->linhas[$j]->getReplace($keys[$i])->getOutput(), $ns);
+				$ns = str_replace("replace_{$keys[$i]}_replace", $this->$interactions[$j]->getReplace($keys[$i])->getOutput(), $ns);
 			}
 			
 			$keys = array_keys($this->displays);
 			for($i=0; $i < count($keys); $i++){
 				if($this->linhas[$i]->getDisplay($keys[$i])->getValue()){
-					$display = $this->linhas[$j]->getDisplay($keys[$i])->getOutput();
+					$display = $this->$interactions[$j]->getDisplay($keys[$i])->getOutput();
 				}else{
 					$display = "";
 				}
@@ -179,7 +228,7 @@ class EspaldaLoop extends EspaldaEngine
 			
 			$keys = array_keys($this->regions);
 			for($i=0; $i < count($keys); $i++){
-				$ns = str_replace("region_{$keys[$i]}_region", $this->linhas[$j]->getRegion($keys[$i])->getOutput(), $ns);
+				$ns = str_replace("region_{$keys[$i]}_region", $this->$interactions[$j]->getRegion($keys[$i])->getOutput(), $ns);
 			}
 		
 			$nsf .= $ns;

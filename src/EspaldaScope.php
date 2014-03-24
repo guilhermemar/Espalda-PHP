@@ -74,6 +74,48 @@ class EspaldaScope
 	}
 	
 	/**
+	 * Set value of value property of a EspaldaReplace
+	 *
+	 * @param string $name Name of EspaldaReplace
+	 * @param string $value New value for value property
+	 * @throws EspaldaException if the solicited EspaldaReplace not to exist
+	 * @return $this
+	 */
+	public function setReplaceValue ($name, $value)
+	{
+		if (!$this->replaceExists($name)) {
+			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
+		}
+	
+		$this->replaces[strtolower($name)]->setValue($value);
+	
+		return $this;
+	}
+	
+	/**
+	 * Returns the EspaldaReplace requested
+	 *
+	 * @param string $name Name of EspaldaReplace
+	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws If the solicited EspaldaReplace not exist
+	 * @return EspaldaReplace
+	 */
+	public function getReplace ($name, $clone = false)
+	{
+		$name = strtolower($name);
+	
+		if (!$this->replaceExists($name)) {
+			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
+		}
+	
+		if ($clone) {
+			return clone $this->replaces[$name];
+		}else{
+			return $this->replaces[$name];
+		}
+	}
+	
+	/**
 	 * Add a instance of EspaldaDisplay
 	 *
 	 * @param EspaldaDisplay $display
@@ -92,45 +134,8 @@ class EspaldaScope
 	}
 	
 	/**
-	 * Add a instance of EspaldaLoops
-	 *
-	 * @param EspaldaLoop $loop
-	 * @throws EspaldaException if parameter is not a instance of EspaldaLoop
-	 * @return $this 
-	 */
-	public function addLoop ($loop)
-	{
-		if (!$loop instanceof EspaldaLoop) {
-			throw new EspaldaException(EspaldaException::NOT_ESPALDA_LOOP);
-		}
-		
-		$this->loops[strtolower($loop->getName())] = $loop;
-		
-		return $this;
-	}
-	
-	/**
-	 * Set value of value property of a EspaldaReplace
-	 * 
-	 * @param string $name Name of EspaldaReplace
-	 * @param string $value New value for value property
-	 * @throws EspaldaException if the solicited EspaldaReplace not to exist
-	 * @return $this
-	 */
-	public function setReplaceValue ($name, $value)
-	{	
-		if (!$this->replaceExists($name)) {
-			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
-		}
-
-		$this->replaces[strtolower($name)]->setValue($value);
-		
-		return $this;
-	}
-	
-	/**
 	 * Set value of value property of a EspaldaDisplay
-	 * 
+	 *
 	 * @param string $name Name of EspaldaDisplay
 	 * @param boolean $value New value for value property
 	 * @throws EspaldaException if solicited EspaldaLoop not to exist
@@ -148,31 +153,8 @@ class EspaldaScope
 	}
 	
 	/**
-	 * Returns the EspaldaReplace requested
-	 * 
-	 * @param string $name Name of EspaldaReplace
-	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
-	 * @throws If the solicited EspaldaReplace not to exist
-	 * @return EspaldaReplace
-	 */
-	public function getReplace ($name, $clone = false)
-	{
-		$name = strtolower($name);
-		
-		if (!$this->replaceExists($name)) {
-			throw new EspaldaException(EspaldaException::REPLACE_NOT_EXISTS);
-		}
-		
-		if ($clone) {
-			return clone $this->replaces[$name];
-		}else{
-			return $this->replaces[$name];
-		}
-	}
-	
-	/**
 	 * Return the EspaldaDisplay requested
-	 * 
+	 *
 	 * @param string $name Name of EspaldaReplace
 	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
 	 * @throws If the solicited EspaldaReplace not to exist
@@ -181,16 +163,34 @@ class EspaldaScope
 	public function getDisplay ($name, $clone = false)
 	{
 		$name = strtolower($name);
-		
+	
 		if (!$this->displayExists($name)) {
 			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
 		}
-		
+	
 		if ($clone) {
 			return clone $this->displays[$name];
 		}else{
 			return $this->displays[$name];
 		}
+	}
+	
+	/**
+	 * Add a instance of EspaldaLoops
+	 *
+	 * @param EspaldaLoop $loop
+	 * @throws EspaldaException if parameter is not a instance of EspaldaLoop
+	 * @return $this 
+	 */
+	public function addLoop ($loop)
+	{
+		if (!$loop instanceof EspaldaLoop) {
+			throw new EspaldaException(EspaldaException::NOT_ESPALDA_LOOP);
+		}
+		
+		$this->loops[strtolower($loop->getName())] = $loop;
+		
+		return $this;
 	}
 	
 	/**
@@ -214,5 +214,7 @@ class EspaldaScope
 			return $this->loops[$name];
 		}
 	}
+	
+	//TODO implements __clone
 }
 ?>

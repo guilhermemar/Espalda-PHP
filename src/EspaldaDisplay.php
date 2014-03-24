@@ -25,15 +25,15 @@ class EspaldaDisplay extends EspaldaEngine
 	 * @param [optional] string $source EspaldaDisplay scope
 	 * @param [optional] bool $value EspaldaDisplay value
 	 */
-	public function __construct($name, $source = null, $value = null)
+	public function __construct ($name, $source = null, $value = null)
 	{
 		$this->name = $name;
 		
-		if (!is_null($source)){
+		if ($source !== null){
 			$this->setSource($source);
 		}
 		
-		if (!is_null($value)) {
+		if ($value !== null) {
 			$this->setValue($value);
 		}
 	}
@@ -41,7 +41,7 @@ class EspaldaDisplay extends EspaldaEngine
 	/**
 	 * Set the EspaldaDisplay element name
 	 * 
-	 * @param string $name Nome da marcação
+	 * @param string $name element name
 	 */
 	public function setName ($name)
 	{
@@ -108,7 +108,8 @@ class EspaldaDisplay extends EspaldaEngine
 		}
 		
 		return $ns;
-
 	}
+	
+	//TODO implements __clone
 }
 ?>
