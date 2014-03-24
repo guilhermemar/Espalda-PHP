@@ -11,19 +11,19 @@ class EspaldaScope
 	 * Replaces of scope
 	 * @var EspaldaReplace[]
 	 */
-	protected $replaces = Array();
+	private $replaces = Array();
 	
 	/**
 	 * Displays of escope
 	 * @var EspaldaDisplay[]
 	 */
-	protected $displays = Array();
+	private $displays = Array();
 	
 	/**
 	 * Loops of escope
 	 * @var EspaldaLoop[]
 	 */
-	protected $loops = Array();
+	private $loops = Array();
 	
 	/**
 	 * Check if EspaldaReplace exists
@@ -116,6 +116,16 @@ class EspaldaScope
 	}
 	
 	/**
+	 * Returns all EspaldaReplace
+	 * 
+	 * @return EspaldaReplace[]
+	 */
+	public function getAllReplaces () {
+		//TODO test this method
+		return $this->replaces;
+	}
+	
+	/**
 	 * Add a instance of EspaldaDisplay
 	 *
 	 * @param EspaldaDisplay $display
@@ -176,6 +186,16 @@ class EspaldaScope
 	}
 	
 	/**
+	 * Returns all EspaldaDisplay
+	 *
+	 * @return EspaldaDisplay[]
+	 */
+	public function getAllDisplays () {
+		//TODO test this method
+		return $this->displays;
+	}
+	
+	/**
 	 * Add a instance of EspaldaLoops
 	 *
 	 * @param EspaldaLoop $loop
@@ -215,6 +235,38 @@ class EspaldaScope
 		}
 	}
 	
-	//TODO implements __clone
+	/**
+	 * Returns all EspaldaLoop
+	 *
+	 * @return EspaldaLoop[]
+	 */
+	public function getAllLoops () {
+		//TODO test this method
+		return $this->loops;
+	}
+	
+	public function __clone ()
+	{
+		//TODO test and document this method
+		
+		$cloneScope = new EspaldaScope();
+		
+		$c = count($this->replaces);
+		for ($i=0; $i<$c; ++$i) {
+			$cloneScope->addReplace($this->replaces[$i]);
+		}
+		
+		$c = count($this->displays);
+		for ($i=0; $i<$c; ++$i) {
+			$cloneScope->addDisplay($this->displays[$i]);
+		}
+		
+		$c = count($this->loops);
+		for ($i=0; $i<$c; ++$i) {
+			$cloneScope->addLoop($this->loops[$i]);
+		}
+		
+		return $cloneScope;
+	}
 }
 ?>

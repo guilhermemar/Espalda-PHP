@@ -15,7 +15,7 @@ class EspaldaLoop extends EspaldaEngine
 	/**
 	 * Actual scope of interactions list
 	 */
-	private $scope;
+	private $actual;
 	/**
 	 * Element Name
 	 * @var string
@@ -30,13 +30,15 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function __construct ($name, $source = null)
 	{
+		$this->interactions = Array();
+		
 		$this->name = $name;
 		
 		if($source !== null){
 			$this->setSource($source);
 		}
 		
-		$this->scopes = Array();
+		
 	}
 	
 	/**
@@ -45,13 +47,13 @@ class EspaldaLoop extends EspaldaEngine
 	 * 
 	 * @return EspaldaScope Actual scope of interations
 	 */
-	private function getScope ()
+	private function getActual ()
 	{
-		if ($this->scope === null) {
+		if ($this->actual === null) {
 			return $this->push();
 		}
 		
-		return $this->scope;
+		return $this->actual;
 	}
 	
 	/**
@@ -83,10 +85,10 @@ class EspaldaLoop extends EspaldaEngine
 		}
 		
 		
-		$this->scope = $scope;
+		$this->actual = $scope;
 		//$this->$interactions[] = $scope;
 		
-		return $this->scope;
+		return $this->actual;
 	}
 	
 	/**
@@ -119,7 +121,7 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function setReplaceValue ($name, $value)
 	{
-		$scope = $this->getScope();
+		$scope = $this->getActual();
 		$scope->setReplaceValue($name, $value);
 		
 		return $this;
@@ -135,7 +137,7 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function getReplace($name, $clone=false)
 	{
-		$scope = $this->getScope();
+		$scope = $this->getActual();
 		
 		return $scope->getReplace($name, $clone);
 	}

@@ -27,11 +27,9 @@ class EspaldaDisplay extends EspaldaEngine
 	 */
 	public function __construct ($name, $source = null, $value = null)
 	{
-		$this->name = $name;
+		parent::__construct($source);
 		
-		if ($source !== null){
-			$this->setSource($source);
-		}
+		$this->name = $name;
 		
 		if ($value !== null) {
 			$this->setValue($value);
@@ -79,6 +77,74 @@ class EspaldaDisplay extends EspaldaEngine
 	}
 	
 	/**
+	 * @see EspaldaScope::replaceExists($name)
+	 */
+	public function replaceExists ($name)
+	{
+		return $this->scope->replaceExists($name);
+	}
+	
+	/**
+	 * @see EspaldaScope::displauExists($name)
+	 */
+	public function displayExists ($name)
+	{
+		return $this->scope->displayExists($name);
+	}
+	
+	/**
+	 * @see EspaldaScope::loopExists
+	 */
+	public function loopExists ($name)
+	{
+		return $this->scope->loopExists($name);
+	}
+	
+	/**
+	 * @see EspaldaScope::setReplaceValue($name, $value)
+	 */
+	public function setReplaceValue ($name, $value)
+	{
+		$this->setReplaceValue($name, $value);
+	
+		return $this;
+	}
+	
+	/**
+	 * @see EspaldaScope::getReplace($name, $clone)
+	 */
+	public function getReplace ($name, $clone = false)
+	{
+		return $this->scope->getReplace($name, $clone);
+	}
+	
+	/**
+	 * @see EspaldaScope::setDisplayValue($name, $value)
+	 */
+	public function setDisplayValue ($name, $value)
+	{
+		$this->scope->setDisplayValue($name, $value);
+	
+		return $this;
+	}
+	
+	/**
+	 * @see EspaldaScope::getDisplay($name, $clone)
+	 */
+	public function getDisplay ($name, $clone = false)
+	{
+		return $this->scope->getDisplay($name, $clone);
+	}
+	
+	/**
+	 * @see EspaldaScope::getLoop($name,, $clone);
+	 */
+	public function getLoop ($name, $clone = false)
+	{
+		return $this->scope->getLoop($name, $clone);
+	}
+	
+	/**
 	 * Parse EspaldaDisplay scope with values of this class and return result
 	 * 
 	 * @return string parsed template
@@ -87,24 +153,27 @@ class EspaldaDisplay extends EspaldaEngine
 	{
 		$ns = $this->source;
 		
-		$keys = array_keys($this->replaces);
+		$replaces = $this->scope->getAllReplaces();
+		$keys = array_keys($replaces);
 		for ($i=0; $i < count($keys); $i++) {
-			$ns = str_replace("replace_{$keys[$i]}_replace", $this->replaces[$keys[$i]]->getOutput(), $ns);
+			$ns = str_replace("replace_{$keys[$i]}_replace", $replaces[$keys[$i]]->getOutput(), $ns);
 		}
 		
-		$keys = array_keys($this->displays);
+		$displays = $this->scope->getAllDisplays();
+		$keys = array_keys($displays);
 		for ($i=0; $i < count($keys); $i++) {
-			if($this->displays[$keys[$i]]->getValue()){
-				$display = $this->displays[$keys[$i]]->getOutput();
+			if($displays[$keys[$i]]->getValue()){
+				$displayValue = $displays[$keys[$i]]->getOutput();
 			}else{
-				$display = "";
+				$displayValue = "";
 			}
-			$ns = str_replace("display_{$keys[$i]}_display", $display, $ns);
+			$ns = str_replace("display_{$keys[$i]}_display", $displayValue, $ns);
 		}
-		
-		$keys = array_keys($this->loops);
+
+		$loops = $this->scope->getAllLoops();
+		$keys = array_keys($loops);
 		for ($i=0; $i < count($keys); $i++) {
-			$ns = str_replace("loop_{$keys[$i]}_loop", $this->loops[$keys[$i]]->getOutput(), $ns);
+			$ns = str_replace("loop_{$keys[$i]}_loop", $loops[$keys[$i]]->getOutput(), $ns);
 		}
 		
 		return $ns;

@@ -4,7 +4,7 @@
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-abstract class EspaldaEngine extends EspaldaScope
+abstract class EspaldaEngine
 {	
 	/**
 	 * Save the original template string
@@ -17,6 +17,23 @@ abstract class EspaldaEngine extends EspaldaScope
 	 * @var string
 	 */
 	protected $source;
+	
+	/**
+	 * Contém o escopo do source
+	 */
+	protected $scope;
+	
+	/**
+	 * construtora da classe
+	 */
+	public function __construct ($source)
+	{
+		$this->scope = new EspaldaScope();
+		
+		if ($source !== null){
+			$this->setSource($source);
+		}
+	}
 	
 	/**
 	 * Set a source and execute the pre-parse to load all espalda components
@@ -80,7 +97,7 @@ abstract class EspaldaEngine extends EspaldaScope
 		
 		if($name != ""){
 		
-			$this->replaces[$name] = new EspaldaReplace($name, $value);
+			$this->scope->addReplace(new EspaldaReplace($name, $value));
 			
 			$toSource = "replace_{$name}_replace";
 			
@@ -108,7 +125,7 @@ abstract class EspaldaEngine extends EspaldaScope
 		preg_match(EspaldaRules::$lastEndTag, $scope, $found);
 		$b = -strlen($found[0]);
 		
-		$this->regions[$name] = new EspaldaLoop($name, substr($scope, $a, $b));
+		$this->scope->addLoop(new EspaldaLoop($name, substr($scope, $a, $b)));
 		$this->source = str_replace($scope, "loop_".$name."_loop", $this->source);	
 	}
 	/**
@@ -130,11 +147,13 @@ abstract class EspaldaEngine extends EspaldaScope
 		preg_match(EspaldaRules::$lastEndTag, $scope, $found);
 		$b = -strlen($found[0]);
 		
-		$this->displays[$name] = new EspaldaDisplay($name, substr($scope, $a, $b));
+		$display = new EspaldaDisplay($name, substr($scope, $a, $b));
 		preg_match(EspaldaRules::$getValue, $display, $found);
 		$value = count($found) >= 3 ? trim($found[2]) : "";
 		$value = strtolower($value) == "false" ? false : $value;
-		$this->displays[$name]->setValue($value);
+		$display->setValue($value);
+		
+		$this->scope->addDisplay($display);
 		
 		$this->source = str_replace($scope, "display_".$name."_display", $this->source);	
 	}
