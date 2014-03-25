@@ -147,13 +147,13 @@ abstract class EspaldaEngine
 		preg_match(EspaldaRules::$lastEndTag, $scope, $found);
 		$b = -strlen($found[0]);
 		
-		$display = new EspaldaDisplay($name, substr($scope, $a, $b));
+		$espaldaDisplay = new EspaldaDisplay($name, substr($scope, $a, $b));
 		preg_match(EspaldaRules::$getValue, $display, $found);
 		$value = count($found) >= 3 ? trim($found[2]) : "";
 		$value = strtolower($value) == "false" ? false : $value;
-		$display->setValue($value);
+		$espaldaDisplay->setValue($value);
 		
-		$this->scope->addDisplay($display);
+		$this->scope->addDisplay($espaldaDisplay);
 		
 		$this->source = str_replace($scope, "display_".$name."_display", $this->source);	
 	}

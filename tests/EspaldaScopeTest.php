@@ -11,8 +11,6 @@ require_once "src/EspaldaLoop.php";
 
 class EspaldaScopeTest extends PHPUnit_Framework_TestCase
 {
-	public function test_ () {}
-	
 	private $scope;
 	
 	public function __construct ()
@@ -106,6 +104,45 @@ class EspaldaScopeTest extends PHPUnit_Framework_TestCase
     	$this->assertNotEquals('Item alterado', $topoItens2->getSource(), "Alterou o source em um objeto EspaldaLoop clonado");
     }
     
+    public function test_getAll ()
+    {
+    	$scope = new EspaldaScope();
+    	
+    	$scope->addReplace(new EspaldaReplace("replace1"));
+    	$scope->addReplace(new EspaldaReplace("replace2"));
+    	$scope->addReplace(new EspaldaReplace("replace3"));
+    	
+    	$scope->addDisplay(new EspaldaDisplay("display1"));
+    	$scope->addDisplay(new EspaldaDisplay("display2"));
+    	
+    	$scope->addLoop(new EspaldaLoop("loop1"));
+    	
+    	$replaces = $scope->getAllReplaces();
+    	$this->assertEquals(3, count($replaces), "Não retornou a quantidade certa de replaces");
+    	
+    	$displays = $scope->getAllDisplays();
+    	$this->assertEquals(2, count($displays), "Não retornou a quantidade certa de displays");
+    	
+    	$loops = $scope->getAllLoops();
+    	$this->assertEquals(1, count($loops), "Não retornou a quantidade certa de loops");
+    }
     
+    public function test_clone ()
+    {
+    	$scope = new EspaldaScope();
+    	 
+    	$scope->addReplace(new EspaldaReplace("replace1"));
+    	$scope->addReplace(new EspaldaReplace("replace2"));
+    	$scope->addReplace(new EspaldaReplace("replace3"));
+    	 
+    	$scope->addDisplay(new EspaldaDisplay("display1"));
+    	$scope->addDisplay(new EspaldaDisplay("display2"));
+    	 
+    	$scope->addLoop(new EspaldaLoop("loop1"));
+    	
+    	$scope2 = clone $scope;
+    	
+    	$this->assertEquals($scope2, $scope, "Não retornou um clone correto");
+    }
 }
 ?>

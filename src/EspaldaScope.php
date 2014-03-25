@@ -120,8 +120,8 @@ class EspaldaScope
 	 * 
 	 * @return EspaldaReplace[]
 	 */
-	public function getAllReplaces () {
-		//TODO test this method
+	public function getAllReplaces () 
+	{
 		return $this->replaces;
 	}
 	
@@ -190,8 +190,8 @@ class EspaldaScope
 	 *
 	 * @return EspaldaDisplay[]
 	 */
-	public function getAllDisplays () {
-		//TODO test this method
+	public function getAllDisplays () 
+	{
 		return $this->displays;
 	}
 	
@@ -240,30 +240,36 @@ class EspaldaScope
 	 *
 	 * @return EspaldaLoop[]
 	 */
-	public function getAllLoops () {
-		//TODO test this method
+	public function getAllLoops () 
+	{
 		return $this->loops;
 	}
 	
+	/**
+	 * Clone this class a new object EspaldaScope
+	 * 
+	 * @return EspaldaScope
+	 */
 	public function __clone ()
 	{
-		//TODO test and document this method
-		
 		$cloneScope = new EspaldaScope();
 		
-		$c = count($this->replaces);
+		$k = array_keys($this->replaces);
+		$c = count($k);
 		for ($i=0; $i<$c; ++$i) {
-			$cloneScope->addReplace($this->replaces[$i]);
+			$cloneScope->addReplace(clone $this->replaces[$k[$i]]);
 		}
 		
-		$c = count($this->displays);
+		$k = array_keys($this->displays);
+		$c = count($k);
 		for ($i=0; $i<$c; ++$i) {
-			$cloneScope->addDisplay($this->displays[$i]);
+			$cloneScope->addDisplay(clone $this->displays[$k[$i]]);
 		}
 		
-		$c = count($this->loops);
+		$k = array_keys($this->loops);
+		$c = count($k);
 		for ($i=0; $i<$c; ++$i) {
-			$cloneScope->addLoop($this->loops[$i]);
+			$cloneScope->addLoop(clone $this->loops[$k[$i]]);
 		}
 		
 		return $cloneScope;

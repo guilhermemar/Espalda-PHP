@@ -1,39 +1,39 @@
-// <?php
-// require_once "src/EspaldaReplace.php";
+<?php
+require_once "src/EspaldaReplace.php";
 
-// class EspaldaReplaceTest extends PHPUnit_Framework_TestCase
-// {
-//     public function test_setDefaultValues ()
-//     {
-//         $replace = new EspaldaReplace('name', 'value');
+class EspaldaReplaceTest extends PHPUnit_Framework_TestCase
+{
+    public function test_setDefaultValues ()
+    {
+        $replace = new EspaldaReplace('name', 'value');
 
-//         $this->assertEquals('name', $replace->getName());
-//         $this->assertEquals('value', $replace->getValue());
-//     }
+        $this->assertEquals('name', $replace->getName());
+        $this->assertEquals('value', $replace->getValue());
+    }
     
-//     public function test_setValues ()
-//     {
-//     	$replace = new EspaldaReplace('undefined');
+    public function test_setValues ()
+    {
+    	$replace = new EspaldaReplace('undefined');
     	
-//     	$replace->setName('name');
-//     	$replace->setValue('value');
+    	$replace->setName('name');
+    	$replace->setValue('value');
     
-//     	$this->assertEquals('name', $replace->getName());
-//     	$this->assertEquals('value', $replace->getValue());
-//     }
+    	$this->assertEquals('name', $replace->getName());
+    	$this->assertEquals('value', $replace->getValue());
+    }
     
-//     public function test_output ()
-//     {
-//     	$replace = new EspaldaReplace('name', 'a value added on create object');
+    public function test_output ()
+    {
+    	$replace = new EspaldaReplace('name', 'a value added on create object');
     	
-//     	$this->assertEquals('a value added on create object', $replace->getOutput());
-//     }
+    	$this->assertEquals('a value added on create object', $replace->getOutput());
+    }
     
-//     public function test_clone ()
-//     {
-//     	$replace = new EspaldaReplace('name', 'default value');
+    public function test_clone ()
+    {
+    	$replace = new EspaldaReplace('name', 'default value');
     	
-//     	$this->assertEquals($replace, clone $replace);
-//     }
-// }
-// ?>
+    	$this->assertEquals($replace, clone $replace);
+    }
+}
+?>

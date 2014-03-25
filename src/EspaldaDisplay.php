@@ -14,7 +14,7 @@ class EspaldaDisplay extends EspaldaEngine
 	
 	/**
 	 * Element value
-	 * @var string
+	 * @var boolean
 	 */
 	private $value = true;
 	
@@ -105,7 +105,7 @@ class EspaldaDisplay extends EspaldaEngine
 	 */
 	public function setReplaceValue ($name, $value)
 	{
-		$this->setReplaceValue($name, $value);
+		$this->scope->setReplaceValue($name, $value);
 	
 		return $this;
 	}
@@ -151,34 +151,47 @@ class EspaldaDisplay extends EspaldaEngine
 	 */
 	public function getOutput ()
 	{
-		$ns = $this->source;
-		
-		$replaces = $this->scope->getAllReplaces();
-		$keys = array_keys($replaces);
-		for ($i=0; $i < count($keys); $i++) {
-			$ns = str_replace("replace_{$keys[$i]}_replace", $replaces[$keys[$i]]->getOutput(), $ns);
-		}
-		
-		$displays = $this->scope->getAllDisplays();
-		$keys = array_keys($displays);
-		for ($i=0; $i < count($keys); $i++) {
-			if($displays[$keys[$i]]->getValue()){
-				$displayValue = $displays[$keys[$i]]->getOutput();
-			}else{
-				$displayValue = "";
+		if ($this->value) {
+			
+			$output = $this->source;
+			
+			$replaces = $this->scope->getAllReplaces();
+			$keys = array_keys($replaces);
+			for ($i=0; $i < count($keys); $i++) {
+				$output = str_replace("replace_{$keys[$i]}_replace", $replaces[$keys[$i]]->getOutput(), $output);
 			}
-			$ns = str_replace("display_{$keys[$i]}_display", $displayValue, $ns);
+			
+			$displays = $this->scope->getAllDisplays();
+			$keys = array_keys($displays);
+			for ($i=0; $i < count($keys); $i++) {
+				$output = str_replace("display_{$keys[$i]}_display", $displays[$keys[$i]]->getOutput(), $output);
+			}
+	
+			$loops = $this->scope->getAllLoops();
+			$keys = array_keys($loops);
+			for ($i=0; $i < count($keys); $i++) {
+				$output = str_replace("loop_{$keys[$i]}_loop", $loops[$keys[$i]]->getOutput(), $output);
+			}
+			
+			return $output;
+			
+		} else {
+			
+			return "";
+			
 		}
-
-		$loops = $this->scope->getAllLoops();
-		$keys = array_keys($loops);
-		for ($i=0; $i < count($keys); $i++) {
-			$ns = str_replace("loop_{$keys[$i]}_loop", $loops[$keys[$i]]->getOutput(), $ns);
-		}
-		
-		return $ns;
 	}
 	
-	//TODO implements __clone
+	//TODO added docummentation and tests
+	public function __clone ()
+	{
+		$cloned = new EspaldaDisplay($this->name);
+		$cloned->value = $this->value;
+		$cloned->originalSource = $this->originalSource;
+		$cloned->source = $this->source;
+		$cloned->scope = clone $this->scope;
+		
+		return $cloned;
+	}
 }
 ?>
