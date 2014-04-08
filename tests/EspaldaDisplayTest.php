@@ -115,5 +115,15 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     	$this->assertEquals("... something here	 content of display  more something here  ...", $display->getOutput(), "Classe replace retornada com a opção clone=true alterou o valor original");
     }
+    
+    public function test_clone ()
+    {
+    	$display = new EspaldaDisplay("original", "a default scope", false);
+    	$cloned = clone $display;
+    	
+    	$this->assertEquals("original", $cloned->getName(), "não clonou o nome");
+    	$this->assertEquals("a default scope", $cloned->getSource(), "não clonou o source");
+    	$this->assertEquals(false, $cloned->getValue(), "não clonou o value");	
+    }
 }
 ?>

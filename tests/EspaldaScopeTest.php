@@ -7,8 +7,6 @@ require_once "src/EspaldaDisplay.php";
 require_once "src/EspaldaRules.php";
 require_once "src/EspaldaLoop.php";
 
-//TODO Parece que se o teste dá erro ele não   mostra que deu erro no. Quando executa phing test
-
 class EspaldaScopeTest extends PHPUnit_Framework_TestCase
 {
 	private $scope;

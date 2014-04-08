@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+//TODO add annotations
+//TODO to create Unit tests
+
 /**
  * Represents and manipulate a EspaldaLoop element
  *
@@ -7,15 +11,11 @@
 class EspaldaLoop extends EspaldaEngine
 {
 	/**
-	 * Storage intaerations of element EspaldaEngine
+	 * Storage interations of element EspaldaEngine
 	 * @var EspaldaScope[]
 	 */
 	private $interactions;
 	
-	/**
-	 * Actual scope of interactions list
-	 */
-	private $actual;
 	/**
 	 * Element Name
 	 * @var string
@@ -30,39 +30,40 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function __construct ($name, $source = null)
 	{
-		$this->interactions = Array();
+		parent::_construct($source);
 		
 		$this->name = $name;
 		
-		if($source !== null){
-			$this->setSource($source);
-		}
-		
-		
+		$this->interactions = Array();
 	}
 	
 	/**
 	 * return actual scope of interactions,
 	 * if length of interactions is zero, it's will create a first interation
 	 * 
-	 * @return EspaldaScope Actual scope of interations
+	 * @return EspaldaScope current scope of interations
 	 */
-	private function getActual ()
+	private function current ()
 	{
 		if ($this->actual === null) {
 			return $this->push();
 		}
 		
-		return $this->actual;
+		return current($this->interactions);
 	}
 	
 	/**
-	 * Add another original scope in the end of scopes list
+	 * Add another original scope in the end of interations list
 	 * 
-	 * @return EspaldaScope actual of interations
+	 * @return EspaldaScope current of interations
 	 */
 	public function push ()
 	{
+		$this->interactions[] = clone $this->scope;
+		
+		return end($this->interactions);
+		   
+		/*
 		//TODO testar usando clone em EspaldaScope, no caso precisa saber se rola casting de classes
 		$scope = new EspaldaScope();
 		
@@ -87,8 +88,7 @@ class EspaldaLoop extends EspaldaEngine
 		
 		$this->actual = $scope;
 		//$this->$interactions[] = $scope;
-		
-		return $this->actual;
+		*/
 	}
 	
 	/**
@@ -102,7 +102,7 @@ class EspaldaLoop extends EspaldaEngine
 	}
 	
 	/**
-	 * Get the EspaldaEngine name
+	 * Get the EspaldaLoop name
 	 * 
 	 * @return string Name of element
 	 */
@@ -112,7 +112,7 @@ class EspaldaLoop extends EspaldaEngine
 	}
 	
 	/**
-	 * Set value of value property of EspaldaReplace in actual scope of interatctions
+	 * Set the EspaldaDisplay value for current interation
 	 * 
 	 * @param string $name Name of EspaldaReaplace
 	 * @param string $value Value of EspaldaReplace
@@ -121,25 +121,22 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function setReplaceValue ($name, $value)
 	{
-		$scope = $this->getActual();
-		$scope->setReplaceValue($name, $value);
+		$this->current()->setReplaceValue($name, $value);
 		
 		return $this;
 	}
 	
 	/**
-	 * Returns the EspaldaReplace requested
+	 * Returns the EspaldaReplace requested from current interation
 	 * 
-	 * @param string $name Name ov EspaldaReplace
+	 * @param string $name Name of EspaldaReplace
 	 * @param [optional] boolean @clone, if true return a clone of element, false (default) return a pointer
 	 * @throws if the solicited EspaldaReplace not exists
 	 * @return EspaldaReplace
 	 */
 	public function getReplace($name, $clone=false)
 	{
-		$scope = $this->getActual();
-		
-		return $scope->getReplace($name, $clone);
+		return $this->current()->getReplace($name, $clone);
 	}
 	
 	/**
@@ -152,11 +149,7 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function setDisplayValue ($name, $value)
 	{
-		if (!$this->displayExists($name)) {
-			throw new EspaldaException(EspaldaException::DISPLAY_NOT_EXISTS);
-		}
-	
-		$this->displays[strtolower($name)]->setValue($value);
+		$this->current()->setDisplayValue($name, $value);
 	
 		return $this;
 	}
@@ -170,20 +163,9 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function getDisplay($name, $clone=false)
 	{
-		if(count($this->linhas) == 0){
-			$this->push();
-		}
-		$line = count($this->linhas)-1;
-		
-		return $this->linhas[$line]->getDisplay($name, $clone);
-		
+		return $this->current()->getDisplay($name, $clone);
 	}
 	
-	public function getDisplayOriginal($name, $clone=false)
-	{
-		return parent::getDisplay($name, $clone);
-	
-	}
 	/**
 	 * Retorna uma instância de espaldaRegion da marcação solicitada
 	 *
@@ -193,14 +175,9 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function getRegion($name, $clone=false)
 	{
-		if(count($this->linhas) == 0){
-			$this->push();
-		}
-		
-		$line = count($this->linhas)-1;
-		
-		return $this->linhas[$line]->getRegion($name, $clone);
+		return $this->current()->getRegion($name, $clone);
 	}
+	
 	/**
 	 * Prepara o template com os valores informados
 	 *
@@ -208,35 +185,74 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function getOutput()
 	{
-		$nsf = "";
+		$output = "";
 			
-		for($j=0; $j < count($this->$interactions); $j++){	
-			$ns = $this->source;
+		for($i=0; $i < count($this->$interactions); $i++){
+			$current = $this->interactions[$i];
+			$currentSource = $this->source;
 			
-			$keys = array_keys($this->replaces);
-			for($i=0; $i < count($keys); $i++){
-				$ns = str_replace("replace_{$keys[$i]}_replace", $this->$interactions[$j]->getReplace($keys[$i])->getOutput(), $ns);
+			$replaces = $current->getAllReplaces();
+			$keys = array_keys($replaces);
+			for ($j=0; $j < count($keys); ++$j) {
+				$currentSource = str_replace("replace_{keys[$j]}_replace", $current->getReplace($keys[$j])->getOutput(), $currentSource);
+			}
+			
+			$displays = $current->getAllDisplays();
+			$keys = array_keys($displays);
+			for ($j=0; $j < count($keys); ++$j) {
+				$currentSource = str_replace("display_{$key[$j]}_display", $current->getDisplay($key[$j])->getOutput(), $currentSource);
+			}
+			
+			$loops = $current->getAllLoops();
+			$keys = array_keys($loops);
+			for($j=0; $j < count($keys); ++$j){
+				$currentSource = str_replace("region_{$keys[$j]}_region", $current->getRegion($keys[$j])->getOutput(), $ns);
+			}
+			
+			$output .= $currentSource;
+			
+			/*
+			$replaces = array_keys($this->scope->getAllReplaces());
+			for($j=0; $j < count($keys); $j++){
+				$ns = str_replace("replace_{$keys[$j]}_replace", $this->$interactions[$i]->getReplace($keys[$j])->getOutput(), $ns);
 			}
 			
 			$keys = array_keys($this->displays);
-			for($i=0; $i < count($keys); $i++){
-				if($this->linhas[$i]->getDisplay($keys[$i])->getValue()){
-					$display = $this->$interactions[$j]->getDisplay($keys[$i])->getOutput();
+			for($j=0; $j < count($keys); $j++){
+				if($this->linhas[$j]->getDisplay($keys[$i])->getValue()){
+					$display = $this->$interactions[$i]->getDisplay($keys[$j])->getOutput();
 				}else{
 					$display = "";
 				}
-				$ns = str_replace("display_{$keys[$i]}_display", $display, $ns);
+				$ns = str_replace("display_{$keys[$j]}_display", $display, $ns);
 			}
 			
 			$keys = array_keys($this->regions);
-			for($i=0; $i < count($keys); $i++){
-				$ns = str_replace("region_{$keys[$i]}_region", $this->$interactions[$j]->getRegion($keys[$i])->getOutput(), $ns);
+			for($j=0; $j < count($keys); $j++){
+				$ns = str_replace("region_{$keys[$j]}_region", $this->$interactions[$i]->getRegion($keys[$j])->getOutput(), $ns);
 			}
 		
-			$nsf .= $ns;
+			$output .= $ns;
+			*/
 		}
 		
-		return $nsf;
+		return $output;
+	}
+	
+	public function __clone ()
+	{
+		$cloned = new EspaldaLoop($this->name);
+		$cloned->originalSource = $this->originalSource;
+		$cloned->source = $this->source;
+		$cloned->scope = clone $this->scope;
+		
+		$cloned->interactions = array_map(function ($o) {
+			return clone $o;
+		}, $this->interactions);
+		
+		end($cloned->interactions);
+		
+		return $cloned;
 	}
 }
 ?>

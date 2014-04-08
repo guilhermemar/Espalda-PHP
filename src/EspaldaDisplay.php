@@ -1,5 +1,6 @@
 <?php
 /**
+ * DONE
  * Represents and manipulates a EspaldaDisplay element
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
@@ -8,12 +9,14 @@ class EspaldaDisplay extends EspaldaEngine
 {
 	/**
 	 * Element name
+	 * 
 	 * @var string
 	 */
 	private $name;
 	
 	/**
 	 * Element value
+	 * 
 	 * @var boolean
 	 */
 	private $value = true;
@@ -182,7 +185,11 @@ class EspaldaDisplay extends EspaldaEngine
 		}
 	}
 	
-	//TODO added docummentation and tests
+	/**
+	 * Create a EspaldaDisplay with values equals the this class
+	 * 
+	 * @return EspaldaDisplay
+	 */
 	public function __clone ()
 	{
 		$cloned = new EspaldaDisplay($this->name);

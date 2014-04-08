@@ -1,5 +1,6 @@
 <?php
 /**
+ * DONE
  * Exceptions for Espalda project
  *
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
@@ -57,5 +58,4 @@ class EspaldaException extends Exception
 			return self::$exceptions_description[self::UNDEFINED_ESPALDA_EXCEPTION];
 		}
 	}
-	
 }

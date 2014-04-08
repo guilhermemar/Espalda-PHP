@@ -1,32 +1,36 @@
 <?php
 /**
+ * DONE
  * This object storage a link for all espalda elements included in the content of a espalda wrap element with scope
  * 
- * @author Mar, Guilherme
- * 
+ * @author Mar, Guilherme 
  */
 class EspaldaScope
 {
 	/**
 	 * Replaces of scope
+	 * 
 	 * @var EspaldaReplace[]
 	 */
 	private $replaces = Array();
 	
 	/**
 	 * Displays of escope
+	 * 
 	 * @var EspaldaDisplay[]
 	 */
 	private $displays = Array();
 	
 	/**
 	 * Loops of escope
+	 * 
 	 * @var EspaldaLoop[]
 	 */
 	private $loops = Array();
 	
 	/**
 	 * Check if EspaldaReplace exists
+	 * 
 	 * @param string $name Name of EspaldaReplace for check
 	 * @return boolean
 	 */
@@ -36,7 +40,8 @@ class EspaldaScope
 	}
 	
 	/**
-	 * Check if EspaldaDisplay exists 
+	 * Check if EspaldaDisplay exists
+	 *  
 	 * @param string $name Name of EspaldaDisplay for check
 	 * @return boolean
 	 */
@@ -47,6 +52,7 @@ class EspaldaScope
 	
 	/**
 	 * Check if EspaldaLoop exists
+	 * 
 	 * @param string $name Name of EspaldaLoop to check
 	 * @return boolean
 	 */
