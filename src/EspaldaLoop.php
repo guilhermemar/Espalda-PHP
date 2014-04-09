@@ -194,7 +194,7 @@ class EspaldaLoop extends EspaldaEngine
 	{
 		$output = "";
 			
-		for($i=0; $i < count($this->$interactions); $i++){
+		for($i=0; $i < count($this->interactions); $i++){
 			$current = $this->interactions[$i];
 			$currentSource = $this->source;
 			
