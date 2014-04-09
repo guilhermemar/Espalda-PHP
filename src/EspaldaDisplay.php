@@ -88,7 +88,7 @@ class EspaldaDisplay extends EspaldaEngine
 	}
 	
 	/**
-	 * @see EspaldaScope::displauExists($name)
+	 * @see EspaldaScope::displayExists
 	 */
 	public function displayExists ($name)
 	{

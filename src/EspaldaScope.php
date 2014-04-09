@@ -40,28 +40,6 @@ class EspaldaScope
 	}
 	
 	/**
-	 * Check if EspaldaDisplay exists
-	 *  
-	 * @param string $name Name of EspaldaDisplay for check
-	 * @return boolean
-	 */
-	public function displayExists ($name)
-	{
-		return array_key_exists(strtolower($name), $this->displays) ? true : false;
-	}
-	
-	/**
-	 * Check if EspaldaLoop exists
-	 * 
-	 * @param string $name Name of EspaldaLoop to check
-	 * @return boolean
-	 */
-	public function loopExists ($name)
-	{
-		return array_key_exists(strtolower($name), $this->loops) ? true : false;
-	}
-	
-	/**
 	 * Add a instance of EspaldaReplace
 	 *
 	 * @param EspaldaReplace $replace
@@ -129,6 +107,17 @@ class EspaldaScope
 	public function getAllReplaces () 
 	{
 		return $this->replaces;
+	}
+	
+	/**
+	 * Check if EspaldaDisplay exists
+	 *
+	 * @param string $name Name of EspaldaDisplay for check
+	 * @return boolean
+	 */
+	public function displayExists ($name)
+	{
+		return array_key_exists(strtolower($name), $this->displays) ? true : false;
 	}
 	
 	/**
@@ -202,6 +191,17 @@ class EspaldaScope
 	}
 	
 	/**
+	 * Check if EspaldaLoop exists
+	 *
+	 * @param string $name Name of EspaldaLoop to check
+	 * @return boolean
+	 */
+	public function loopExists ($name)
+	{
+		return array_key_exists(strtolower($name), $this->loops) ? true : false;
+	}
+	
+	/**
 	 * Add a instance of EspaldaLoops
 	 *
 	 * @param EspaldaLoop $loop
@@ -224,6 +224,7 @@ class EspaldaScope
 	 * 
 	 * @param string $name Name of EspaldaLoop
 	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws If the solicited EspaldaLoop not to exist
 	 * @return EspaldaLoop
 	 */
 	public function getLoop ($name, $clone = false)
