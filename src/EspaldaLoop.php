@@ -64,7 +64,7 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	private function current ()
 	{
-		if ($this->actual === null) {
+		if (!count($this->interactions)) {
 			return $this->push();
 		}
 		
@@ -79,7 +79,7 @@ class EspaldaLoop extends EspaldaEngine
 	public function push ()
 	{
 		$this->interactions[] = clone $this->scope;
-		
+
 		return end($this->interactions);
 	}
 	
@@ -193,29 +193,30 @@ class EspaldaLoop extends EspaldaEngine
 	public function getOutput()
 	{
 		$output = "";
-			
+
+
 		for($i=0; $i < count($this->interactions); $i++){
 			$current = $this->interactions[$i];
 			$currentSource = $this->source;
-			
+
 			$replaces = $current->getAllReplaces();
 			$keys = array_keys($replaces);
 			for ($j=0; $j < count($keys); ++$j) {
-				$currentSource = str_replace("replace_{keys[$j]}_replace", $current->getReplace($keys[$j])->getOutput(), $currentSource);
+				$currentSource = str_replace("replace_{$keys[$j]}_replace", $current->getReplace($keys[$j])->getOutput(), $currentSource);
 			}
-			
+
 			$displays = $current->getAllDisplays();
 			$keys = array_keys($displays);
 			for ($j=0; $j < count($keys); ++$j) {
 				$currentSource = str_replace("display_{$key[$j]}_display", $current->getDisplay($key[$j])->getOutput(), $currentSource);
 			}
-			
+
 			$loops = $current->getAllLoops();
 			$keys = array_keys($loops);
 			for($j=0; $j < count($keys); ++$j){
 				$currentSource = str_replace("region_{$keys[$j]}_region", $current->getRegion($keys[$j])->getOutput(), $ns);
 			}
-			
+
 			$output .= $currentSource;
 		}
 		

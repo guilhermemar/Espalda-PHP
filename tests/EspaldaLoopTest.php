@@ -7,6 +7,7 @@ require_once "src/EspaldaLoop.php";
 
 class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 {
+	/*
 	public function test_verySimpleTemplate ()
 	{
 		$loop = new EspaldaLoop('test1', "escopo ");
@@ -33,15 +34,24 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 		
 		$this->assertEquals("escopo", $loop->getOutput(), "não retornou o valor esperado");
 	}
-	
+	*/
 	public function test_replaces ()
 	{
-		$source = "valor adicionado é <espalda type='replace' name='troca'> !";
+		$source = 'valor adicionado é <espalda type="replace" name="troca"> !';
 		
 		$loop = new EspaldaLoop('test', $source);
 		$loop->setReplaceValue('troca', 'joão');
 		
-		$this->assertEquals("valor adicionado é joão !", $loop->getOutput());
+		//$this->assertEquals("valor adicionado é joão !", $loop->getOutput());
+		
+		//$replace = $loop->getReplace("troca");
+		//$replace->setValue("Alberto");
+		//$this->assertEquals("valor adicionado é Alberto !", $loop->getOutput());
+		
+		$loop->push();
+		$loop->setReplaceValue('troca', "giovana");
+		$this->assertEquals("valor adicionado é joão !valor adicionado é giovana !", $loop->getOutput());
+		
 	}
 	
 }
