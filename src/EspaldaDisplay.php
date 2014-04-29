@@ -190,7 +190,7 @@ class EspaldaDisplay extends EspaldaEngine
 	 * 
 	 * @return EspaldaDisplay
 	 */
-	public function __clone ()
+	public function getClone ()
 	{
 		$cloned = new EspaldaDisplay($this->name);
 		$cloned->value = $this->value;

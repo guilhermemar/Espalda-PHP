@@ -257,29 +257,30 @@ class EspaldaScope
 	 * 
 	 * @return EspaldaScope
 	 */
-	public function __clone ()
-	{
+	public function getClone ()
+	{	
 		$cloneScope = new EspaldaScope();
-		
+	
 		$k = array_keys($this->replaces);
 		$c = count($k);
 		for ($i=0; $i<$c; ++$i) {
-			$cloneScope->addReplace(clone $this->replaces[$k[$i]]);
+			$cloneScope->addReplace($this->replaces[$k[$i]]->getClone());
 		}
-		
+	
 		$k = array_keys($this->displays);
 		$c = count($k);
 		for ($i=0; $i<$c; ++$i) {
-			$cloneScope->addDisplay(clone $this->displays[$k[$i]]);
+			$cloneScope->addDisplay($this->displays[$k[$i]]->getClone());
 		}
-		
+	
 		$k = array_keys($this->loops);
 		$c = count($k);
 		for ($i=0; $i<$c; ++$i) {
-			$cloneScope->addLoop(clone $this->loops[$k[$i]]);
+			$cloneScope->addLoop($this->loops[$k[$i]]->getClone());
 		}
-		
+	
 		return $cloneScope;
 	}
+	
 }
 ?>

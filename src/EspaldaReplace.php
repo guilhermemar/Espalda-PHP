@@ -91,7 +91,7 @@ class EspaldaReplace
 	 * 
 	 * @return cloned EspaldaReplace
 	 */
-	public function __clone ()
+	public function getClone ()
 	{
 		return new EspaldaReplace($this->name, $this->value);
 	}

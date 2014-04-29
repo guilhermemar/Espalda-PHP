@@ -78,8 +78,7 @@ class EspaldaLoop extends EspaldaEngine
 	 */
 	public function push ()
 	{
-		$this->interactions[] = clone $this->scope;
-
+		$this->interactions[] = $this->scope->getClone();
 		return end($this->interactions);
 	}
 	
@@ -228,7 +227,7 @@ class EspaldaLoop extends EspaldaEngine
 	 *
 	 * @return EspaldaLoop
 	 */
-	public function __clone ()
+	public function getClone ()
 	{
 		$cloned = new EspaldaLoop($this->name);
 		$cloned->originalSource = $this->originalSource;
