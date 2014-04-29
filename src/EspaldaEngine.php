@@ -4,6 +4,9 @@
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
+
+//TODO looping infinito quando não tem name, pensar na opção de colocar direto no source com o value informado
+
 abstract class EspaldaEngine
 {	
 	/**
@@ -136,7 +139,7 @@ abstract class EspaldaEngine
 	{
 		preg_match(EspaldaRules::$getName, $display, $found);
 		$name = count($found) >= 3 ? trim($found[2]) : "";
-
+	
 		if(empty($name)){
 			return;
 		}

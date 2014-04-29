@@ -3,16 +3,16 @@ require_once "src/EspaldaReplace.php";
 
 class EspaldaReplaceTest extends PHPUnit_Framework_TestCase
 {
-    public function test_setDefaultValues ()
-    {
-        $replace = new EspaldaReplace('name', 'value');
+	public function test_setDefaultValues ()
+	{
+		$replace = new EspaldaReplace('name', 'value');
 
-        $this->assertEquals('name', $replace->getName());
-        $this->assertEquals('value', $replace->getValue());
-    }
-    
-    public function test_setValues ()
-    {
+		$this->assertEquals('name', $replace->getName());
+		$this->assertEquals('value', $replace->getValue());
+	}
+
+	public function test_setValues ()
+	{
     	$replace = new EspaldaReplace('undefined');
     	
     	$replace->setName('name');

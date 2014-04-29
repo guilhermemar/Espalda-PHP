@@ -1,8 +1,6 @@
 <?php
-
-//TODO to create Unit tests
-
 /**
+ * DONE
  * Represents and manipulate a EspaldaLoop element
  *
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
@@ -207,13 +205,13 @@ class EspaldaLoop extends EspaldaEngine
 			$displays = $current->getAllDisplays();
 			$keys = array_keys($displays);
 			for ($j=0; $j < count($keys); ++$j) {
-				$currentSource = str_replace("display_{$key[$j]}_display", $current->getDisplay($key[$j])->getOutput(), $currentSource);
+				$currentSource = str_replace("display_{$keys[$j]}_display", $current->getDisplay($keys[$j])->getOutput(), $currentSource);
 			}
 
 			$loops = $current->getAllLoops();
 			$keys = array_keys($loops);
 			for($j=0; $j < count($keys); ++$j){
-				$currentSource = str_replace("region_{$keys[$j]}_region", $current->getRegion($keys[$j])->getOutput(), $ns);
+				$currentSource = str_replace("loop_{$keys[$j]}_loop", $current->getLoop($keys[$j])->getOutput(), $currentSource);
 			}
 
 			$output .= $currentSource;
