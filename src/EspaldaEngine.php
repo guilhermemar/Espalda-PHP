@@ -1,164 +1,249 @@
 <?php
 /**
- * Métodos comuns as principais classes da biblioteca
+ * This class parse and extract Espalda's elements from the template
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
 
 //TODO looping infinito quando não tem name, pensar na opção de colocar direto no source com o value informado
 
-abstract class EspaldaEngine
-{	
+abstract class EspaldaEngine extends EspaldaRules
+{
 	/**
-	 * Save the original template string
+	 * Saves the original template with the Espalda's tag
 	 * @var string
 	 */
 	protected $originalSource;
-	
+
 	/**
-	 * Contém o template pré parseado
+	 * Contains the template pre-parsed to receive the real content
 	 * @var string
 	 */
 	protected $source;
-	
+
 	/**
-	 * Contém o escopo do source
+	 * Scope with all elements obtained from the template
+	 * @var EspaldaScope
 	 */
 	protected $scope;
-	
+
 	/**
-	 * construtora da classe
+	 * construct
+	 * 
+	 * @param [optional] string $source Template to be parsed
 	 */
 	public function __construct ($source)
 	{
 		$this->scope = new EspaldaScope();
-		
-		if ($source !== null){
+
+		if (!is_null($source)){
 			$this->setSource($source);
 		}
 	}
-	
+
 	/**
-	 * Set a source and execute the pre-parse to load all espalda components
+	 * Set the source and executes the pre-parse to load all Espalda's components
 	 *
-	 * @param string $source Fonte do template com as marcações espalda
+	 * @param string $source Template to be parsed
 	 */
 	public function setSource($source)
 	{
 		$this->originalSource = $this->source = $source;
 		$this->prepareSource();
 	}
+
 	/**
-	 * Execute a pre-parse in the source
+	 * Execute a pre-parse in the templace source 
 	 */
+
 	protected function prepareSource()
 	{
-		/*
-		 * Procura por marcações entigas e as converte para as novas marcações(em formato de tag HTML)
-		 */
-		$this->searchOldLoops();
-		$this->searchOldReplaces();
-		/*
-		 * Percorre o template procurando as marcaçẽos espalda
-		 */
-		while(preg_match(EspaldaRules::$firstTag, $this->source, $found)){
-			/*
-			 * procura dentro da marcação encontrada o tipo de marcação
-			 */
-			preg_match(EspaldaRules::$getType, $found[0], $found2);
-			$type = strtolower(trim($found2[2]));
+		//$this->parseInlineReplaces();
+		//$this->searchOldLoops();
+		
+		
+		while (preg_match($this->regex_espaldaTag, $this->source, $found, PREG_OFFSET_CAPTURE)) {
 			
-			switch($type){
-			case "loop" :
-				$this->extractLoop($found[0]);
-				break;
-				
-			case "display" :
-				$this->extractDisplay($found[0]);
-				break;
-					
-			case "replace" :
-			default :
-				$this->extractReplace($found[0]);
-				break;	
+			$properties = Array();
+			
+			if (key_exists('type', $found)) {
+				$properties['type'] = strtolower(trim($found['type'][0]));
+			} else {
+				throw new EspaldaException(EspaldaException::TYPE_NOT_FOUND);
 			}
+			
+			if (key_exists('name', $found)) {
+				$properties['name'] = strtolower(trim($found['name'][0]));
+			} else {
+				throw new EspaldaException(EspaldaException::NAME_NOT_FOUND);
+			}
+			
+			if (key_exists('value', $found)) {
+				$properties['value'] = $found['value'][0];
+			}
+			
+			$properties['position'] = $found[0][1];
+			
+			switch($properties['type']) {
+			case "replace" :
+				$this->extractReplace($found[0][0], $properties);
+				break;
+			case "display" :
+				$this->extractDisplay($found[0][0], $properties);
+				break;
+			case "loop" :
+				$this->extractLoop($found[0][0], $properties);
+				break;
+
+			default :
+				throw new EspaldaException(EspaldaException::INVALID_TYPE);
+			}
+
 		}
+		
 	}
-	/**
-	 * Busca e registra o escopo da replace dentro do template
-	 * @param string $replace A tag espalda do replace desejada
-	 */
-	private function extractReplace($replace)
-	{
-		preg_match(EspaldaRules::$getName, $replace, $found);
-		$name = count($found) >= 3 ? trim($found[2]) : "";
-		
-		preg_match(EspaldaRules::$getValue, $replace, $found);
-		$value = count($found) >= 3 ? $found[2] : "";
-		
-		$toSource = "";
-		
-		if($name != ""){
-		
-			$this->scope->addReplace(new EspaldaReplace($name, $value));
+	
+	private function extractReplace ($tag, $properties)
+	{	
+		$replace = new EspaldaReplace($properties['name']);
+	
+		if (key_exists("value", $properties)) {
 			
-			$toSource = "replace_{$name}_replace";
+			$replace->setValue($properties['value']);
 			
 		}
+	
+		$this->scope->addReplace($replace);
 		
-		$this->source = str_replace($replace, $toSource, $this->source);
+		$this->source = preg_replace('/'.preg_quote($tag, '/').'/', "espalda:replace:{$properties['name']}", $this->source);
+	}
+
+	private function extractDisplay($tag, $properties)
+	{
+		$sources = $this->takeTagScope($tag, $properties['position']);
+
+		$display = new EspaldaDisplay($properties['name']);
+		$display->setSource($sources[1]);
+		
+		if (key_exists("value", $properties)) {
+
+			$display->setValue($properties['value']);
+
+		} else {
+
+			$display->setValue(false);
+			
+		}
+
+		$this->scope->addDisplay($display);
+
+		$this->source = preg_replace('/'.preg_quote($sources[0], '/').'/', "espalda:display:{$properties['name']}", $this->source);
 
 	}
-	/**
-	 * Busca e registra o escopo da regiao dentro do template
-	 * @param string $region A tag espalda inicial da regiao desejada
-	 */
-	private function extractLoop($loop)
-	{
-		preg_match(EspaldaRules::$getName, $loop, $found);
-		$name = count($found) >= 3 ? trim($found[2]) : "";
-		
-		if(empty($name)){
-			return;
-		}
-		
-		$scope = $this->setScope($loop);
-		
-		$a = strlen($loop);
-		preg_match(EspaldaRules::$lastEndTag, $scope, $found);
-		$b = -strlen($found[0]);
-		
-		$this->scope->addLoop(new EspaldaLoop($name, substr($scope, $a, $b)));
-		$this->source = str_replace($scope, "loop_".$name."_loop", $this->source);	
-	}
-	/**
-	 * Busca e registra o escopo da regiao dentro do template
-	 * @param string $display A tag espalda inicial do display desejada
-	 */
-	private function extractDisplay($display)
-	{
-		preg_match(EspaldaRules::$getName, $display, $found);
-		$name = count($found) >= 3 ? trim($found[2]) : "";
 	
-		if(empty($name)){
-			return;
+	private function extractLoop($tag, $properties)
+	{
+		$sources = $this->takeTagScope($tag, $properties['position']);
+	
+		$loop = new EspaldaLoop($properties['name']);
+		$loop->setSource($sources[1]);
+	
+		$this->scope->addLoop($loop);
+	
+		$this->source = preg_replace('/'.preg_quote($sources[0], '/').'/', "espalda:loop:{$properties['name']}", $this->source);
+	
+	}
+	
+	private function takeTagScope ($tag, $startPos=0)
+	{
+		$internalTags = 0;
+		$startPosTag = null;
+		$startPosScope = null;
+		$endPosTag = null;
+		$endPosScope = null;
+
+		while (preg_match($this->regex_internalEstaldaTag, $this->source, $found, PREG_OFFSET_CAPTURE, $startPos)) {
+
+			if ($found['begin'][1] !== -1) {
+
+				if ($found['type'][0] != 'replace') {
+
+					if ($internalTags === 0) {
+						
+						if ($found[0][0] != $tag) {
+							
+							throw new EspaldaException(EspaldaException::PARSER_ERROR);
+							
+						}
+
+						$startPosTag = $found[0][1];
+						$startPosScope = $found[0][1] + strlen($found[0][0]);
+
+					}
+
+					++$internalTags;
+				}
+
+			} elseif ($found['end'][1] !== -1) {
+
+				--$internalTags;
+
+				if ($internalTags === 0) {
+
+					$endPosTag = $found[0][1] + strlen($found[0][0]);
+					$endPosScope = $found[0][1];
+
+				}
+
+			} else {
+
+				throw new EspaldaException(EspaldaException::SINTAXE_ERROR);
+
+			}
+
+			if ($internalTags === 0) {
+
+				break;
+
+			} else {
+
+				$startPos = $found[0][1] + strlen($found[0][0]);
+
+			}
+
 		}
+
+		$scope = Array();
+		$scope[] = substr($this->source, $startPosTag, ($endPosTag - $startPosTag));
+		$scope[] = substr($this->source, $startPosScope, ($endPosScope - $startPosScope));
+
+		return $scope;
+	}
+
+	private function makeEspaldaTag ($properties)
+	{
+		$tag = '<espalda ';
+		$tag .= key_exists('type', $properties) ? 'type="' . $properties['type'] . '" ' : '';
+		$tag .= key_exists('name', $properties) ? 'name="' . $properties['name'] . '" ' : '';
+		$tag .= key_exists('value', $properties) ? 'value="' . $properties['value'] . '" ' : '';
+		$tag .= '>';
 		
-		$scope = $this->setScope($display);
+		return $tag;
+	}
+	
+	/**
+	 * Busca por marcações de replaces espalda antigas e converte para a nova versão
+	 */
+	private function parseInlineReplaces()
+	{
 		
-		$a = strlen($display);
-		preg_match(EspaldaRules::$lastEndTag, $scope, $found);
-		$b = -strlen($found[0]);
-		
-		$espaldaDisplay = new EspaldaDisplay($name, substr($scope, $a, $b));
-		preg_match(EspaldaRules::$getValue, $display, $found);
-		$value = count($found) >= 3 ? trim($found[2]) : "";
-		$value = strtolower($value) == "false" ? false : $value;
-		$espaldaDisplay->setValue($value);
-		
-		$this->scope->addDisplay($espaldaDisplay);
-		
-		$this->source = str_replace($scope, "display_".$name."_display", $this->source);	
+		while(preg_match($this->regex_inlineReplace, $this->source, $found)){
+
+			$found['type'] = 'replace';
+
+			$this->source = str_replace($found[0], $this->makeEspaldaTag($found), $this->source);
+		}
+
 	}
 	
 	/**
@@ -169,154 +254,12 @@ abstract class EspaldaEngine
 		while(preg_match(EspaldaRules::$oldLoop, $this->source, $found)){
 			$tag = str_replace("[#{$found[1]}#", "<espalda type=\"loop\" name=\"{$found[1]}\">", $found[0]);
 			$tag = str_replace("#]", "</espalda>", $tag);
-			
-			$this->source = str_replace($found[0], $tag, $this->source);					
-		}	
-		
-	}
-	/**
-	 * Busca por marcações de replaces espalda antigas e converte para a nova versão
-	 */
-	private function searchOldReplaces()
-	{
-		while(preg_match(EspaldaRules::$oldReplace, $this->source, $found)){
-			$tag = str_replace("#{$found[1]}#", "<espalda type=\"replace\" name=\"{$found[1]}\" />", $found[0]);
-			
-			$this->source = str_replace($found[0], $tag, $this->source);					
-		}	
-	}
-	/**
-	 * Busca o escopo da marcação solicitada
-	 * Também busca e prepara as marcações espalda existentes dentro deste escopo
-	 * 
-	 * @param string $init Tag espalda da marcação solicitada
-	 * @return string Escopo completo
-	 */
-	private function setScope($init){
-		/*
-		 * Pega a posição inicial ddo escopo dentro do template
-		 */
-		$inicio = strpos($this->source, $init);
-		$a = $inicio + strlen($init);
-		
-		$cA = Array();
-		$cB = Array();
-		/*
-		 * separa o conteúdo pós marcação no template
-		 */
-		$source2 = $source = explode($init, $this->source);
-		/*
-		 * Looping para procura a marcação espalda final deste escopo.
-		 */
-		do{
-			/*
-			 * Looping para procurar uma marcação espalda inicial, que contenha escopo
-			 */
-			do{
-				/*
-				 * procurando próxima marcação espalda dentro do escopo
-				 */
-				preg_match(EspaldaRules::$firstTag, $source[1], $found);
 				
-				if(count($found) > 0){
-					/*
-					 * obtem o tipo da marcação encontrada
-					 */
-					preg_match(EspaldaRules::$getType, $found[0], $found1a);
-					
-					switch($found1a[2]){
-					case "display" :
-					case "region"  :
-						/*
-						 * se for alguma das duas, marca encerramento do while e segue para a próxima etapa que é tratar esta marcação encontrada
-						 */
-						//$vai = false;
-						break 2;
-					default :
-						/*
-						 * faz novo explode da fonte para poder procurar a próxima marcação espalda
-						 */
-						$source = explode($found[0], $source[1]);
-						break;
-					}
-				}else{
-					/*
-					 * Nâo encontrada nenhuma marcação, encerra o while
-					 */
-					$found[0] = "";
-					//$vai = false;
-					break;
-				}
-			}while(1);
-			/*
-			 * pegando a proxima marcação de fechamento do espalda
-			 */
-			preg_match(EspaldaRules::$endTag, $source2[1], $found2);
-			if(count($found2) == 0){
-				$found2[0] = "";
-			}
-			/*
-			 * obtendo a posição da tag inicial encontrada, dentro do trecho atual de procura no template
-			 */
-			if (empty($found[0])) {
-				$pa = strlen($this->source);
-			} else {
-				$pa = strpos($this->source, $found[0],  $a);
-			}
-			/*
-			 * obtendo a posição da tag final encontrada, dentro do trecho atual de procura no template
-			 */
-			if (empty($found2[0])) {
-				$pb = strlen($this->source);
-			} else {
-				$pb = strpos($this->source, $found2[0], $a);
-			}
-			/*
-			 * Incrementa a quantidade de marcações iniciais ($found) e finais ($found2) encontradas
-			 */
-			$cA[$pa] = $found[0];
-			$cB[$pb] = $found2[0];
-			
-			if($pa > $pb){
-				/*
-				 * Valida a posição no texto das marcações espalda inicial e final que estão atualmente sendo manipuladas.
-				 * se a posição da tag inicial for anterior a da final verifica a quantidade de cada marcação encontrada até agora
-				 * Se a quantidade de marcações de fechamento de marcação for maior ou igual a de aberturas
-				 * significa que encontrou a tag que encerra o escopo atual e então encerra o for.
-				 */
-				if(count($cB) >= count($cA)){
-					//$prosegue = false;
-					break;
-				}
-			}
-			/*
-			 * Pegando o novo trecho do template que se irá trabalhar procurando as marcações espalda
-			 */
-			if($pa > $pb){
-				/*
-				 * se a inicial vier antes no template, a busca partirá desta marcação
-				 */
-				$a      = $pb + strlen($found2[0]);
-				$source2 = $source = explode($found2[0], $source2[1], 2);
-			}else{
-				/*
-				 * caso contrário a busca partirá da marcação de fechamento encontrada
-				 */
-				$a      = $pa + strlen($found[0]);
-				$source2 = $source = explode($found[0], $source[1], 2);
-			}
-									
-		}while(1);
-		/*
-		 * encontra a posição final do escopo no template
-		 */
-		$fim = ( $pb+strlen($found2[0]) ) - $inicio;
-		/*
-		 * Retorna o trecho do template referente ao escopo
-		 * incluindo as marcações de inicio e fim
-		 */
-		return substr($this->source, $inicio, $fim);
+			$this->source = str_replace($found[0], $tag, $this->source);
+		}
+	
 	}
+	
 	/**
 	 * Retorna o fonte original do template
 	 * @return string Fonte do template

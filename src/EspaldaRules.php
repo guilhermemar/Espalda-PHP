@@ -7,6 +7,24 @@
 abstract class EspaldaRules
 {
 	/**
+	 * busca replace inline
+	 * @var regex
+	 */
+	protected $regex_inlineReplace   = '/\[(?<tag>espalda)(:(?<type>replace))?( |\n)*\(( |\n)*(?<name>[a-zA-Z][a-zA-Z1-9_-]*)(:(?<value>.*?))?( |\n)*\)\]/i';
+	
+	
+	/**
+	 * busca uma tag espalda
+	 */
+	protected $regex_espaldaTag = '/<(espalda)((type[ ]*=[ ]*"(?<type>display|replace|loop)")|(name[ ]*=[ ]*"(?<name>[a-z][a-z0-9_-]*)")|(value[ ]*=[ ]*"(?<value>[a-z0-9_-]*)")|[ \t\r\n\v\f])*>/i';
+	
+	
+	
+	protected $regex_internalEstaldaTag = '/<(?<begin>espalda)([ \t\r\n\v\f]|.)*?type[ ]*=[ ]*"(?<type>([ a-z0-9_-])+)"([ \t\r\n\v\f]|.)*?>|<(?<end>\/espalda)[ \t\r\n\v\f]*>/i';
+	
+	
+	
+	/**
 	 * REGEX for old tags of 'region' type
 	 * @var string
 	 * @static
@@ -18,8 +36,7 @@ abstract class EspaldaRules
 	 * @var string
 	 * @static
 	 */
-	static $oldReplace   = "/#([A-Z]([A-Z1-9_-])*)#/";
-	
+	//protected $regex_inlineReplace   = "/#([A-Z]([A-Z1-9_-])*)#/";
 	/**
 	 * REGEX for 'regions' type tags
 	 * @var string
