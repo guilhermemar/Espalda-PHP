@@ -21,7 +21,8 @@ class EspaldaException extends Exception
 	const NAME_NOT_FOUND = 9;
 	const INVALID_TYPE = 10;
 	const SINTAXE_ERROR = 11;
-	const PARSER_ERROR = 11;
+	const PARSER_ERROR = 12;
+	const LOAD_FILE_ERROR = 13;
 
 	/**
 	 * Descriptions for errors codes
@@ -36,12 +37,13 @@ class EspaldaException extends Exception
 		self::NOT_ESPALDA_LOOP => 'It\'s not a estapalda region',
 		self::REPLACE_NOT_EXISTS => 'Replace not exists',
 		self::DISPLAY_NOT_EXISTS => 'Display not exists',
-		self::LOOP_NOT_EXISTS => 'Region not exists',
+		self::LOOP_NOT_EXISTS => 'Loop not exists',
 		self::TYPE_NOT_FOUND => 'Propertie type not found',
 		self::NAME_NOT_FOUND => 'Propertie name not found',
 		self::INVALID_TYPE => 'Invalid value of propertie type',
 		self::SINTAXE_ERROR => 'Source has a espalda sintaxe error',
-		self::PARSER_ERROR => 'Parser error =/. please oppen issue on github : github.com/guilhermemar/Espalda-PHP'
+		self::PARSER_ERROR => 'Parser error =/. please oppen issue on github : github.com/guilhermemar/Espalda-PHP',
+		self::LOAD_FILE_ERROR => 'Could not load file'
 	);
 
 	/**

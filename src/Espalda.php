@@ -26,7 +26,7 @@ require_once "EspaldaException.php";
 require_once "EspaldaRules.php";
 require_once "EspaldaScope.php";
 require_once "EspaldaParser.php";
-require_once "EspaldaRegion.php";
+require_once "EspaldaLoop.php";
 require_once "EspaldaReplace.php";
 require_once "EspaldaDisplay.php";
 
@@ -40,50 +40,56 @@ require_once "EspaldaDisplay.php";
  */
 class Espalda extends EspaldaDisplay
 {
+	private $version = '2.0.0';
 	/**
-	 * Construtora da classe
+	 * Construct
 	 * 
-	 * @param [optional] string $source String com o template a ser manipulado
-	 * @since 0.7
+	 * @param [optional] string $source string $source Template to be parsed
 	 */
-	public function __construct($source=FALSE)
+	public function __construct($source=null)
 	{
 		parent::__construct("root", $source);
-		
-		if(!$source){
+
+		if(!is_null($source)){
 			$this->setSource($source);
 		}
 	}
+
 	/**
-	 * Carrega um arquivo de template
-	 *
-	 * @param string $source Caminho do arquivo de template
-	 * @since 0.7
+	 * Load a template file
+	 * 
+	 * @param string $source Path of template file
+	 * @throws EspaldaException
 	 */
 	public function loadSource($path)
 	{
-		if(!file_exists($path)){
-			return false;
+		if(!file_exists($path) || !is_readable($path)){
+			throw new EspaldaException(EspaldaException::LOAD_FILE_ERROR);
 		}
-		if(!is_readable($path)){
-			return false;
-		}
+
 		if(!$source = file_get_contents($path)){
-			return false;
+			throw new EspaldaException(EspaldaException::LOAD_FILE_ERROR);
 		}
 	
 		$this->setSource($source);
-			
-		return true;
-	}	
+	}
+
 	/**
-	 * Prepara e exibe o template na tela.
-	 * 
-	 * @since 0.7
+	 * Show the template parsed
 	 */
-	public function display()
+	public function show()
 	{
 		echo $this->getOutput();
+	}
+
+	/**
+	 * Version of this Espalda library
+	 * 
+	 * @return string
+	 */
+	public function getVersion ()
+	{
+		return $this->version;
 	}
 }
 ?>
