@@ -67,6 +67,7 @@ class EspaldaDisplay extends EspaldaEngine
 	public function setValue ($value)
 	{
 		$this->value = $value ? true : false;
+
 	}
 	
 	/**
@@ -161,19 +162,19 @@ class EspaldaDisplay extends EspaldaEngine
 			$replaces = $this->scope->getAllReplaces();
 			$keys = array_keys($replaces);
 			for ($i=0; $i < count($keys); $i++) {
-				$output = str_replace("replace_{$keys[$i]}_replace", $replaces[$keys[$i]]->getOutput(), $output);
+				$output = str_replace("espalda:replace:{$keys[$i]}", $replaces[$keys[$i]]->getOutput(), $output);
 			}
 			
 			$displays = $this->scope->getAllDisplays();
 			$keys = array_keys($displays);
 			for ($i=0; $i < count($keys); $i++) {
-				$output = str_replace("display_{$keys[$i]}_display", $displays[$keys[$i]]->getOutput(), $output);
+				$output = str_replace("espalda:display:{$keys[$i]}", $displays[$keys[$i]]->getOutput(), $output);
 			}
 	
 			$loops = $this->scope->getAllLoops();
 			$keys = array_keys($loops);
 			for ($i=0; $i < count($keys); $i++) {
-				$output = str_replace("loop_{$keys[$i]}_loop", $loops[$keys[$i]]->getOutput(), $output);
+				$output = str_replace("espalda:loop:{$keys[$i]}", $loops[$keys[$i]]->getOutput(), $output);
 			}
 			
 			return $output;

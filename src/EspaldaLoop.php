@@ -199,19 +199,19 @@ class EspaldaLoop extends EspaldaEngine
 			$replaces = $current->getAllReplaces();
 			$keys = array_keys($replaces);
 			for ($j=0; $j < count($keys); ++$j) {
-				$currentSource = str_replace("replace_{$keys[$j]}_replace", $current->getReplace($keys[$j])->getOutput(), $currentSource);
+				$currentSource = str_replace("espalda:replace:{$keys[$j]}", $current->getReplace($keys[$j])->getOutput(), $currentSource);
 			}
 
 			$displays = $current->getAllDisplays();
 			$keys = array_keys($displays);
 			for ($j=0; $j < count($keys); ++$j) {
-				$currentSource = str_replace("display_{$keys[$j]}_display", $current->getDisplay($keys[$j])->getOutput(), $currentSource);
+				$currentSource = str_replace("espalda:display:{$keys[$j]}", $current->getDisplay($keys[$j])->getOutput(), $currentSource);
 			}
 
 			$loops = $current->getAllLoops();
 			$keys = array_keys($loops);
 			for($j=0; $j < count($keys); ++$j){
-				$currentSource = str_replace("loop_{$keys[$j]}_loop", $current->getLoop($keys[$j])->getOutput(), $currentSource);
+				$currentSource = str_replace("espalda:loop:{$keys[$j]}", $current->getLoop($keys[$j])->getOutput(), $currentSource);
 			}
 
 			$output .= $currentSource;

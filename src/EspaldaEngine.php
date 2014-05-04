@@ -58,9 +58,7 @@ abstract class EspaldaEngine extends EspaldaRules
 
 	protected function prepareSource()
 	{
-		//$this->parseInlineReplaces();
-		//$this->searchOldLoops();
-		
+		$this->parseInlineReplaces();
 		
 		while (preg_match($this->regex_espaldaTag, $this->source, $found, PREG_OFFSET_CAPTURE)) {
 			
@@ -126,6 +124,12 @@ abstract class EspaldaEngine extends EspaldaRules
 		$display->setSource($sources[1]);
 		
 		if (key_exists("value", $properties)) {
+			
+			if ($properties['value'] === 'false') {
+				
+				$properties['value'] = false;
+				
+			}
 
 			$display->setValue($properties['value']);
 
@@ -244,20 +248,6 @@ abstract class EspaldaEngine extends EspaldaRules
 			$this->source = str_replace($found[0], $this->makeEspaldaTag($found), $this->source);
 		}
 
-	}
-	
-	/**
-	 * Busca por marcações de regiao espalda antigas e converte para a nova versão
-	 */
-	private function searchOldLoops()
-	{
-		while(preg_match(EspaldaRules::$oldLoop, $this->source, $found)){
-			$tag = str_replace("[#{$found[1]}#", "<espalda type=\"loop\" name=\"{$found[1]}\">", $found[0]);
-			$tag = str_replace("#]", "</espalda>", $tag);
-				
-			$this->source = str_replace($found[0], $tag, $this->source);
-		}
-	
 	}
 	
 	/**
