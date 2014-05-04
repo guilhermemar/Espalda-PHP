@@ -7,8 +7,10 @@
 		<echo msg="${message}"/>
 	</target>
 	
-	<target name="documentation">
-		<phpdoc2 title="API Documentation" destdir="docs/phpdoc" template="responsive-twig">
+	<target name="docs">
+		<mkdir dir="./docs/api"/>
+		
+		<phpdoc2 title="API Documentation" destdir="./docs/api">
 		   <fileset dir="./src">
 		      <include name="*.php" />
 		   </fileset>
