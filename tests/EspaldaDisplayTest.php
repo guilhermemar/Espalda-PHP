@@ -2,7 +2,7 @@
 
 require_once "src/EspaldaRules.php";
 require_once "src/EspaldaScope.php";
-require_once "src/EspaldaEngine.php";
+require_once "src/EspaldaParser.php";
 require_once "src/EspaldaDisplay.php";
 
 class EspaldaDisplayTest extends PHPUnit_Framework_TestCase

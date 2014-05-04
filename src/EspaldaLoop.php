@@ -5,7 +5,7 @@
  *
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-class EspaldaLoop extends EspaldaEngine
+class EspaldaLoop extends EspaldaParser
 {
 	/**
 	 * Element Name

@@ -5,7 +5,7 @@
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  */
-class EspaldaDisplay extends EspaldaEngine
+class EspaldaDisplay extends EspaldaParser
 {
 	/**
 	 * Element name
