@@ -1,7 +1,6 @@
 <?php
-
-/*
- * This file is part of Espalda.
+/**
+ * This file is part of Espalda project.
  *
  * Espalda is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Espalda.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * Copyright 2010 Guilherme Mar
+ * Copyright 2014 Mar, Guilherme
  */
 
 /**
@@ -31,20 +30,22 @@ require_once "EspaldaReplace.php";
 require_once "EspaldaDisplay.php";
 
 /**
- * Classe inicial do projeto.
- * Manipula o template
+ * The main class of project.
+ * It's the class for make the manipulations in the template
  * 
  * @author Mar, Guilherme
- * @version 2.0 very unstable, its not usable.
- * @licence GNU General Public License, version 3
  */
 class Espalda extends EspaldaDisplay
 {
+	/**
+	 * Version
+	 * @var string
+	 */
 	private $version = '2.0.0';
 	/**
 	 * Construct
 	 * 
-	 * @param [optional] string $source string $source Template to be parsed
+	 * @param string $source [optional] Template to be parsed
 	 */
 	public function __construct($source=null)
 	{
@@ -58,7 +59,7 @@ class Espalda extends EspaldaDisplay
 	/**
 	 * Load a template file
 	 * 
-	 * @param string $source Path of template file
+	 * @param string $path Path of template file
 	 * @throws EspaldaException
 	 */
 	public function loadSource($path)

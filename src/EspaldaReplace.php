@@ -1,9 +1,15 @@
 <?php
 /**
- * DONE
+ * This file is part of Espalda project.
+ *
+ * @author Mar, Guilherme <guilhermemar.dev@gmail.com>
+ * @licence GNU General Public License, version 3
+ */
+
+/**
  * Represents and manipulates a EspaldaReplace element
  * 
- * @author Guilherme Mar <guilhermemar.dev@gmail.com>
+ * @author Mar, Guilherme <guilhermemar.dev@gmail.com>
  */
 class EspaldaReplace
 {
@@ -24,8 +30,8 @@ class EspaldaReplace
 	/**
 	 * Construct
 	 * 
-	 * @param [optional] string $name EspaldaReplace Name
-	 * @param [optional] string $value EspaldaReplace Value
+	 * @param string $name [optional]  EspaldaReplace Name
+	 * @param string $value [optional]  EspaldaReplace Value
 	 */
 	public function __construct ($name, $value = null)
 	{

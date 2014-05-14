@@ -1,6 +1,12 @@
 <?php
 /**
- * DONE
+ * This file is part of Espalda project.
+ *
+ * @author Mar, Guilherme
+ * @licence GNU General Public License, version 3
+ */
+
+/**
  * Represents and manipulate a EspaldaLoop element
  *
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
@@ -110,7 +116,7 @@ class EspaldaLoop extends EspaldaParser
 	 * Returns the EspaldaReplace requested from current interation
 	 * 
 	 * @param string $name Name of EspaldaReplace
-	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @param boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
 	 * @throws If the solicited EspaldaReplace not exist
 	 * @return EspaldaReplace
 	 */
@@ -149,7 +155,7 @@ class EspaldaLoop extends EspaldaParser
 	 * Return the EspaldaDisplay requested from current interation
 	 *
 	 * @param string $name Name of EspaldaReplace
-	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @param boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
 	 * @throws If the solicited EspaldaReplace not to exist
 	 * @return EspaldaDisplay
 	 */

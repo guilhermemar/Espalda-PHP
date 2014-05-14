@@ -1,6 +1,12 @@
 <?php
 /**
- * DONE
+ * This file is part of Espalda project.
+ *
+ * @author Mar, Guilherme <guilhermemar.dev@gmail.com>
+ * @licence GNU General Public License, version 3
+ */
+
+/**
  * Represents and manipulates a EspaldaDisplay element
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
@@ -25,8 +31,8 @@ class EspaldaDisplay extends EspaldaParser
 	 * Construct
 	 * 
 	 * @param string $name EspaldaDisplay name
-	 * @param [optional] string $source EspaldaDisplay scope
-	 * @param [optional] bool $value EspaldaDisplay value
+	 * @param string $source [optional]  EspaldaDisplay scope
+	 * @param bool $value [optional] EspaldaDisplay value
 	 */
 	public function __construct ($name, $source = null, $value = null)
 	{
@@ -81,7 +87,10 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::replaceExists($name)
+	 * Check if EspaldaReplace exists
+	 * 
+	 * @param string $name Name of EspaldaReplace for check
+	 * @return boolean
 	 */
 	public function replaceExists ($name)
 	{
@@ -89,7 +98,10 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::displayExists
+	 * Check if EspaldaDisplay exists
+	 *
+	 * @param string $name Name of EspaldaDisplay for check
+	 * @return boolean
 	 */
 	public function displayExists ($name)
 	{
@@ -97,7 +109,10 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::loopExists
+	 * Check if EspaldaLoop exists
+	 *
+	 * @param string $name Name of EspaldaLoop to check
+	 * @return boolean
 	 */
 	public function loopExists ($name)
 	{
@@ -105,7 +120,12 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::setReplaceValue($name, $value)
+	 * Set value of value property of a EspaldaReplace
+	 *
+	 * @param string $name Name of EspaldaReplace
+	 * @param string $value New value for value property
+	 * @throws EspaldaException if the solicited EspaldaReplace not to exist
+	 * @return $this
 	 */
 	public function setReplaceValue ($name, $value)
 	{
@@ -115,7 +135,12 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::getReplace($name, $clone)
+	 * Returns the EspaldaReplace requested
+	 *
+	 * @param string $name Name of EspaldaReplace
+	 * @param boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws EspaldaException If the solicited EspaldaReplace not exist
+	 * @return EspaldaReplace
 	 */
 	public function getReplace ($name, $clone = false)
 	{
@@ -123,7 +148,12 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::setDisplayValue($name, $value)
+	 * Set value of value property of a EspaldaDisplay
+	 *
+	 * @param string $name Name of EspaldaDisplay
+	 * @param boolean $value New value for value property
+	 * @throws EspaldaException if solicited EspaldaLoop not to exist
+	 * @return $this
 	 */
 	public function setDisplayValue ($name, $value)
 	{
@@ -133,7 +163,12 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::getDisplay($name, $clone)
+	 * Return the EspaldaDisplay requested
+	 *
+	 * @param string $name Name of EspaldaReplace
+	 * @param  boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws EspaldaException If the solicited EspaldaReplace not to exist
+	 * @return EspaldaDisplay
 	 */
 	public function getDisplay ($name, $clone = false)
 	{
@@ -141,7 +176,12 @@ class EspaldaDisplay extends EspaldaParser
 	}
 	
 	/**
-	 * @see EspaldaScope::getLoop($name,, $clone);
+	 * Return the EspaldaLoop requested
+	 * 
+	 * @param string $name Name of EspaldaLoop
+	 * @param boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws EspaldaException If the solicited EspaldaLoop not to exist
+	 * @return EspaldaLoop
 	 */
 	public function getLoop ($name, $clone = false)
 	{

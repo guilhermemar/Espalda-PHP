@@ -10,7 +10,7 @@
 	<target name="docs">
 		<mkdir dir="./docs/api"/>
 		
-		<phpdoc2 title="API Documentation" destdir="./docs/api">
+		<phpdoc2 title="API Documentation" destdir="./docs/api" template="clean">
 		   <fileset dir="./src">
 		      <include name="*.php" />
 		   </fileset>

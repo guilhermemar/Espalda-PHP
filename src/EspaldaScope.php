@@ -1,6 +1,12 @@
 <?php
 /**
- * DONE
+ * This file is part of Espalda project.
+ * 
+ * @author Mar, Guilherme
+ * @licence GNU General Public License, version 3
+ */
+
+/**
  * This object storage a link for all espalda elements included in the content of a espalda wrap element with scope
  * 
  * @author Mar, Guilherme 
@@ -80,8 +86,8 @@ class EspaldaScope
 	 * Returns the EspaldaReplace requested
 	 *
 	 * @param string $name Name of EspaldaReplace
-	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
-	 * @throws If the solicited EspaldaReplace not exist
+	 * @param boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws EspaldaException If the solicited EspaldaReplace not exist
 	 * @return EspaldaReplace
 	 */
 	public function getReplace ($name, $clone = false)
@@ -161,8 +167,8 @@ class EspaldaScope
 	 * Return the EspaldaDisplay requested
 	 *
 	 * @param string $name Name of EspaldaReplace
-	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
-	 * @throws If the solicited EspaldaReplace not to exist
+	 * @param  boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws EspaldaException If the solicited EspaldaReplace not to exist
 	 * @return EspaldaDisplay
 	 */
 	public function getDisplay ($name, $clone = false)
@@ -223,8 +229,8 @@ class EspaldaScope
 	 * Return the EspaldaLoop requested
 	 * 
 	 * @param string $name Name of EspaldaLoop
-	 * @param [optional] boolean $clone 'true' return a clone of element, 'false' return a pointer. Default false
-	 * @throws If the solicited EspaldaLoop not to exist
+	 * @param boolean $clone [optional] 'true' return a clone of element, 'false' return a pointer. Default false
+	 * @throws EspaldaException If the solicited EspaldaLoop not to exist
 	 * @return EspaldaLoop
 	 */
 	public function getLoop ($name, $clone = false)

@@ -1,6 +1,12 @@
 <?php
 /**
- * DONE
+ * This file is part of Espalda project.
+ *
+ * @author Mar, Guilherme
+ * @licence GNU General Public License, version 3
+ */
+
+/**
  * Parse and extract Espalda's elements from the template
  * 
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
@@ -31,7 +37,7 @@ abstract class EspaldaParser extends EspaldaRules
 	/**
 	 * construct
 	 * 
-	 * @param [optional] string $source Template to be parsed
+	 * @param string $source [optional] Template to be parsed
 	 */
 	public function __construct ($source)
 	{
