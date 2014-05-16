@@ -1,0 +1,12 @@
+{
+	"description" : "Library for handling specific espalda markup in html's pages to facilitate development of dynamic pages",
+	
+	"require" : {
+		"php" : ">=5.3.3"
+	},
+	
+	"require-dev" : {
+		"phpdocumentor/phpdocumentor" : "2.*",
+		"phpunit/phpunit" : "4.*"
+	}
+}
