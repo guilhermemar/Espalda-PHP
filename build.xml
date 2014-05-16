@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="Espalda-PHP" default="welcome" basedir="." description="Library for handling specific espalda markup in html's pages to facilitate development of dynamic pages">
+<project name="Espalda-PHP" default="welcome" basedir=".">
 	
 	<property name="message" value="hello world"/>
 	
@@ -10,21 +10,22 @@
 	<target name="docs">
 		<mkdir dir="./docs/api"/>
 		
+		<includepath classpath="./vendor/phpdocumentor" />
+		
 		<phpdoc2 title="API Documentation" destdir="./docs/api" template="clean">
-		   <fileset dir="./src">
-		      <include name="*.php" />
-		   </fileset>
+			<fileset dir="./src">
+				<include name="*.php" />
+			</fileset>
 		</phpdoc2>
 	</target>
 	
-	<target name="test">
-        <phpunit printsummary="true">
-            <batchtest>
-                <fileset dir="tests">
-                    <include name="*Test.php"/>
-                </fileset>
-            </batchtest>
-        </phpunit>
-    </target>
+	<target name="phpunit">
+		<exec executable="php" logoutput="true">
+			<arg path="vendor/phpunit/phpunit/phpunit" />
+			<arg value="--colors" />
+			<arg value="--verbose" />
+			<arg value="tests" />
+		</exec>
+	</target>
 	
 </project>

@@ -10,6 +10,15 @@ dpkg-reconfigure --frontend noninteractive tzdata
 apt-get update
 apt-get install -y curl graphviz php5-cli php5-xsl php-pear
 
+###### INSTALLING AND CONFIGURING COMPOSER ######
+
+echo "#######################"
+echo "# INSTALLING COMPOSER #"
+echo "#######################s"
+
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+
 ###### INSTALLING AND CONFIGURING PHING ######
 
 echo "####################"
@@ -21,20 +30,20 @@ pear install phing/phing
 
 ###### INSTALLING AND CONFIGURING PHPUNIT ######
 
-echo "######################"
-echo "# INSTALLING PHPUNIT #"
-echo "######################"
+#echo "######################"
+#echo "# INSTALLING PHPUNIT #"
+#echo "######################"
 
-pear config-set auto_discover 1
-pear install pear.phpunit.de/PHPUnit
+#pear config-set auto_discover 1
+#pear install pear.phpunit.de/PHPUnit
 
 ###### INSTALLING AND CONFIGURING PHPDOCUMENTOR ######
 
-echo "############################"
-echo "# INSTALLING PHPDOCUMENTOR #"
-echo "############################"
+#echo "############################"
+#echo "# INSTALLING PHPDOCUMENTOR #"
+#echo "############################"
 
-pear channel-discover pear.phpdoc.org
-pear install phpdoc/phpDocumentor
+#pear channel-discover pear.phpdoc.org
+#pear install phpdoc/phpDocumentor
 
 touch /var/vagrant_provision
