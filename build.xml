@@ -19,7 +19,7 @@
 		</phpdoc2>
 	</target>
 	
-	<target name="phpunit">
+	<target name="tests">
 		<exec executable="php" logoutput="true">
 			<arg path="vendor/phpunit/phpunit/phpunit" />
 			<arg value="--colors" />

@@ -16,6 +16,9 @@
  * along with Espalda.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * Copyright 2014 Mar, Guilherme
+ * 
+ * @author Mar, Guilherme
+ * @licence GNU General Public License, version 3
  */
 
 /**
@@ -34,6 +37,7 @@ require_once "EspaldaDisplay.php";
  * It's the class for make the manipulations in the template
  * 
  * @author Mar, Guilherme
+ * @licence GNU General Public License, version 3
  */
 class Espalda extends EspaldaDisplay
 {
