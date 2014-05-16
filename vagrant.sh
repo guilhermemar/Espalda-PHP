@@ -7,14 +7,18 @@ fi
 echo "America/Sao_Paulo" > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 
+echo "###################"
+echo "# UPDATING SYSTEM #"
+echo "###################"
+
 apt-get update
-apt-get install -y curl graphviz php5-cli php5-xsl php-pear
+apt-get install -y curl graphviz php5-cli php5-xsl php-pear git
 
 ###### INSTALLING AND CONFIGURING COMPOSER ######
 
 echo "#######################"
 echo "# INSTALLING COMPOSER #"
-echo "#######################s"
+echo "#######################"
 
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
@@ -27,23 +31,5 @@ echo "####################"
 
 pear channel-discover pear.phing.info
 pear install phing/phing
-
-###### INSTALLING AND CONFIGURING PHPUNIT ######
-
-#echo "######################"
-#echo "# INSTALLING PHPUNIT #"
-#echo "######################"
-
-#pear config-set auto_discover 1
-#pear install pear.phpunit.de/PHPUnit
-
-###### INSTALLING AND CONFIGURING PHPDOCUMENTOR ######
-
-#echo "############################"
-#echo "# INSTALLING PHPDOCUMENTOR #"
-#echo "############################"
-
-#pear channel-discover pear.phpdoc.org
-#pear install phpdoc/phpDocumentor
 
 touch /var/vagrant_provision
