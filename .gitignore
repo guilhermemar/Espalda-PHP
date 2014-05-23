@@ -1,0 +1,7 @@
+.settings
+.buildpath
+.project
+.directory
+.vagrant
+vendor
+docs
