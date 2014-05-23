@@ -2,6 +2,7 @@
 <project name="Espalda-PHP" default="welcome" basedir=".">
 	
 	<property name="version" value="2"/>
+	<property name="branch" value="revolution-v${version}"/>
 	<property name="message" value="Welcome to Espalda project"/>
 	
 	<target name="welcome">
@@ -12,13 +13,19 @@
 		<delete dir="./docs/api/v${version}"/>
 	</target>
 	
-	<target name="clean-docs" description="Runs all cleans">
+	<target name="delete-vendor">
+		<delete dir="./vendor"/>
+	</target>
+	
+	<target name="delete-crossfolder">
+		<delete dir="./cross"/>
+	</target>
+	
+	<target name="delete-docs">
 		<delete dir="./docs"/>
 	</target>
 	
-	<target name="clean" description="Runs all cleans" depends="clean-docs">
-		<delete dir="./vendor"/>
-	</target>
+	<target name="clean" depends="delete-docs, delete-crossfolder"></target>
 	
 	<target name="docs">
 		<mkdir dir="./docs/api/v${version}"/>
@@ -41,4 +48,43 @@
 		</exec>
 	</target>
 	
+	<target name="crossfolder">
+		<mkdir dir="./cross"/>
+	</target>
+	
+	<target name="dist-zip">
+		<zip destfile="./cross/dist/Espalda-v${version}.zip">
+			<fileset dir="./src"></fileset>
+		</zip>
+	</target><exec command="git checkout dist"/>
+	
+	<target name="dist-tar.gz">
+		<tar destfile="./cross/dist/Espalda-v${version}.tar.gz" compression="gzip">
+			<fileset dir="./src"></fileset>
+		</tar>
+	</target>
+	
+	<target name="dist" depends="crossfolder">
+		
+		<delete dir=".cross/dist"/>
+		<mkdir dir="./cross/dist"/>
+		
+		<phingcall target="dist-zip"/>
+		<phingcall target="dist-tar.gz"/>
+	</target>
+	
+	<target name="dist-export" depends="dist">
+		<exec command="git stash" logoutput="true" />
+		<exec command="git checkout dist" logoutput="true" />
+		
+		<copy todir="./dist" overwrite="true">
+			<fileset dir="./cross/dist"></fileset>	
+		</copy>
+		
+		<exec command="git add ./dist/*" logoutput="true" />
+		<exec command="git commit -a -m 'Updated dist wit filer from version ${version}'"/>
+		
+		<exec command="git checkout ${branch}" logoutput="true" />
+		<exec command="git stash pop" logoutput="true" />
+	</target>
 </project>
