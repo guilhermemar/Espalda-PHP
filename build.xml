@@ -8,6 +8,18 @@
 		<echo msg="${message}"/>
 	</target>
 	
+	<target name="delete-docs-api">
+		<delete dir="./docs/api/v${version}"/>
+	</target>
+	
+	<target name="clean-docs" description="Runs all cleans">
+		<delete dir="./docs"/>
+	</target>
+	
+	<target name="clean" description="Runs all cleans" depends="clean-docs">
+		<delete dir="./vendor"/>
+	</target>
+	
 	<target name="docs">
 		<mkdir dir="./docs/api/v${version}"/>
 		
