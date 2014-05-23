@@ -18,6 +18,8 @@
  * Copyright 2014 Mar, Guilherme
  */
 
+namespace Espalda;
+
 /**
  * Parse and extract Espalda's elements from the template
  * 

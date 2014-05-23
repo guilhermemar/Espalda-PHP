@@ -18,6 +18,8 @@
  * Copyright 2014 Mar, Guilherme
  */
 
+namespace Espalda;
+
 /**
  * All rules of library
  * 

@@ -18,13 +18,15 @@
  * Copyright 2014 Mar, Guilherme
  */
 
+namespace Espalda;
+
 /**
  * Exceptions for Espalda project
  *
  * @author Guilherme Mar <guilhermemar.dev@gmail.com>
  * @licence GNU General Public License, version 3
  */
-class EspaldaException extends Exception
+class EspaldaException extends \Exception
 {
 	/**
 	 * Error Code for "Undefined espalda exception"

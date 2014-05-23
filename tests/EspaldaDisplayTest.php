@@ -1,9 +1,11 @@
 <?php
 
-require_once "src/EspaldaRules.php";
-require_once "src/EspaldaScope.php";
-require_once "src/EspaldaParser.php";
-require_once "src/EspaldaDisplay.php";
+require_once "src/Espalda/EspaldaRules.php";
+require_once "src/Espalda/EspaldaScope.php";
+require_once "src/Espalda/EspaldaParser.php";
+require_once "src/Espalda/EspaldaDisplay.php";
+
+use \Espalda;
 
 class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
 {
@@ -15,7 +17,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
 	
     public function test_SimpleDisplay_1 ()
     {
-    	$display = new EspaldaDisplay('simple', $this->simpleTemplate, false);
+    	$display = new Espalda\EspaldaDisplay('simple', $this->simpleTemplate, false);
     	
     	$this->assertEquals('simple', $display->getName(), 'Não está retornando o name correto');
     	$this->assertEquals(false, $display->getValue(), 'não está retornando o value correto');
@@ -27,7 +29,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_SimpleDisplay_2 ()
     {
-    	$display = new EspaldaDisplay('default name');
+    	$display = new Espalda\EspaldaDisplay('default name');
     	 
     	$display->setName('simple2');
     	$display->setSource($this->simpleTemplate);
@@ -39,13 +41,13 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
 
     public function test_complexDisplay_1 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate);
     	$this->assertEquals("... something here	 content of display  more something here ...", $display->getOutput(), "não retornou o conteúdo nos valores defaults");
     }
     
     public function test_complexDisplay_2 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate);
     	
     	$internalDisplay = $display->getDisplay('principal');
     	$this->assertEquals(" content of display ", $internalDisplay->getOutput(), "não retornou o conteúdo esperado de uma display interna");
@@ -53,7 +55,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_complexDisplay_3 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate);
     	 
     	$internalDisplay = $display->getDisplay('principal');
     	$internalDisplay->setValue(false);
@@ -63,7 +65,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_complexDisplay_4 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate);
     	
     	$internalDisplay = $display->getDisplay("principal", true);
     	$internalDisplay->setValue(false);
@@ -73,7 +75,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_complexDisplay_5 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate);
     	$display->setDisplayValue('principal', false);
     
     	$this->assertEquals("... something here	 more something here ...", $display->getOutput(), "não retornou o conteúdo esperado da display");
@@ -81,14 +83,14 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_complexDisplay_6 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate2);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate2);
     	 
     	$this->assertEquals("... something here	 content of display  more something here  ...", $display->getOutput(), "Não retornou o valor default");
     }
     
     public function test_complexDisplay_7 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate2);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate2);
     	
     	$display->setDisplayValue('principal', false);
     	$display->setReplaceValue("aqui", "!!!Aqui seu valor desejado!!!");
@@ -98,7 +100,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_complexDisplay_8 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate2);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate2);
     	
     	$replace = $display->getReplace("aqui");
     	$replace->setValue("alterado em separado");
@@ -108,7 +110,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_complexDisplay_9 ()
     {
-    	$display = new EspaldaDisplay("complex", $this->complexTemplate2);
+    	$display = new Espalda\EspaldaDisplay("complex", $this->complexTemplate2);
     	 
     	$replace = $display->getReplace("aqui", true);
     	$replace->setValue("alterado em separado");
@@ -118,7 +120,7 @@ class EspaldaDisplayTest extends PHPUnit_Framework_TestCase
     
     public function test_clone ()
     {
-    	$display = new EspaldaDisplay("original", "a default scope", false);
+    	$display = new Espalda\EspaldaDisplay("original", "a default scope", false);
     	$cloned = clone $display;
     	
     	$this->assertEquals("original", $cloned->getName(), "não clonou o nome");

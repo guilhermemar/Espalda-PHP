@@ -1,15 +1,17 @@
 <?php
 
-require_once "src/EspaldaRules.php";
-require_once "src/EspaldaScope.php";
-require_once "src/EspaldaParser.php";
-require_once "src/EspaldaReplace.php";
-require_once "src/EspaldaLoop.php";
-require_once "src/EspaldaException.php";
-require_once "src/EspaldaDisplay.php";
+require_once "src/Espalda/EspaldaRules.php";
+require_once "src/Espalda/EspaldaScope.php";
+require_once "src/Espalda/EspaldaParser.php";
+require_once "src/Espalda/EspaldaReplace.php";
+require_once "src/Espalda/EspaldaLoop.php";
+require_once "src/Espalda/EspaldaException.php";
+require_once "src/Espalda/EspaldaDisplay.php";
+
+use \Espalda;
 
 //classe criada facilitar os testes
-class AuxEspaldaParser extends EspaldaParser
+class AuxEspaldaParser extends Espalda\EspaldaParser
 {
 	public function getScope () {
 		return $this->scope;

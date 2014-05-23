@@ -21,6 +21,8 @@
  * @licence GNU General Public License, version 3
  */
 
+namespace Espalda;
+
 /**
  * All imports requireds to library
  */

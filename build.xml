@@ -13,7 +13,7 @@
 		<includepath classpath="./vendor/phpdocumentor" />
 		
 		<phpdoc2 title="API Documentation" destdir="./docs/api" template="clean">
-			<fileset dir="./src">
+			<fileset dir="./src/Espalda">
 				<include name="*.php" />
 			</fileset>
 		</phpdoc2>

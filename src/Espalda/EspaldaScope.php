@@ -18,6 +18,8 @@
  * Copyright 2014 Mar, Guilherme
  */
 
+namespace Espalda;
+
 /**
  * This object storage a link for all espalda elements included in the content of a espalda wrap element with scope
  *

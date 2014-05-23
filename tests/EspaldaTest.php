@@ -1,11 +1,13 @@
 <?php
-require_once "src/Espalda.php";
+require_once "src/Espalda/Espalda.php";
+
+use \Espalda;
 
 class EspaldaTest extends PHPUnit_Framework_TestCase
 {
 	public function test_template ()
 	{
-		$espalda = new Espalda();
+		$espalda = new Espalda\Espalda();
 		$espalda->loadSource("tests/templateTest.html");
 		
 		//file_put_contents("tests/templateResult1.html", $espalda->getOutput());

@@ -18,6 +18,8 @@
  * Copyright 2014 Mar, Guilherme
  */
 
+namespace Espalda;
+
 /**
  * Represents and manipulates a EspaldaDisplay element
  * 

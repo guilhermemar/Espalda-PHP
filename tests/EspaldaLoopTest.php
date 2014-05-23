@@ -1,18 +1,20 @@
 <?php
 
-require_once "src/EspaldaRules.php";
-require_once "src/EspaldaScope.php";
-require_once "src/EspaldaParser.php";
-require_once "src/EspaldaReplace.php";
-require_once "src/EspaldaLoop.php";
-require_once "src/EspaldaException.php";
-require_once "src/EspaldaDisplay.php";
+require_once "src/Espalda/EspaldaRules.php";
+require_once "src/Espalda/EspaldaScope.php";
+require_once "src/Espalda/EspaldaParser.php";
+require_once "src/Espalda/EspaldaReplace.php";
+require_once "src/Espalda/EspaldaLoop.php";
+require_once "src/Espalda/EspaldaException.php";
+require_once "src/Espalda/EspaldaDisplay.php";
+
+use \Espalda;
 
 class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 {
 	public function test_verySimpleTemplate ()
 	{
-		$loop = new EspaldaLoop('test1', "escopo ");
+		$loop = new Espalda\EspaldaLoop('test1', "escopo ");
 		$this->assertEquals("test1", $loop->getName(), "não retornou o valor esperado");
 		
 		$loop->push();
@@ -26,7 +28,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 	
 	public function test_verySimpleTemplate2 ()
 	{
-		$loop = new EspaldaLoop('test2');
+		$loop = new Espalda\EspaldaLoop('test2');
 		$this->assertEquals("test2", $loop->getName());
 		$loop->setSource("escopo");
 		
@@ -41,7 +43,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 	{
 		$source = 'valor adicionado é <espalda type="replace" name="troca"> !';
 		
-		$loop = new EspaldaLoop('test', $source);
+		$loop = new Espalda\EspaldaLoop('test', $source);
 		$loop->setReplaceValue('troca', 'joão');
 		
 		$this->assertEquals("valor adicionado é joão !", $loop->getOutput());
@@ -59,7 +61,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 	{
 		$source = '<espalda type="replace" name="um"> -> <espalda type="replace" name="dois" value="none"> ';
 
-		$loop = new EspaldaLoop('test', $source);
+		$loop = new Espalda\EspaldaLoop('test', $source);
 		
 		$loop->setReplaceValue('um', 'aluno1');
 		$loop->setReplaceValue('dois', 'fulano');
@@ -74,7 +76,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 	{
 		$source = 'um texto qualquer <espalda type="display" name="nome" value="true">com uma tag espalda display</espalda>';
 		
-		$loop = new EspaldaLoop('test', $source);
+		$loop = new Espalda\EspaldaLoop('test', $source);
 		$loop->push();
 		
 		$this->assertEquals('um texto qualquer com uma tag espalda display', $loop->getOutput());
@@ -90,7 +92,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 	{
 		$source = '<espalda type="display" name="um">multiplos</espalda> <espalda type="display" name="dois" value="true">displays</espalda>';
 		
-		$loop = new EspaldaLoop('test', $source);
+		$loop = new Espalda\EspaldaLoop('test', $source);
 		$this->assertEquals('', $loop->getOutput());
 		
 		$loop->setDisplayValue("um", true);
@@ -104,7 +106,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 	{
 		$source = 'source <espalda type="loop" name="um"> looping</espalda>';
 		
-		$loop = new EspaldaLoop('test', $source);
+		$loop = new Espalda\EspaldaLoop('test', $source);
 		$this->assertEquals('', $loop->getOutput());
 		
 		$loop->push();
@@ -122,7 +124,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 	{
 		$source = '<espalda type="loop" name="um">um </espalda><espalda type="loop" name="dois">dois </espalda>';
 		
-		$loop = new EspaldaLoop('test', $source);
+		$loop = new Espalda\EspaldaLoop('test', $source);
 		
 		$um = $loop->getLoop('um');
 		$um->push();
@@ -161,7 +163,7 @@ class EspaldaLoopTest extends PHPUnit_Framework_TestCase
 			</espalda>
 		!';
 		
-		$loop = new EspaldaLoop('test', $source);
+		$loop = new Espalda\EspaldaLoop('test', $source);
 		$this->assertEquals('', $loop->getOutput());
 		
 		$assert = '!
