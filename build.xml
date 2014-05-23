@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="Espalda-PHP" default="welcome" basedir=".">
 	
-	<property name="message" value="hello world"/>
+	<property name="version" value="2"/>
+	<property name="message" value="Welcome to Espalda project"/>
 	
 	<target name="welcome">
 		<echo msg="${message}"/>
 	</target>
 	
 	<target name="docs">
-		<mkdir dir="./docs/api"/>
+		<mkdir dir="./docs/api/v${version}"/>
 		
 		<includepath classpath="./vendor/phpdocumentor" />
 		
-		<phpdoc2 title="API Documentation" destdir="./docs/api" template="clean">
+		<phpdoc2 title="API Documentation" destdir="./docs/api/v${version}" template="clean">
 			<fileset dir="./src/Espalda">
 				<include name="*.php" />
 			</fileset>
