@@ -5,10 +5,6 @@
 	<property name="branch" value="revolution-v${version}"/>
 	<property name="message" value="Welcome to Espalda project"/>
 	
-	<target name="welcome">
-		<echo msg="${message}"/>
-	</target>
-	
 	<target name="delete-docs-api">
 		<delete dir="./docs/api/v${version}"/>
 	</target>
@@ -87,4 +83,9 @@
 		<exec command="git checkout ${branch}" logoutput="true" />
 		<exec command="git stash pop" logoutput="true" />
 	</target>
+	
+	<target name="welcome">
+		<echo msg="${message}"/>
+	</target>
+	
 </project>
