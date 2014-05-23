@@ -82,7 +82,7 @@
 		</copy>
 		
 		<exec command="git add ./dist/*" logoutput="true" />
-		<exec command="git commit -a -m 'Updated dist wit filer from version ${version}'"/>
+		<exec command="git commit -a -m 'Updated dist with files from version ${version}'"/>
 		
 		<exec command="git checkout ${branch}" logoutput="true" />
 		<exec command="git stash pop" logoutput="true" />
