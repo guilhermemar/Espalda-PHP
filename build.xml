@@ -61,7 +61,7 @@
 		</tar>
 	</target>
 	
-	<target name="dist" depends="crossfolder">
+	<target name="dist" depends="tests, crossfolder">
 		
 		<delete dir=".cross/dist"/>
 		<mkdir dir="./cross/dist"/>
