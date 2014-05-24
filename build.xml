@@ -2,7 +2,7 @@
 <project name="Espalda-PHP" default="welcome" basedir=".">
 	
 	<property name="version" value="2"/>
-	<property name="branch" value="revolution-v${version}"/>
+	<property name="branch" value="v${version}"/>
 	<property name="message" value="Welcome to Espalda project"/>
 	
 	<target name="delete-docs-api">
