@@ -1,0 +1,45 @@
+@font-face {
+	font-family: 'Cabin';
+	font-weight: 'normal';
+	font-style: 'normal';
+	src: url('../fonts/Cabin-Regular.woff');
+}
+
+* {
+	font-family: Cabin, Sans-serif;
+}
+
+html, body {
+	height: 100%
+}
+
+.side {
+	float: left;
+	width: 300px;
+	min-height: 100%;
+	background-color: #292929;
+	color: #FFFFFF;
+	box-shadow: 2px 0px 5px 0px rgba(97,96,97,1);
+}
+
+.logo {
+	background-color: #292929;
+	height: 80px;
+	position:fixed;
+	width:300px;
+	box-shadow: -3px 7px 5px 0px rgba(41,41,41,1);
+}
+
+.logo h1 {
+	font-size: 50px;
+	text-align:center;
+}
+
+nav {
+	margin-top:85px;
+}
+
+.content {
+	margin-left: 310px;
+	padding-top: 15px;
+}
