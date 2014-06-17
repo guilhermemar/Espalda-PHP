@@ -12,7 +12,7 @@ echo "# UPDATING SYSTEM #"
 echo "###################"
 
 apt-get update
-apt-get install -y curl graphviz php5-cli php5-xsl php-pear git
+apt-get install -y curl graphviz php5-cli php5-xsl php-pear git lighttpd
 
 ###### INSTALLING AND CONFIGURING COMPOSER ######
 
@@ -31,5 +31,12 @@ echo "####################"
 
 pear channel-discover pear.phing.info
 pear install phing/phing
+
+echo "########################"
+echo "# CONFIGURING LIGHTTPD #"
+echo "########################"
+
+rm -rfv /var/www
+ln -s /vagant /var/www
 
 touch /var/vagrant_provision
