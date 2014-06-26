@@ -37,6 +37,6 @@ echo "# CONFIGURING LIGHTTPD #"
 echo "########################"
 
 rm -rfv /var/www
-ln -s /vagant /var/www
+ln -s /vagrant /var/www
 
 touch /var/vagrant_provision
