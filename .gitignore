@@ -2,4 +2,5 @@
 .buildpath
 .project
 .directory
+.vagrant*
 vendor
