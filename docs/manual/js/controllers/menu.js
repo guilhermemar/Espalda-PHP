@@ -1,12 +1,5 @@
-function controllerMenu ($scope)
-{
-	$scope.menu = [
-		{
-			groupName : "",
-			itens : [
-			 {name : "About", link : "about"},
-			 {name : "Outro", link : "outro"}
-			]
-		}
-	];
+app.controller('controllerMenu', function ($scope, $http) {
+	$http.get('content/menu.js').success(function (data)) {
+		$scope.menu = data;
+	}
 }
