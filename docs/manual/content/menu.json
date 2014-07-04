@@ -1,9 +1,9 @@
 [
 	{
-		groupName : "",
-		itens : [
-		 {name : "About", link : "about"},
-		 {name : "Outro", link : "outro"}
+		"groupName" : "",
+		"itens" : [
+		 {"name" : "About", "link" : "about"},
+		 {"name" : "Outro", "link" : "outro"}
 		]
 	}
 ]

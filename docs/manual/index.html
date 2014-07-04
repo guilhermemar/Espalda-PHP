@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="documentation">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,20 +23,36 @@
 			<div class="logo">
 				<h1>Espalda</h1>
 			</div>
+			 
 			<nav id="navigation" ng-repeat="m in menu">
 				<div>{{m.groupName}}</div>
-				<ul ng-repeat="item in m.itens">
-					<li><a href="#/{{item.link}}">{{item.name}}</a></li>
+				<ul>
+					<li ng-repeat="item in m.itens"> 
+						<a href="#/{{item.link}}">{{item.name}}</a>
+					</li>
 				</ul>
 			</nav>
+			
 		</div>
 		
-		<ng-view>Loading...</ng-view>
+		<div ng-controller="controllerContent">
+			
+			<div ng-repeat="content in allContent">
+				
+				<div ng-switch on="content.type">
+					<h1 ng-switch-when="title">content.content</h1>
+					<p ng-switch-when="p">content.content</p>
+				</div>
+				
+			</div>
+			
+		</div>
 
 		<script src="js/vendor/jquery.min.js"></script>
-		<script src="js/vendor/bootstrap.min.js"></script>		
+		<script src="js/vendor/bootstrap.min.js"></script>
 		<script src="js/vendor/angular.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/controllers/menu.js"></script>
+		
 	</body>
 </html>
