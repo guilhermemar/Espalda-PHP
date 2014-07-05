@@ -28,7 +28,7 @@
 				<div>{{m.groupName}}</div>
 				<ul>
 					<li ng-repeat="item in m.itens"> 
-						<a href="#/{{item.link}}">{{item.name}}</a>
+						<a ng-click="loadNewContent(item.content)">{{item.name}}</a>
 					</li>
 				</ul>
 			</nav>
@@ -36,12 +36,12 @@
 		</div>
 		
 		<div ng-controller="controllerContent">
-			
+		
 			<div ng-repeat="content in allContent">
 				
 				<div ng-switch on="content.type">
-					<h1 ng-switch-when="title">content.content</h1>
-					<p ng-switch-when="p">content.content</p>
+					<h1 ng-switch-when="title">{{content.content}}</h1>
+					<p ng-switch-when="p">{{content.content}}</p>
 				</div>
 				
 			</div>
@@ -52,7 +52,9 @@
 		<script src="js/vendor/bootstrap.min.js"></script>
 		<script src="js/vendor/angular.min.js"></script>
 		<script src="js/bootstrap.js"></script>
+		<script src="js/controllers/content.js"></script>
 		<script src="js/controllers/menu.js"></script>
+		
 		
 	</body>
 </html>

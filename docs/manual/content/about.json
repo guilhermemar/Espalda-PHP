@@ -2,5 +2,13 @@
 	{
 		"type" : "title",
 		"content" : "O título aqui"
+	},
+	{
+		"type" : "p",
+		"content" : "Aqui vai um conteudo de verdade que é adicionado em uma tag p"
+	},
+	{
+		"type" : "p",
+		"content" : "Aqui vai outro conteudo de verdade que é adicionado em uma tag p"
 	}
 ]

@@ -2,8 +2,7 @@
 	{
 		"groupName" : "",
 		"itens" : [
-		 {"name" : "About", "link" : "about"},
-		 {"name" : "Outro", "link" : "outro"}
+		 {"name" : "About", "content" : "about"}
 		]
 	}
 ]
