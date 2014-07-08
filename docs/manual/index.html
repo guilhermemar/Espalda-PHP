@@ -18,7 +18,6 @@
 		
 	</head>
 	<body>
-		
 		<div class="side" ng-controller="controllerMenu">
 			<div class="logo">
 				<h1>Espalda</h1>
@@ -35,19 +34,20 @@
 			
 		</div>
 		
-		<div ng-controller="controllerContent">
+		<div class="content" ng-controller="controllerContent">
 		
-			<div ng-repeat="content in allContent">
+			<span class="control" ng-repeat="content in allContent">
 				
-				<div ng-switch on="content.type">
-					<h1 ng-switch-when="title">{{content.content}}</h1>
-					<p ng-switch-when="p">{{content.content}}</p>
-				</div>
+				<span class="control" ng-switch on="content.type">
+					<h2 ng-switch-when="title">{{content.content}}</h1>
+					<h3 ng-switch-when="subtitle">{{content.content}}</h1>
+					<p ng-switch-when="paragraph">{{content.content}}</p>
+				</span>
 				
-			</div>
+			</span>
 			
 		</div>
-
+		
 		<script src="js/vendor/jquery.min.js"></script>
 		<script src="js/vendor/bootstrap.min.js"></script>
 		<script src="js/vendor/angular.min.js"></script>

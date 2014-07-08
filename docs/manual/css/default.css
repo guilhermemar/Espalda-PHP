@@ -13,6 +13,19 @@ html, body {
 	height: 100%
 }
 
+h1, h2 {
+	margin: 0;
+}
+
+h2 {
+	margin-bottom: 15px;
+}
+
+.control {
+	margin: 0;
+	padding: 0;
+}
+
 .side {
 	float: left;
 	width: 300px;
@@ -40,6 +53,7 @@ nav {
 }
 
 .content {
-	margin-left: 310px;
-	padding-top: 15px;
+	margin-left: 320px;
+	padding-top: 35px;
+	
 }
