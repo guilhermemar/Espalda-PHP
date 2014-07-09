@@ -7,7 +7,6 @@ window.app.controller('controllerMenu', function controllerMenu ($scope, $rootSc
 	loadContent('menu', function(data){
 		
 		$scope.menu = data;
-		console.log(data);
 		$scope.loadNewContent(data[0].itens[0].content);
 		
 	});
