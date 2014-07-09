@@ -1,14 +1,18 @@
 [
 	{
 		"type" : "title",
-		"content" : "O título aqui"
+		"content" : "Marcação de templates"
 	},
 	{
-		"type" : "p",
-		"content" : "Aquí vai um conteudo de verdade que é adicionado em uma tag p"
+		"type" : "paragraph",
+		"content" : "Espalda é um novo formado de marcação de templates HTML que delimita substituições e escopos de trabalho."
 	},
 	{
-		"type" : "p",
-		"content" : "Aqui vai outro conteudo de verdade que é adicionado em uma tag p"
-	}
+		"type" : "paragraph",
+		"content" : "O diferencial do Espalda é o não desenvolvimento no template, e sim, adição de marcações que serão interpretados e pela linguagem do projeto. Com isso temos uma curva de aprendizado muito menor, e maior agilidade na criação das páginas HTML."
+	},
+	{
+        "type" : "paragraph",
+        "content" : "As marcações Espalda elaboradas de forma que fossem inseridas ao escopo do template de forma semelhante as próprias tags HTML, sendo elas vistas como novas tags que serão lidas pelo interpretador Espalda e fazer as devidas modificações. Por se tratar apenas de marcações e não apresentar lógica de desenvolvimento, torna mais ágil para o montador HTML criar e fazer alterações, sendo esta mesma pessoa quem aplique as tags Espalda, diminuindo o trabalho do desenvolvedor."
+    }
 ]
