@@ -4,5 +4,13 @@
 		"itens" : [
 		 {"name" : "About", "content" : "about"}
 		]
-	}
+	},
+	{
+        "groupName" : "Espalda tags",
+        "itens" : [
+         {"name" : "Replace", "content" : "tag-replace"},
+         {"name" : "Display", "content" : "tag-display"},
+         {"name" : "Region", "content" : "tag-region"}
+        ]
+    }
 ]

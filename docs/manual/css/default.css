@@ -56,8 +56,22 @@ nav {
 	margin-top:85px;
 }
 
+.nav-item {
+	font-size: 16px;
+	padding-left: 20px;
+	margin: 15px 0 10px 0;
+}
+
+nav li a {
+    cursor: pointer;
+}
+
+
 .content {
 	margin-left: 320px;
 	padding-top: 35px;
-	
+}
+
+.parameters-subtitle {
+	font-size: 18px;
 }

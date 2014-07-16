@@ -23,13 +23,15 @@
 				<h1>Espalda</h1>
 			</div>
 			 
-			<nav id="navigation" ng-repeat="m in menu">
-				<div>{{m.groupName}}</div>
-				<ul>
-					<li ng-repeat="item in m.itens"> 
-						<a ng-click="loadNewContent(item.content)">{{item.name}}</a>
-					</li>
-				</ul>
+			<nav id="navigation" >
+                <span class="control" ng-repeat="m in menu"> 
+					<div class="nav-item">{{m.groupName}}</div>
+					<ul>
+						<li ng-repeat="item in m.itens"> 
+							<a ng-click="loadNewContent(item.content)">{{item.name}}</a>
+						</li>
+					</ul>
+                </span>
 			</nav>
 			
 		</div>
@@ -39,9 +41,22 @@
 			<span class="control" ng-repeat="content in allContent">
 				
 				<span class="control" ng-switch on="content.type">
+				
 					<h2 ng-switch-when="title">{{content.content}}</h1>
+					
 					<h3 ng-switch-when="subtitle">{{content.content}}</h1>
+					
 					<p ng-switch-when="paragraph">{{content.content}}</p>
+					 
+					<span class="control" ng-switch-when="parameters">
+					<h3>Propriedades</h3>
+					<ul>
+					   <li ng-repeat="param in content.content">
+					       <b>{{param.item}} :</b> <span ng-if="!param.required">(opcional)</span> {{param.description}}
+					   </li>
+					</ul>
+					</span>
+					
 				</span>
 				
 			</span>

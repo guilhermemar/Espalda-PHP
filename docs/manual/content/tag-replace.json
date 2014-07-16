@@ -1,0 +1,27 @@
+[
+	{
+		"type" : "title",
+		"content" : "Tag Replace"
+	}, {
+		"type" : "paragraph",
+		"content" : "A tag replace representa no template um local que irá receber um valor."
+	}, {
+        "type" : "parameters",
+        "content" : [{
+            "item" : "name",
+            "required" : true,
+            "description" : "O nome da tag, que será usado para atribuir um valor a ele"
+        }, {
+            "item" : "default",
+            "required" : false,
+            "description" : "O valor default que será adicionado caso não seja setado nenhum valor" 
+       }]
+    }, {
+        "type" : "subtitle",
+        "content" : "Exemplos"
+    }, {
+        "type" : "code",
+        "content" : ""
+    }
+    
+]
