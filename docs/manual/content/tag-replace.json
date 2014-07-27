@@ -20,8 +20,8 @@
         "type" : "subtitle",
         "content" : "Exemplos"
     }, {
-        "type" : "code",
-        "content" : ""
+        "type" : "gist",
+        "content" : "<script src='https://gist.github.com/guilhermemar/9a82cb98d787278f3d3d.js'></script>"
     }
     
 ]
