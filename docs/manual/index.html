@@ -24,14 +24,14 @@
 			</div>
 			 
 			<nav id="navigation" >
-                <span class="control" ng-repeat="m in menu"> 
+				<span class="control" ng-repeat="m in menu"> 
 					<div class="nav-item">{{m.groupName}}</div>
 					<ul>
 						<li ng-repeat="item in m.itens"> 
 							<a ng-click="loadNewContent(item.content)">{{item.name}}</a>
 						</li>
 					</ul>
-                </span>
+				</span>
 			</nav>
 			
 		</div>
@@ -57,9 +57,10 @@
 					</ul>
 					</span>
 					
-					<span class="control" ng-switch-when="gist" ng-controller="controllerLoadGist" ng-init="init(content.content)">
+					<span class="control" ng-switch-when="gist" ng-controller="controllerLoadGist" gistUrl="{{content.content}}">
 						{{content.content}}
-						
+						<iframe ng-src="loadgist.html?url={{content.content}}"></iframe>
+						<!--<script src="https://gist.github.com/guilhermemar/9a82cb98d787278f3d3d.js"></script>-->
 					</span>
 					
 				</span>

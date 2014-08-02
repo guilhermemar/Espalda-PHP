@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>gist content</title>
+<style>
+	html, body {
+		margin: 0;
+	}
+</style>
+</head>
+<body>
+	<script>
+		var url = document.documentURI.split('?');
+		if (url.length > 0) {
+			url = url[1].split('&');
+			for (i in url) {
+				if(url[i].match('url=') !== null) {
+					url = url[i].split('=');
+					
+					document.write('<script src="' + url[1] + '"><\/script>');
+					break;
+				}
+			}
+		
+		}
+	</script>
+
+</body>
+</html>
