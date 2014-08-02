@@ -57,8 +57,9 @@
 					</ul>
 					</span>
 					
-					<span class="control" ng-switch-when="gist">
+					<span class="control" ng-switch-when="gist" ng-controller="controllerLoadGist" ng-init="init(content.content)">
 						{{content.content}}
+						
 					</span>
 					
 				</span>
