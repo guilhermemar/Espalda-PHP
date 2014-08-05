@@ -19,12 +19,15 @@
 					url = url[i].split('=');
 					
 					document.write('<script src="' + url[1] + '"><\/script>');
+					
 					break;
 				}
 			}
-		
 		}
+		
+		window.onload = function(){
+            parent.document.getElementById("iframe1").height = document.getElementById("myDoc").scrollHeight + 35;
+        }
 	</script>
-
 </body>
 </html>
