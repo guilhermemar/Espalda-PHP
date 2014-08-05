@@ -1,0 +1,29 @@
+[
+	{
+		"type" : "title",
+		"content" : "Tag Display"
+	}, {
+		"type" : "paragraph",
+		"content" : "A tag display delimita um escopo de marcação que poderá ser permitido exibir ou não"
+	}, {
+        "type" : "parameters",
+        "content" : [{
+            "item" : "name",
+            "type" : "string",
+            "required" : true,
+            "description" : "O nome da tag, que será usado para referencia no código"
+        }, {
+            "item" : "value",
+            "type" : "boolean",
+            "required" : false,
+            "description" : "Se o conteúdo deverá ser exibido ou não no template. Valor default é true" 
+       }]
+    }, {
+        "type" : "subtitle",
+        "content" : "Exemplos"
+    }, {
+        "type" : "gist",
+        "content" : "https://gist.github.com/guilhermemar/5a1f1bc9abb9802887b1.js"
+    }
+    
+]

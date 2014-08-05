@@ -52,7 +52,7 @@
 					<h3>Propriedades</h3>
 					<ul>
 					   <li ng-repeat="param in content.content">
-					       <b>{{param.item}} :</b> <span ng-if="!param.required">(opcional)</span> {{param.description}}
+					       <b>{{param.item}}</b> : <span>{{param.type}}</span> - {{param.description}} <span ng-if="!param.required">(opcional)</span>
 					   </li>
 					</ul>
 					</span>
