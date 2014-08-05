@@ -28,6 +28,7 @@ p {
 iframe {
     border: none;
     width: 100%;
+    overflow: hidden;
 }
 
 .control {
@@ -73,7 +74,8 @@ nav li a {
 
 
 .content {
-	margin: 35px 10px 0 320px;
+	margin: 0 10px 0 320px;
+	padding-top: 35px;
 }
 
 .parameters-subtitle {

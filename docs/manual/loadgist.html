@@ -11,23 +11,39 @@
 </head>
 <body>
 	<script>
+	
+	   var setContainerHeight = function setContainerHeight () {
+		   var iframes = parent.document.getElementsByTagName("iframe");
+           
+           for (k in iframes) {
+               
+               if (iframes[k].src.match(url[1])) {
+                   
+                   iframes[k].height = document.body.offsetHeight;
+                    
+                   console.log('encontrou');
+                   
+                   break;
+               }
+           }
+	   } 
+	
 		var url = document.documentURI.split('?');
 		if (url.length > 0) {
 			url = url[1].split('&');
 			for (i in url) {
 				if(url[i].match('url=') !== null) {
-					url = url[i].split('=');
+					url = url[i].split('=')[1];
 					
-					document.write('<script src="' + url[1] + '"><\/script>');
+					document.write('<script src="' + url + '"><\/script>');
+					
+					window.onload = setContainerHeight;
+					windows.onresize = setContainerHeight;
 					
 					break;
 				}
 			}
 		}
-		
-		window.onload = function(){
-            parent.document.getElementById("iframe1").height = document.getElementById("myDoc").scrollHeight + 35;
-        }
 	</script>
 </body>
 </html>
