@@ -17,12 +17,10 @@
            
            for (k in iframes) {
                
-               if (iframes[k].src.match(url[1])) {
+               if (iframes[k].src.match(url)) {
                    
                    iframes[k].height = document.body.offsetHeight;
-                    
-                   console.log('encontrou');
-                   
+
                    break;
                }
            }
@@ -38,7 +36,7 @@
 					document.write('<script src="' + url + '"><\/script>');
 					
 					window.onload = setContainerHeight;
-					windows.onresize = setContainerHeight;
+					window.onresize = setContainerHeight;
 					
 					break;
 				}
