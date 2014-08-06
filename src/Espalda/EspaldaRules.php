@@ -44,6 +44,6 @@ abstract class EspaldaRules
 	 * Search for espalda's tags (begin and end)
 	 * @var regex
 	 */
-	protected $regex_internalEstaldaTag = '/<(?<begin>espalda)([ \t\r\n\v\f]|.)*?type[[:space:]]*=[[:space:]]*"(?<type>([ a-z0-9_-])+)"([ \t\r\n\v\f]|.)*?>|<(?<end>\/espalda)[ \t\r\n\v\f]*>/i';
+	protected $regex_internalEspaldaTag = '/<(?<begin>espalda)([ \t\r\n\v\f]|.)*?type[[:space:]]*=[[:space:]]*"(?<type>([ a-z0-9_-])+)"([ \t\r\n\v\f]|.)*?>|<(?<end>\/espalda)[ \t\r\n\v\f]*>/i';
 }
 ?>

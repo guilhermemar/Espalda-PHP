@@ -242,7 +242,7 @@ abstract class EspaldaParser extends EspaldaRules
 		$endPosTag = null;
 		$endPosScope = null;
 
-		while (preg_match($this->regex_internalEstaldaTag, $this->source, $found, PREG_OFFSET_CAPTURE, $startPos)) {
+		while (preg_match($this->regex_internalEspaldaTag, $this->source, $found, PREG_OFFSET_CAPTURE, $startPos)) {
 
 			if ($found['begin'][1] !== -1) {
 
