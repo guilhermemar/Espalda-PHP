@@ -6,11 +6,22 @@
 		]
 	},
 	{
-        "groupName" : "Espalda tags",
-        "itens" : [
-         {"name" : "Replace", "content" : "tag-replace"},
-         {"name" : "Display", "content" : "tag-display"},
-         {"name" : "Loop", "content" : "tag-loop"}
-        ]
-    }
+		"groupName" : "Espalda tags",
+		"itens" : [
+			{"name" : "Replace", "content" : "tag-replace"},
+			{"name" : "Display", "content" : "tag-display"},
+			{"name" : "Loop", "content" : "tag-loop"}
+		]
+	},
+	{
+		"groupName" : "Espalda-PHP",
+		"itens" : [
+			{"name" : "Sobre", "content" : "espaldaphp-overview"},
+			{"name" : "Lendo um template", "content" : "espaldaphp-reading"},
+			{"name" : "Manipulando Replaces", "content" : "espaldaphp-replace"},
+			{"name" : "Manipulando Displays", "content" : "espaldaphp-display"},
+			{"name" : "Manipulando Loop", "content" : "espaldaphp-loop"},
+			{"name" : "Exibindo um template", "content" : "espaldaphp-show"}
+		]
+	}
 ]

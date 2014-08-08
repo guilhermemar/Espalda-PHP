@@ -23,12 +23,12 @@
         "content" : "Exemplos"
     }, {
         "type" : "gist",
-        "content" : "https://gist.github.com/guilhermemar/5a1f1bc9abb9802887b1.js"
+        "content" : "https://gist.github.com/guilhermemar/5a1f1bc9abb9802887b1"
     }, {
         "type" : "paragraph",
         "content" : "A marcação Display é uma marcação de escopo, podendo assim ter outras marcações espalda dentro dela"
     }, {
         "type" : "gist",
-        "content" : "https://gist.github.com/guilhermemar/1b3a59afaf755785321e.js"
+        "content" : "https://gist.github.com/guilhermemar/1b3a59afaf755785321e"
     }
 ]

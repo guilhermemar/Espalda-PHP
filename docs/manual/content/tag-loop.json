@@ -18,12 +18,12 @@
         "content" : "Exemplos"
     }, {
         "type" : "gist",
-        "content" : "https://gist.github.com/guilhermemar/a01440d8a4aa5a8633ce.js"
+        "content" : "https://gist.github.com/guilhermemar/a01440d8a4aa5a8633ce"
     }, {
         "type" : "paragraph",
         "content" : "A marcação Loop é uma marcação de escopo, podendo assim ter outras marcações espalda dentro dela"
     }, {
         "type" : "gist",
-        "content" : "https://gist.github.com/guilhermemar/5ac2544167a5490e37be.js"
+        "content" : "https://gist.github.com/guilhermemar/5ac2544167a5490e37be"
     }
 ]

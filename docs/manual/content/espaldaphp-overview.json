@@ -1,0 +1,9 @@
+[
+	{
+		"type" : "title",
+		"content" : "Espalda-PHP"
+	},{
+		"type" : "paragraph",
+		"content" : "Espalda-PHP é uma biblioteca desenvolvido para permitir que aplicações desenvolvidas em PHP possam manipular templates com marcações espalda de uma forma simples e rápida."
+	}
+]
