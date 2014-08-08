@@ -28,6 +28,7 @@ p {
 iframe {
     border: 1px solid #ff0000;
     width: 100%;
+    overflow: hidden;
 }
 
 .control {

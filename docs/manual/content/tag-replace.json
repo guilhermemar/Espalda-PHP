@@ -9,10 +9,12 @@
         "type" : "parameters",
         "content" : [{
             "item" : "name",
+            "type" : "string",
             "required" : true,
             "description" : "O nome da tag, que será usado para atribuir um valor a ele"
         }, {
             "item" : "default",
+            "type" : "string",
             "required" : false,
             "description" : "O valor default que será adicionado caso não seja setado nenhum valor" 
        }]
@@ -21,8 +23,7 @@
         "content" : "Exemplos"
     }, {
         "type" : "gist",
-        "content" : "https://gist.github.com/guilhermemar/9a82cb98d787278f3d3d.js",
-        "content2" : "<script src='https://gist.github.com/guilhermemar/9a82cb98d787278f3d3d.js'></script>"
+        "content" : "https://gist.github.com/guilhermemar/9a82cb98d787278f3d3d.js"
     }
     
 ]
