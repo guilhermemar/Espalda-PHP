@@ -22,8 +22,14 @@ window.app.controller('controllerLoadGist', function controllerLoadGist ($scope,
 		var s = document.createElement('iframe');
 		s.src = "loadgist.html?url=" + $element.context.attributes.gistUrl.value;
 		s.onload = function ajustHeight () {
+			console.log(s.document);
+			
+			console.log(this.document);
+			
+			/*
 			var b = s.document.body;
 			s.height = b.scrollHeight + (b.offsetHeight - b.clientHeight);
+			*/
 		}
 		$element.append(s);
 	});
