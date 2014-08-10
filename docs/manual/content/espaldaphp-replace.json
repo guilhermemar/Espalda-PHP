@@ -1,0 +1,18 @@
+[
+	{
+		"type" : "title",
+		"content" : "Espalda-PHP :: Manipulando Replaces"
+	},{
+		"type" : "paragraph",
+		"content" : "Se deseja alterar um valor de uma marcação replace no template a forma mais fácil é utilizando o método setReplaceValue()"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/b063b9206f5fa39b8ab9"
+	},{
+		"type" : "paragraph",
+		"content" : "Alternadamente é possível solicitar um objeto EspaldaReplace que faz referencia a marcação replace desejada e manipular os dados através dela"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/388bf64aa0c77b5b9570"
+	}
+]

@@ -1,0 +1,27 @@
+[
+	{
+		"type" : "title",
+		"content" : "Espalda-PHP :: Manipulando Displays"
+	},{
+		"type" : "paragraph",
+		"content" : "Para alterar o valor default de uma marcação display forma mais fácil é utilizando o método setDisplayValue()"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/8f2b48e24a6e2265ad07"
+	},{
+		"type" : "paragraph",
+		"content" : "Outra forma é obter uma instância de EspaldaDisplay relacionado a marcação desejada e então alterar o seu valor"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/fbd50af61e65bac9a35f"
+	},{
+		"type" : "paragraph",
+		"content" : "Por se tratar de uma marcação de escopo, é possível ter marcações replace, loop e outras displays, que são acessíveis a través da instancia da marcação."
+	},{
+		"type" : "paragraph",
+		"content" : "Na instância, é possível utilizar os métodos que foram vistos na seção \"Manipulando Replaces\" e \"Manipulando Loops\""
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/9a3049f9baf2f6efa124"
+	}
+]	

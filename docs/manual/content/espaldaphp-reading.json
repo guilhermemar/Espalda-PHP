@@ -3,8 +3,14 @@
 		"type" : "title",
 		"content" : "Espalda-PHP :: Lendo um template"
 	},{
+		"type" : "paragraph",
+		"content" : "Existem duas formas de ler um arquivo de template, a primeira e mais comum é passando o caminho logo que se instancia um objeto Espalda."
+	},{
 		"type" : "gist",
 		"content" : "https://gist.github.com/guilhermemar/81ec60c23d7d935f8160"
+	},{
+		"type" : "paragraph",
+		"content" : "A segunda forma é utilizando o método loadSource()"
 	},{
 		"type" : "gist",
 		"content" : "https://gist.github.com/guilhermemar/5ef1b5878af9e28fd567"

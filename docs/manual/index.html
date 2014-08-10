@@ -27,8 +27,9 @@
 				<span class="control" ng-repeat="m in menu"> 
 					<div class="nav-item">{{m.groupName}}</div>
 					<ul>
-						<li ng-repeat="item in m.itens"> 
-							<a ng-click="loadNewContent(item.content)">{{item.name}}</a>
+						<li ng-repeat="item in m.itens" ng-switch on="item.type"> 
+							<a ng-switch-when="external" href="{{item.url}}" target="_blank">{{item.name}}</a>
+							<a ng-switch-default ng-click="loadNewContent(item.content, item.url)">{{item.name}}</a>
 						</li>
 					</ul>
 				</span>
@@ -68,6 +69,7 @@
 		<script src="js/vendor/jquery.min.js"></script>
 		<script src="js/vendor/bootstrap.min.js"></script>
 		<script src="js/vendor/angular.min.js"></script>
+		<script src="js/vendor/angular-route.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/controllers.js"></script>
 		

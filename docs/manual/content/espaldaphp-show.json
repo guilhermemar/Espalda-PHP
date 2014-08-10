@@ -1,0 +1,18 @@
+[
+	{
+		"type" : "title",
+		"content" : "Espalda-PHP :: Exibindo template"
+	},{
+		"type" : "paragraph",
+		"content" : "Existem duas formas de obter o template com as alterações aplicadas, a primeira é com o método getOutput() que irá retornar uma string com o template completo"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/5cd3385d844bc8f6672a"
+	},{
+		"type" : "paragraph",
+		"content" : "A outra forma é usar o método show(), que irá exibir diretamente o resultado na tela."
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/fc26afc93f8f3afbfb57"
+	}
+]

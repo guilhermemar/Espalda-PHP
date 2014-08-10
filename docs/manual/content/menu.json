@@ -2,27 +2,29 @@
 	{
 		"groupName" : "",
 		"itens" : [
-		 {"name" : "About", "content" : "about"}
+		 {"name" : "About", "content" : "about", "url" : "overview"}
 		]
 	},
 	{
 		"groupName" : "Espalda tags",
 		"itens" : [
-			{"name" : "Replace", "content" : "tag-replace"},
-			{"name" : "Display", "content" : "tag-display"},
-			{"name" : "Loop", "content" : "tag-loop"}
+			{"name" : "Replace", "content" : "tag-replace", "url" : "replace"},
+			{"name" : "Display", "content" : "tag-display", "url" : "display"},
+			{"name" : "Loop", "content" : "tag-loop", "url" : "loop"}
 		]
 	},
 	{
 		"groupName" : "Espalda-PHP",
 		"itens" : [
-			{"name" : "Sobre", "content" : "espaldaphp-overview"},
-			{"name" : "Intanciando", "content" : "espaldaphp-starting"},
-			{"name" : "Lendo um template", "content" : "espaldaphp-reading"},
-			{"name" : "Manipulando Replaces", "content" : "espaldaphp-replace"},
-			{"name" : "Manipulando Displays", "content" : "espaldaphp-display"},
-			{"name" : "Manipulando Loop", "content" : "espaldaphp-loop"},
-			{"name" : "Exibindo um template", "content" : "espaldaphp-show"}
+			{"name" : "Sobre", "content" : "espaldaphp-overview", "url" : "php/overview"},
+			{"name" : "Intanciando", "content" : "espaldaphp-starting", "url" : "php/starting"},
+			{"name" : "Lendo um template", "content" : "espaldaphp-reading", "url" : "php/reading"},
+			{"name" : "Manipulando Replaces", "content" : "espaldaphp-replace", "url" : "php/replace"},
+			{"name" : "Manipulando Displays", "content" : "espaldaphp-display", "url" : "php/display"},
+			{"name" : "Manipulando Loop", "content" : "espaldaphp-loop", "url" : "php/loop"},
+			{"name" : "Exibindo um template", "content" : "espaldaphp-show", "url" : "php/show"},
+			{"name" : "Documentação da API", "url" : "../api/v2", "type" : "external"},
+			{"name" : "Projeto Github", "url" : "http://github.com/guilhermemar/Espalda-PHP", "type" : "external"}
 		]
 	}
 ]

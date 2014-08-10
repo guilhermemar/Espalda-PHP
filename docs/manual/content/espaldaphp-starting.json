@@ -1,0 +1,12 @@
+[
+	{
+		"type" : "title",
+		"content" : "Espalda-PHP :: Instanciando"
+	},{
+		"type" : "paragraph",
+		"content" : "Começar a trabalhar com a bilioteca é simples. Basta incluir o arquivo principal da biblioteca Espalda.php, definir o namespace Espalda e definir uma instancia de Espalda()"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/b70fd5b552e7cb53df21"
+	}
+]

@@ -1,0 +1,27 @@
+[
+	{
+		"type" : "title",
+		"content" : "Espalda-PHP :: Manipulando Loops"
+	},{
+		"type" : "paragraph",
+		"content" : "Diferente das outras marcações, a marcação loop não existe uma forma de manipulação direta no objeto Espalda, é preciso obter a instanção relacionada a marcação"
+	},{
+		"type" : "paragraph",
+		"content" : "A marcação loop consiste em uma marcação de escopo com a funcionalidade de repetir o seu conteudo conforme necessário, para isso utiliza-se o método push(), que irá pegar o escopo original da marcação do template e adicionar no final."
+	},{
+		"type" : "paragraph",
+		"content" : "Se efetuar dois push(), quando exibir irá aparecer duas vezes o conteudo da marcação"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/fc6c5109370e6dc26cb8"
+	},{
+		"type" : "paragraph",
+		"content" : "Por se tratar de uma marcação de escopo, é possível ter marcações replace, display e outros loops, que são acessíveis a través da instancia da marcação."
+	},{
+		"type" : "paragraph",
+		"content" : "As marcações internas virão com o valor original do template a cada push() efetuado"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/37e24b7d6c149f837faf"
+	}
+]	

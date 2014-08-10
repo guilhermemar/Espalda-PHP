@@ -5,5 +5,10 @@
 	},{
 		"type" : "paragraph",
 		"content" : "Espalda-PHP é uma biblioteca desenvolvido para permitir que aplicações desenvolvidas em PHP possam manipular templates com marcações espalda de uma forma simples e rápida."
+	},{
+		"type" : "paragraph",
+		"content" : "O Tutorial do manual apresenta passos para que se possa sair utilizando a API de uma forma simples e otimizada, para maiores informações convidamos a visitar o item \"Documentação da API\""	},{
+		"type" : "paragraph",
+		"content" : "Para maiores informações sobre o Desenvolvimento acesse : \"Projeto Github\""
 	}
 ]

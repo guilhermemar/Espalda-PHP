@@ -1,4 +1,4 @@
-window.app = angular.module('documentation', []);
+window.app = angular.module('documentation', ['ngRoute']);
 
 window.app.factory('loadContent', function loadContent ($http) {
 	
