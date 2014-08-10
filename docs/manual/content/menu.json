@@ -17,6 +17,7 @@
 		"groupName" : "Espalda-PHP",
 		"itens" : [
 			{"name" : "Sobre", "content" : "espaldaphp-overview"},
+			{"name" : "Intanciando", "content" : "espaldaphp-starting"},
 			{"name" : "Lendo um template", "content" : "espaldaphp-reading"},
 			{"name" : "Manipulando Replaces", "content" : "espaldaphp-replace"},
 			{"name" : "Manipulando Displays", "content" : "espaldaphp-display"},

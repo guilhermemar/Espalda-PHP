@@ -1,9 +1,12 @@
 [
 	{
 		"type" : "title",
-		"content" : "Espalda-PHP - Lendo um template"
+		"content" : "Espalda-PHP :: Lendo um template"
 	},{
-		"type" : "subtitle",
-		"content" : "Importanto biblioteca"
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/81ec60c23d7d935f8160"
+	},{
+		"type" : "gist",
+		"content" : "https://gist.github.com/guilhermemar/5ef1b5878af9e28fd567"
 	}
 ]
