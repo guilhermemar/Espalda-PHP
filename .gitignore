@@ -3,5 +3,6 @@
 .project
 .directory
 .vagrant
+*.md.html
 vendor
 docs
