@@ -38,12 +38,12 @@ abstract class EspaldaRules
 	 * Search for espalda's tags
 	 * @var regex
 	 */
-	protected $regex_espaldaTag = '/<(espalda)((type[ ]*=[ ]*"(?<type>display|replace|loop)")|(name[ ]*=[ ]*"(?<name>[a-z][a-z0-9_-]*)")|(value[ ]*=[ ]*"(?<value>[a-z0-9_-]*)")|[ \t\r\n\v\f])*>/i';
+	protected $regex_espaldaTag = '/<(espalda)((type[[:space:]]*=[[:space:]]*"(?<type>display|replace|loop)")|(name[[:space:]]*=[[:space:]]*"(?<name>[a-z][a-z0-9_-]*)")|(value[[:space:]]*=[[:space:]]*"(?<value>[a-z0-9_-]*)")|[ \t\r\n\v\f])*>/i';
 
 	/**
 	 * Search for espalda's tags (begin and end)
 	 * @var regex
 	 */
-	protected $regex_internalEstaldaTag = '/<(?<begin>espalda)([ \t\r\n\v\f]|.)*?type[ ]*=[ ]*"(?<type>([ a-z0-9_-])+)"([ \t\r\n\v\f]|.)*?>|<(?<end>\/espalda)[ \t\r\n\v\f]*>/i';
+	protected $regex_internalEspaldaTag = '/<(?<begin>espalda)([ \t\r\n\v\f]|.)*?type[[:space:]]*=[[:space:]]*"(?<type>([ a-z0-9_-])+)"([ \t\r\n\v\f]|.)*?>|<(?<end>\/espalda)[ \t\r\n\v\f]*>/i';
 }
 ?>
