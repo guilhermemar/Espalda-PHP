@@ -1,14 +1,13 @@
 {
 	"name" : "espalda/espalda-php",
 	"description" : "Library for handling specific espalda markup in html's pages to facilitate development of dynamic pages",
-	"version" : "2.0.0",
 	"keywords" : ["espalda", "template", "html"],
-	"homepage" : "http://espalda.guilhermemar.com/",
+	"homepage" : "http://guilhermemar.github.io/Espalda-PHP/docs/manual/",
 	"license" : "LGPL-3.0",
 	"authors" : [
 		{
 			"name" : "Mar, Guilherme",
-			"email" : "guilhermemar.dev@gmail.com",
+			"email" : "gfmarster@gmail.com",
 			"homepage" : "http://guilhermemar.com"
 		}
 	],
