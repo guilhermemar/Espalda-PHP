@@ -1,5 +1,5 @@
 {
-	"name" : "espalda/espalda",
+	"name" : "espalda/espalda-php",
 	"description" : "Library for handling specific espalda markup in html's pages to facilitate development of dynamic pages",
 	"version" : "2.0.0",
 	"keywords" : ["espalda", "template", "html"],
