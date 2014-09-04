@@ -3,24 +3,17 @@
 	
 	<property name="version" value="2"/>
 	<property name="branch" value="v${version}"/>
-	<property name="message" value="Welcome to Espalda project"/>
 	
-	<target name="delete-docs-api">
-		<delete dir="./docs/api/v${version}"/>
+	<target name="welcome">
+		<echo msg="Espalda PHP version ${version}"/>
 	</target>
 	
 	<target name="delete-vendor">
 		<delete dir="./vendor"/>
 	</target>
 	
-	<target name="delete-crossfolder">
-		<delete dir="./cross"/>
-	</target>
 	
-	<target name="delete-docs">
-		<delete dir="./docs"/>
-	</target>
-	
+	<!--
 	<target name="clean" depends="delete-docs, delete-crossfolder"></target>
 	<target name="clean-all" depends="clean, delete-vendor"></target>
 	
@@ -82,9 +75,6 @@
 		
 		<exec command="git checkout ${branch}" logoutput="true" />
 	</target>
-	
-	<target name="welcome">
-		<echo msg="${message}"/>
-	</target>
+	-->
 	
 </project>
