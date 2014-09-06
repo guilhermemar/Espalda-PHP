@@ -4,8 +4,13 @@ if [ -f "/var/vagrant_provision" ]; then
 	exit 0
 fi
 
-echo "America/Sao_Paulo" > /etc/timezone
+_timezone='America/Sao_Paulo'
+_hostname='Espalda-PHP'
+
+echo $_timezone > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
+
+echo $_hostname > /etc/hostname
 
 echo "###################"
 echo "# UPDATING SYSTEM #"
