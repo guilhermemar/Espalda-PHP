@@ -118,11 +118,11 @@ class RoboFile extends \Robo\Tasks
 		
 		switch ($destination) {
 		case 'publish' :
-			$destdir = "{$this->path}/.for_publish/docs/api/v{$this->version['major']}";
+			$destdir = "{$this->path}/.for_publish/docs/api/{$this->getVersion('nominal')}";
 			break;
 		case 'local':
 		default :
-			$destdir = "{$this->path}/docs/api/v{$this->version['major']}";
+			$destdir = "{$this->path}/docs/api/{$this->getVersion('nominal')}";
 		}
 		
 		$template = 'clean';
@@ -184,8 +184,8 @@ class RoboFile extends \Robo\Tasks
 		
 		$this->taskGitStack()->checkout($this->branch['docs'])->run();
 		
-		$docs_from = "{$this->path}/.for_publish/docs/api/v{$this->version['major']}";
-		$docs_to = "{$this->path}/docs/api/";
+		$docs_from = "{$this->path}/.for_publish/docs/api/{$this->getVersion('nominal')}/*";
+		$docs_to = "{$this->path}/docs/api/{$this->getVersion('nominal')}";
 		
 		$this->taskFileSystemStack()->copy($docs_from, $docs_to, true)->run();
 	}
