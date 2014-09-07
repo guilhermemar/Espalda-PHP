@@ -19,6 +19,8 @@ class RoboFile extends \Robo\Tasks
 		'downloads' => 'downloads'
 	];
 	
+	private $remote = 'origin';
+	
 	private $path = null;
 	
 	public function __construct ()
@@ -168,6 +170,63 @@ class RoboFile extends \Robo\Tasks
 		
 	}
 	
+	public function publishDoc ()
+	{
+		$this->printInfo('Preparing API Documentation to publish ...');
+		
+		$this->docApi('publish');
+		
+		$this->printInfo('Publishing API Documentation ...');
+		
+		//mudando para o branch de documentação
+		$this->taskGitStack()->checkout($this->branch['docs'])->run();
+		
+		//copiando documentação para o local certo
+		$docs_from = "{$this->path}/.for_publish/docs/api/{$this->getVersion('nominal')}/";
+		$docs_to = "{$this->path}/docs/api/";
+		
+		$res1 = $this->taskExec("cp -r {$docs_from} {$docs_to}")->run();
+		
+		//commiting and push
+		$this->taskGitStack()
+		->StopOnFail()
+		->add('-A')
+		->commit('updated API documentation')
+		->push($this->remote, $this->branch['docs'])
+		->run();
+	}
+	
+	public function publishCompress ()
+	{
+		$this->printInfo('Preparing compressed files to publish ...');
+		
+		$this->compress();
+		
+		//mudando para o branch de estaticos comprimidos
+		$this->taskGitStack()->checkout($this->branch['downloads'])->run();
+		
+		//copiando arquivos comprimidos para o local certo
+		$statics_from = "{$this->path}/.for_publish/compresseds/{$this->getVersion('nominal')}/*";
+		$statics_to = "{$this->path}/{$this->getVersion('nominal')}";
+		
+		$this->taskFileSystemStack()->mkdir($statics_to)->run();
+		$res1 = $this->taskExec("cp -r {$statics_from} {$statics_to}")->run();
+		
+		//commiting and push
+		$this->taskGitStack()
+		->StopOnFail()
+		->add('-A')
+		->commit('updated static files for download Espalda-PHP')
+		->push($this->remote, $this->branch['downloads'])
+		->checkout($this->branch['current'])
+		->run();
+		
+	}
+	
+	public function publishSrcFiles () {
+		
+	}
+	
 	public function publish ()
 	{
 		$this->printInfo('Did you do git commit?');
@@ -177,17 +236,12 @@ class RoboFile extends \Robo\Tasks
 			return;
 		}
 		
-		$this->printInfo('Preparing to publish ...');
+		$this->publishDoc();
+		//$this->publishCompress();
 		
-		$this->docApi('publish');
-		$this->compress();
 		
-		$this->taskGitStack()->checkout($this->branch['docs'])->run();
 		
-		$docs_from = "{$this->path}/.for_publish/docs/api/{$this->getVersion('nominal')}/";
-		$docs_to = "{$this->path}/docs/api/";
 		
-		$res1 = $this->taskExec("cp -r {$docs_from} {$docs_to}")->run();
 		
 	}
 
