@@ -43,6 +43,8 @@ class RoboFile extends \Robo\Tasks
 		switch ($format) {
 		case 'nominal' :
 			return 'v'.$this->version['major'];
+		case 'nominal-complete':
+			return "v{$this->version['major']}.{$this->version['minor']}.{$this->version['patch']}";
 		case 'complete':
 		default :
 			return $this->version['major'].".".$this->version['minor'].".". $this->version['patch'];
@@ -204,6 +206,8 @@ class RoboFile extends \Robo\Tasks
 		
 		$this->compress();
 		
+		$this->printInfo('Publishing compressed files ...');
+		
 		//mudando para o branch de estaticos comprimidos
 		$this->taskGitStack()->checkout($this->branch['downloads'])->run();
 		
@@ -225,8 +229,51 @@ class RoboFile extends \Robo\Tasks
 		
 	}
 	
-	public function publishSrcFiles () {
+	public function publishDist ()
+	{
+		$this->printInfo('Preparing API files to publish ...');
 		
+		$apifiles_publish = [
+			"{$this->path}/src",
+			"{$this->path}/composer.json",
+			"{$this->path}/COPYING"
+		];
+		$apifiles_temp = "{$this->path}/.for_publish/dist";
+		
+		$this->taskFileSystemStack()->mkdir($apifiles_temp)->run();
+		$this->taskCleanDir($apifiles_temp)->run();
+		
+		$res1 = $this->taskExec("cp -r " . implode(' ', $apifiles_publish) . " {$statics_to}")->run();
+		
+		$this->printInfo('Publishing API Files ...');
+		
+		//mudando de branch
+		$this->taskGitStack()->checkout($this->branch['dist'])->run();
+	
+		//copiando arquivos da api para o local certo
+		$apifiles_to = "{$this->path}/src";
+		
+		$this->taskCleanDir($apifiles_to)->run();
+		$res1 = $this->taskExec("cp -r {$apifiles_temp} {$apifiles_to}")->run();
+	
+		//commiting and push
+		$this->taskGitStack()
+		->stopOnFail()
+		->add('-A')
+		->commit('updated Espalda-PHP API files for distribution ')
+		->push($this->remote, $this->branch['dist'])
+		->run();
+		
+		///criando tag
+		$this->exec("tag -a {$this->getVersion('nominal-complete')} -m 'Stable release for {$this->getVersion('nominal')}'");
+		$this->exec("push {$this->remote} --tags");
+		
+		//come back to current branch
+		$this->taskGitStack()
+		->stopOnFail()
+		->checkout($this->branch['current'])
+		->run();
+	
 	}
 	
 	public function publish ()
@@ -239,11 +286,8 @@ class RoboFile extends \Robo\Tasks
 		}
 		
 		//$this->publishDoc();
-		$this->publishCompress();
-		
-		
-		
-		
+		//$this->publishCompress();
+		$this->publishDist();
 		
 	}
 
