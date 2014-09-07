@@ -68,6 +68,13 @@ class RoboFile extends \Robo\Tasks
 		return  str_replace(['*',' '], '', $res->getMessage());
 	}
 	
+	private function commited () {
+
+		$res  = $this->taskExec('git status')->run();
+		return strpos($res->getMessage(), 'nothing to commit') !== FALSE ? true : false;
+		
+	}
+	
 	/******************************************************************
 	 * Tasks
 	*/
@@ -137,7 +144,7 @@ class RoboFile extends \Robo\Tasks
 	 */
 	public function compress ()
 	{
-		$this->printTaskInfo('Generating compresseds ...');
+		$this->printInfo('Generating compresseds ...');
 		
 		chdir('src');
 		
@@ -163,7 +170,14 @@ class RoboFile extends \Robo\Tasks
 	
 	public function publish ()
 	{
-		$this->printTaskInfo('Preparing to publish ...');
+		$this->printInfo('Did you do git commit?');
+		
+		if (!$this->commited()) {
+			$this->printInfo('You didn\'t commited your work');
+			return;
+		}
+		
+		$this->printInfo('Preparing to publish ...');
 		
 		$this->docApi('publish');
 		$this->compress();
