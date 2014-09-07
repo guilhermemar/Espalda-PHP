@@ -16,7 +16,7 @@ class RoboFile extends \Robo\Tasks
 		'current'   => null,
 		'dist'      => 'dist',
 		'docs'      => 'gh-pages',
-		'downloads' => 'downloads'
+		'downloads' => 'master'
 	];
 	
 	private $remote = 'origin';
@@ -193,7 +193,9 @@ class RoboFile extends \Robo\Tasks
 		->add('-A')
 		->commit('updated API documentation')
 		->push($this->remote, $this->branch['docs'])
+		->checkout($this->branch['current'])
 		->run();
+		
 	}
 	
 	public function publishCompress ()
@@ -236,8 +238,8 @@ class RoboFile extends \Robo\Tasks
 			return;
 		}
 		
-		$this->publishDoc();
-		//$this->publishCompress();
+		//$this->publishDoc();
+		$this->publishCompress();
 		
 		
 		
