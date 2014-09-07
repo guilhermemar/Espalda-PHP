@@ -216,7 +216,6 @@ class RoboFile extends \Robo\Tasks
 		
 		//commiting and push
 		$this->taskGitStack()
-		->stopOnFail()
 		->add('-A')
 		->commit('updated API documentation')
 		->push($this->remote, $this->branch['docs'])
@@ -248,7 +247,6 @@ class RoboFile extends \Robo\Tasks
 		
 		//commiting and push
 		$this->taskGitStack()
-		->stopOnFail()
 		->add('-A')
 		->commit('updated static files for download Espalda-PHP')
 		->push($this->remote, $this->branch['downloads'])
@@ -289,7 +287,6 @@ class RoboFile extends \Robo\Tasks
 	
 		//commiting and push
 		$this->taskGitStack()
-		->stopOnFail()
 		->add('-A')
 		->commit('updated Espalda-PHP API files for distribution ')
 		->push($this->remote, $this->branch['dist'])
@@ -301,7 +298,6 @@ class RoboFile extends \Robo\Tasks
 		
 		//come back to current branch
 		$this->taskGitStack()
-		->stopOnFail()
 		->checkout($this->branch['current'])
 		->run();
 	
