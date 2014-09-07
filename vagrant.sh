@@ -19,7 +19,6 @@ echo "###################"
 apt-get update
 apt-get install -y curl graphviz php5-cli php5-xsl php-pear git lighttpd
 
-###### INSTALLING AND CONFIGURING COMPOSER ######
 
 echo "#######################"
 echo "# INSTALLING COMPOSER #"
@@ -28,14 +27,13 @@ echo "#######################"
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-###### INSTALLING AND CONFIGURING PHING ######
+echo "###################"
+echo "# INSTALLING ROBO #"
+echo "###################"
 
-echo "####################"
-echo "# INSTALLING PHING #"
-echo "####################"
-
-pear channel-discover pear.phing.info
-pear install phing/phing
+wget http://robo.li/robo.phar
+chmod +x robo.phar
+mv robo.phar /usr//bin/robo
 
 echo "########################"
 echo "# CONFIGURING LIGHTTPD #"
