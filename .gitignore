@@ -5,3 +5,4 @@
 .vagrant
 *.md.html
 vendor
+.for_publish/
