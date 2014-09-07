@@ -76,6 +76,8 @@ class RoboFile extends \Robo\Tasks
 	}
 	
 	public function publishDoc () {
+		currentBranch();
+		
 		
 		
 	}
