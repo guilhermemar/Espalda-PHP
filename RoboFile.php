@@ -16,7 +16,7 @@ class RoboFile extends \Robo\Tasks
 		'current'   => null,
 		'dist'      => 'dist',
 		'docs'      => 'gh-pages',
-		'downloads' => 'master'
+		'downloads' => 'downloads'
 	];
 	
 	private $remote = 'origin';
@@ -58,7 +58,9 @@ class RoboFile extends \Robo\Tasks
 	private function printInfo ($message)
 	{
 		$this->printTaskInfo('###');
+		$this->printTaskInfo('###');
 		$this->printTaskInfo('### ' . $message);
+		$this->printTaskInfo('###');
 		$this->printTaskInfo('###');
 	}
 	
@@ -84,11 +86,31 @@ class RoboFile extends \Robo\Tasks
 	*/
 	
 	/**
-	 * Clear the temporary folders
+	 * Delete all auxiliar folders
 	 */
-	public function clear ()
+	public function clear ($target='all')
 	{
-		$this->taskDeleteDir(["{$this->path}/.for_publish"])->run();
+		if ($target == 'publish' || $target == 'all') {
+			$this->taskDeleteDir(["{$this->path}/.for_publish"])->run();
+		}
+		
+		if ($target == 'vendor' || $target == 'all') {
+			$this->taskDeleteDir(["{$this->path}/.for_publish"])->run();
+		}
+	}
+	
+	/**
+	 * Delete auxiliar folder of publishing
+	 */
+	public function clearPublish (){
+		$this->clear('publish');
+	}
+	
+	/**
+	 * Delete auxiliar folder of vendors
+	 */
+	public function clearVendors (){
+		$this->clear('vendor');
 	}
 	
 	/**
@@ -172,6 +194,9 @@ class RoboFile extends \Robo\Tasks
 		
 	}
 	
+	/**
+	 * Publish de API documentation
+	 */
 	public function publishDoc ()
 	{
 		$this->printInfo('Preparing API Documentation to publish ...');
@@ -200,6 +225,9 @@ class RoboFile extends \Robo\Tasks
 		
 	}
 	
+	/**
+	 * Publish compressed files of API
+	 */
 	public function publishCompress ()
 	{
 		$this->printInfo('Preparing compressed files to publish ...');
@@ -229,6 +257,9 @@ class RoboFile extends \Robo\Tasks
 		
 	}
 	
+	/**
+	 * Publish Espalda-PHP API files
+	 */
 	public function publishDist ()
 	{
 		$this->printInfo('Preparing API files to publish ...');
@@ -263,11 +294,11 @@ class RoboFile extends \Robo\Tasks
 		->commit('updated Espalda-PHP API files for distribution ')
 		->push($this->remote, $this->branch['dist'])
 		->run();
-		/*
+		
 		///criando tag
 		$this->taskGitStack->exec("tag -a {$this->getVersion('nominal-complete')} -m 'Stable release for {$this->getVersion('nominal')}'");
 		$this->taskGitStack->exec("push {$this->remote} --tags");
-		*/
+		
 		//come back to current branch
 		$this->taskGitStack()
 		->stopOnFail()
@@ -276,6 +307,9 @@ class RoboFile extends \Robo\Tasks
 	
 	}
 	
+	/**
+	 * Publish all content of Espalda-PHP
+	 */
 	public function publish ()
 	{
 		$this->printInfo('Did you do git commit?');
@@ -285,9 +319,11 @@ class RoboFile extends \Robo\Tasks
 			return;
 		}
 		
-		//$this->publishDoc();
-		//$this->publishCompress();
+		$this->publishDoc();
+		$this->publishCompress();
 		$this->publishDist();
+		
+		$this->printInfo('Publish finish');
 		
 	}
 
