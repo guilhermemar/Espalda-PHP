@@ -243,7 +243,7 @@ class RoboFile extends \Robo\Tasks
 		$this->taskFileSystemStack()->mkdir($apifiles_temp)->run();
 		$this->taskCleanDir($apifiles_temp)->run();
 		
-		$res1 = $this->taskExec("cp -r " . implode(' ', $apifiles_publish) . " {$statics_to}")->run();
+		$res1 = $this->taskExec("cp -r " . implode(' ', $apifiles_publish) . " {$apifiles_temp}")->run();
 		
 		$this->printInfo('Publishing API Files ...');
 		
@@ -265,8 +265,8 @@ class RoboFile extends \Robo\Tasks
 		->run();
 		
 		///criando tag
-		$this->exec("tag -a {$this->getVersion('nominal-complete')} -m 'Stable release for {$this->getVersion('nominal')}'");
-		$this->exec("push {$this->remote} --tags");
+		$this->taskGitStack->exec("tag -a {$this->getVersion('nominal-complete')} -m 'Stable release for {$this->getVersion('nominal')}'");
+		$this->taskGitStack->exec("push {$this->remote} --tags");
 		
 		//come back to current branch
 		$this->taskGitStack()
