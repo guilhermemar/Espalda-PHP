@@ -17,7 +17,7 @@ echo "# UPDATING SYSTEM #"
 echo "###################"
 
 apt-get update
-apt-get install -y curl graphviz php5-cli php5-xsl php-pear git lighttpd
+apt-get install -y curl graphviz php5-cli php5-xsl php-pear git lighttpd zip
 
 
 echo "#######################"

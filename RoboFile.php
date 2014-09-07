@@ -19,21 +19,65 @@ class RoboFile extends \Robo\Tasks
 		'downloads' => 'downloads'
 	];
 	
-	public function __construct () {}
+	private $path = null;
+	
+	public function __construct ()
+	{
+		$this->branch['current'] = $this->currentGitBranch();
+		$this->path = getcwd();
+	}
+	
+	/******************************************************************
+	 * Helpers
+	 */
 	
 	/**
-	 * Helper do get current branch
+	 * Return the formated version
+	 * @param string $format
+	 * @return string
 	 */
-	private function currentBranch () {
-		
-		if (is_null($this->branch['current'])) {
-			
-			$res = $this->taskExec('git branch | grep \*')->run();
-			$this->branch['current'] = str_replace(['*',' '], '', $res->getMessage());
-			
+	private function getVersion($format='complete')
+	{
+		switch ($format) {
+		case 'nominal' :
+			return 'v'.$this->version['major'];
+		case 'complete':
+		default :
+			return $this->version['major'].".".$this->version['minor'].".". $this->version['patch'];
 		}
-		
-		return $this->branch['current'];
+	}
+	
+	/**
+	 * Print a message in the console
+	 * @param string $message
+	 */
+	private function printInfo ($message)
+	{
+		$this->printTaskInfo('###');
+		$this->printTaskInfo('### ' . $message);
+		$this->printTaskInfo('###');
+	}
+	
+	/**
+	 * Return the current branch
+	 * @return string
+	 */
+	private function currentGitBranch () {
+			
+		$res = $this->taskExec('git branch | grep \*')->run();
+		return  str_replace(['*',' '], '', $res->getMessage());
+	}
+	
+	/******************************************************************
+	 * Tasks
+	*/
+	
+	/**
+	 * Clear the temporary folders
+	 */
+	public function clear ()
+	{
+		$this->taskDeleteDir(["{$this->path}/.for_publish"])->run();
 	}
 	
 	/**
@@ -41,6 +85,8 @@ class RoboFile extends \Robo\Tasks
 	 */
 	public function tests ()
 	{
+		$this->printInfo('Doing tests ...');
+		
 		$phpunit_bin = "vendor/phpunit/phpunit/phpunit";
 		$phpunit_args = ['--colors', '--verbose', 'tests'];
 		
@@ -52,15 +98,26 @@ class RoboFile extends \Robo\Tasks
 	
 	/**
 	 * Create API documentation
+	 * @param string $destination
 	 */
 	 
-	public function docApi ()
+	public function docApi ($destination = 'local')
 	{
 		if(!$this->tests()) {
 			return;
 		};
 		
-		$destdir = "docs/api/v{$this->version['major']}";
+		$this->printInfo('Generating API documentation ...');
+		
+		switch ($destination) {
+		case 'publish' :
+			$destdir = "{$this->path}/.for_publish/docs/api/v{$this->version['major']}";
+			break;
+		case 'local':
+		default :
+			$destdir = "{$this->path}/docs/api/v{$this->version['major']}";
+		}
+		
 		$template = 'clean';
 
 		$this->taskFileSystemStack()->mkdir($destdir)->run();
@@ -75,8 +132,41 @@ class RoboFile extends \Robo\Tasks
 	
 	}
 	
-	public function publishDoc () {
-		currentBranch();
+	/**
+	 * Create compressed files for publish
+	 */
+	public function compress ()
+	{
+		$this->printTaskInfo('Generating compresseds ...');
+		
+		chdir('src');
+		
+		$destdir = "{$this->path}/.for_publish/compresseds/{$this->getVersion('nominal')}/";
+		
+		$this->taskFileSystemStack()->mkdir($destdir)->run();
+		
+		$zip = "Espalda_PHP-{$this->getVersion()}.zip";
+		$targz = "Espalda_PHP-{$this->getVersion()}.tar.gz";
+		
+		$zip_args = ["-r", "{$destdir}{$zip}", "Espalda"];
+		
+		$res1 = $this->taskExec('zip')->args($zip_args)->run();
+		
+		$targz_args = ["-zcvf", "{$destdir}{$targz}", "Espalda"];
+		$res2 = $this->taskExec('tar')->args($targz_args)->run();
+		
+		chdir($this->path);
+		
+		return $res1() and $res2();
+		
+	}
+	
+	public function publish ()
+	{
+		$this->printTaskInfo('Preparing to publish ...');
+		
+		$this->docApi('publish');
+		$this->compress();
 		
 		
 		

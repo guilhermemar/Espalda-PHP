@@ -3,5 +3,6 @@
 .project
 .directory
 .vagrant
+.for_publish
 *.md.html
 vendor
