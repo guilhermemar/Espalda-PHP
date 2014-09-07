@@ -1,5 +1,8 @@
+.directory
 .settings
 .buildpath
 .project
 .vagrant
+.for_publish
+vendor
 *.md.html
