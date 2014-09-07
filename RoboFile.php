@@ -254,7 +254,7 @@ class RoboFile extends \Robo\Tasks
 		$apifiles_to = "{$this->path}";
 		
 		$this->taskCleanDir($apifiles_to . '/src')->run();
-		$res1 = $this->taskExec("cp -rf {$apifiles_temp} {$apifiles_to}")->run();
+		$res1 = $this->taskExec("cp -rf {$apifiles_temp}/* {$apifiles_to}")->run();
 	
 		//commiting and push
 		$this->taskGitStack()
