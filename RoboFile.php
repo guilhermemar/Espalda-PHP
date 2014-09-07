@@ -251,10 +251,10 @@ class RoboFile extends \Robo\Tasks
 		$this->taskGitStack()->checkout($this->branch['dist'])->run();
 	
 		//copiando arquivos da api para o local certo
-		$apifiles_to = "{$this->path}/src";
+		$apifiles_to = "{$this->path}";
 		
-		$this->taskCleanDir($apifiles_to)->run();
-		$res1 = $this->taskExec("cp -r {$apifiles_temp} {$apifiles_to}")->run();
+		$this->taskCleanDir($apifiles_to . '/src')->run();
+		$res1 = $this->taskExec("cp -rf {$apifiles_temp} {$apifiles_to}")->run();
 	
 		//commiting and push
 		$this->taskGitStack()
@@ -263,11 +263,11 @@ class RoboFile extends \Robo\Tasks
 		->commit('updated Espalda-PHP API files for distribution ')
 		->push($this->remote, $this->branch['dist'])
 		->run();
-		
+		/*
 		///criando tag
 		$this->taskGitStack->exec("tag -a {$this->getVersion('nominal-complete')} -m 'Stable release for {$this->getVersion('nominal')}'");
 		$this->taskGitStack->exec("push {$this->remote} --tags");
-		
+		*/
 		//come back to current branch
 		$this->taskGitStack()
 		->stopOnFail()
