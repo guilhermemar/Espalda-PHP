@@ -184,10 +184,11 @@ class RoboFile extends \Robo\Tasks
 		
 		$this->taskGitStack()->checkout($this->branch['docs'])->run();
 		
-		$docs_from = "{$this->path}/.for_publish/docs/api/{$this->getVersion('nominal')}/*";
-		$docs_to = "{$this->path}/docs/api/{$this->getVersion('nominal')}";
+		$docs_from = "{$this->path}/.for_publish/docs/api/{$this->getVersion('nominal')}/";
+		$docs_to = "{$this->path}/docs/api/";
 		
-		$this->taskFileSystemStack()->copy($docs_from, $docs_to, true)->run();
+		$res1 = $this->taskExec("cp -r {$docs_from} {$docs_to}")->run();
+		
 	}
 
 }
