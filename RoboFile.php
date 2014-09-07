@@ -182,7 +182,7 @@ class RoboFile extends \Robo\Tasks
 		$this->docApi('publish');
 		$this->compress();
 		
-		$this->taskGitStack()->checkout($this->branch['docs']);
+		$this->taskGitStack()->checkout($this->branch['docs'])->run();
 		
 		$docs_from = "{$this->path}/.for_publish/docs/api/v{$this->version['major']}";
 		$docs_to = "{$this->path}/docs/api/v{$this->version['major']}";
