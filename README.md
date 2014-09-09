@@ -10,7 +10,7 @@ If you want know how can I use Espalda in your template or the syntax for use th
 Contributing
 ------------
 
-This is the development branch for major version 2. for contributing please fork and work in this version.
+This is the development branch for major version 2. for contributing please fork and work in this branch.
  
 ### Dependences
 To contribute to the project you need to have __[Robo](http://www.robo.li/ "Access Robo site")__ and __[Composer](https://getcomposer.org/ "Access Composer site")__ installed. All other dependencies are installed by composer file with command __composer install__.
