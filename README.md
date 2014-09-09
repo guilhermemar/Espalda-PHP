@@ -1,4 +1,4 @@
-spalda-PHP
+Espalda-PHP
 ===========
 
 It's a PHP library  to manipulate templates with Espalda's markup.
