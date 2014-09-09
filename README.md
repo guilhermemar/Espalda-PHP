@@ -29,7 +29,7 @@ For contributing see the development branch
 
 * [v2](https://github.com/guilhermemar/Espalda-PHP/tree/v2)
 
-Credjts
+Credits
 -------
 
 Espalda and Espalda-PHP was created by Mar, G. [@guilhermemar](http://twitter.com/guilhermemar)
