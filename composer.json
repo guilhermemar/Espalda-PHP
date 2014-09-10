@@ -14,13 +14,14 @@
 	"support" : {
 		"issues" : "https://github.com/guilhermemar/Espalda-PHP/issues"
 	},
-	
 	"require" : {
 		"php" : ">=5.3.3"
 	},
-	
 	"require-dev" : {
 		"phpdocumentor/phpdocumentor" : "2.*",
 		"phpunit/phpunit" : "4.*"
-	}
+	},
+    "autoload": {
+        "psr-4": { "": "src/" }
+    }
 }
