@@ -293,8 +293,10 @@ class RoboFile extends \Robo\Tasks
 		->run();
 		
 		///criando tag
-		$this->taskExec("git tag -a {$this->getVersion('nominal-complete')} -m 'Stable release for {$this->getVersion('nominal')}'");
-		$this->taskExec("git push {$this->remote} --tags");
+		$this->printInfo('Creating git tag ...');
+		
+		$this->taskExec("git tag -a {$this->getVersion('nominal-complete')} -m 'Stable release for {$this->getVersion('nominal')}'")->run();
+		$this->taskExec("git push {$this->remote} --tags")->run();
 		
 		//come back to current branch
 		$this->taskGitStack()
