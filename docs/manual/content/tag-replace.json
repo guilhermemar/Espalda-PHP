@@ -13,7 +13,7 @@
             "required" : true,
             "description" : "O nome da tag, que será usado para atribuir um valor a ele"
         }, {
-            "item" : "default",
+            "item" : "value",
             "type" : "string",
             "required" : false,
             "description" : "O valor default que será adicionado caso não seja setado nenhum valor" 
