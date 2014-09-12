@@ -47,18 +47,18 @@ class Espalda extends EspaldaDisplay
 	 * Version
 	 * @var string
 	 */
-	private $version = '2.0.0';
+	private $version = '2.0.1';
 	/**
 	 * Construct
 	 * 
 	 * @param string $source [optional] Template to be parsed
 	 */
-	public function __construct($source=null)
+	public function __construct($templatePath=null)
 	{
-		parent::__construct("root", $source);
+		parent::__construct("root");
 
-		if(!is_null($source)){
-			$this->setSource($source);
+		if(!is_null($templatePath)){
+			$this->loadSource($templatePath);
 		}
 	}
 

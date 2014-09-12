@@ -53,9 +53,9 @@ class EspaldaDisplay extends EspaldaParser
 	{
 		parent::__construct($source);
 		
-		$this->name = $name;
+		$this->setName($name);
 		
-		if ($value !== null) {
+		if (!is_null($value)) {
 			$this->setValue($value);
 		}
 	}

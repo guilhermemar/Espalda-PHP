@@ -5,11 +5,7 @@ use \Espalda;
 
 class EspaldaTest extends PHPUnit_Framework_TestCase
 {
-	public function test_template ()
-	{
-		$espalda = new Espalda\Espalda();
-		$espalda->loadSource("tests/templateTest.html");
-		
+	private function values ($espalda) {
 		//file_put_contents("tests/templateResult1.html", $espalda->getOutput());
 		$this->assertEquals(file_get_contents("tests/templateResult1.html"), $espalda->getOutput());
 		
@@ -29,7 +25,22 @@ class EspaldaTest extends PHPUnit_Framework_TestCase
 		
 		//file_put_contents("tests/templateResult3.html", $espalda->getOutput());
 		$this->assertEquals(file_get_contents("tests/templateResult3.html"), $espalda->getOutput());
-
+	}
+	
+	public function test_template_1 ()
+	{
+		$espalda = new Espalda\Espalda("tests/templateTest.html");
+	
+		$this->values($espalda);
+	}
+	
+	
+	public function test_template_2 ()
+	{
+		$espalda = new Espalda\Espalda();
+		$espalda->loadSource("tests/templateTest.html");
+		
+		$this->values($espalda);
 	}
 }
 ?>
