@@ -51,7 +51,7 @@ class Espalda extends EspaldaDisplay
 	/**
 	 * Construct
 	 * 
-	 * @param string $source [optional] Template to be parsed
+	 * @param string $templatePath [optional] Path to template to be parsed
 	 */
 	public function __construct($templatePath=null)
 	{
